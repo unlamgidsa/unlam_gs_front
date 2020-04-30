@@ -50,6 +50,7 @@ export default class Snapshot {
                 addNotebookEntry(this.openmct, domainObject, notebookStorage, embed);
 
                 const defaultPath = `${domainObject.name} > ${notebookStorage.section.name} > ${notebookStorage.page.name}`;
+                const defaultPath = `${domainObject.name} - ${notebookStorage.section.name} - ${notebookStorage.page.name}`;
                 const msg = `Saved to Notebook ${defaultPath}`;
                 this._showNotification(msg);
             });
@@ -59,13 +60,7 @@ export default class Snapshot {
      * @private
      */
     _saveToNotebookSnapshots(embed) {
-        const saved = this.snapshotContainer.addSnapshot(embed);
-        if (!saved) {
-            return;
-        }
-
-        const msg = 'Saved to Notebook Snapshots - click to view.';
-        this._showNotification(msg);
+        this.snapshotContainer.addSnapshot(embed);
     }
 
     _showNotification(msg) {
