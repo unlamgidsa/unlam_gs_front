@@ -113,6 +113,7 @@ import Sidebar from './Sidebar.vue';
 import { clearDefaultNotebook, getDefaultNotebook, setDefaultNotebook, setDefaultNotebookSection, setDefaultNotebookPage } from '../utils/notebook-storage';
 import { addNotebookEntry, createNewEmbed, getNotebookEntries } from '../utils/notebook-entries';
 import { throttle } from 'lodash';
+import objectLink from '../../../ui/mixins/object-link';
 
 const DEFAULT_CLASS = 'is-notebook-default';
 
@@ -182,7 +183,9 @@ export default {
     mounted() {
         this.unlisten = this.openmct.objects.observe(this.internalDomainObject, '*', this.updateInternalDomainObject);
         this.formatSidebar();
+
         window.addEventListener('orientationchange', this.formatSidebar);
+        window.addEventListener("hashchange", this.navigateToSectionPage, false);
 
         this.navigateToSectionPage();
     },
@@ -190,6 +193,9 @@ export default {
         if (this.unlisten) {
             this.unlisten();
         }
+
+        window.removeEventListener('orientationchange', this.formatSidebar);
+        window.removeEventListener("hashchange", this.navigateToSectionPage);
     },
     updated: function () {
         this.$nextTick(() => {
@@ -235,7 +241,8 @@ export default {
         createNotebookStorageObject() {
             const notebookMeta = {
                 name: this.internalDomainObject.name,
-                identifier: this.internalDomainObject.identifier
+                identifier: this.internalDomainObject.identifier,
+                link: this.getLinktoNotebook()
             };
             const page = this.getSelectedPage();
             const section = this.getSelectedSection();
@@ -243,9 +250,9 @@ export default {
             return {
                 domainObject: this.internalDomainObject,
                 notebookMeta,
-                section,
-                page
-            };
+                page,
+                section
+            }
         },
         dragOver(event) {
             event.preventDefault();
@@ -319,6 +326,17 @@ export default {
             }
 
             return this.openmct.objects.get(oldNotebookStorage.notebookMeta.identifier).then(d => d);
+        },
+        getLinktoNotebook() {
+            const objectPath = this.openmct.router.path;
+            const link = objectLink.computed.objectLink.call({ objectPath, openmct: this.openmct });
+
+            const selectedSection = this.selectedSection;
+            const selectedPage = this.selectedPage;
+            const sectionId = selectedSection ? selectedSection.id : '';
+            const pageId = selectedPage ? selectedPage.id : '';
+
+            return `${link}?sectionId=${sectionId}&pageId=${pageId}`;
         },
         getPage(section, id) {
             return section.pages.find(p => p.id === id);
@@ -397,17 +415,7 @@ export default {
                 return;
             }
 
-            const sections = this.sections.map(s => {
-                s.isSelected = false;
-                if (s.id === sectionId) {
-                    s.isSelected = true;
-                    s.pages.forEach(p => p.isSelected = (p.id === pageId));
-                }
-
-                return s;
-            });
-
-            this.updateSection({ sections });
+            this.changeSelectedSection({ sectionId , pageId});
         },
         newEntry(embed = null) {
             this.search = '';
