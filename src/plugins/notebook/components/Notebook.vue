@@ -252,7 +252,7 @@ export default {
                 notebookMeta,
                 page,
                 section
-            }
+            };
         },
         dragOver(event) {
             event.preventDefault();
@@ -329,7 +329,10 @@ export default {
         },
         getLinktoNotebook() {
             const objectPath = this.openmct.router.path;
-            const link = objectLink.computed.objectLink.call({ objectPath, openmct: this.openmct });
+            const link = objectLink.computed.objectLink.call({
+                objectPath,
+                openmct: this.openmct
+            });
 
             const selectedSection = this.selectedSection;
             const selectedPage = this.selectedPage;
@@ -415,7 +418,10 @@ export default {
                 return;
             }
 
-            this.changeSelectedSection({ sectionId , pageId});
+            this.changeSelectedSection({
+                sectionId,
+                pageId
+            });
         },
         newEntry(embed = null) {
             this.search = '';
