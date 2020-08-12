@@ -75,17 +75,17 @@ export default {
             const defaultNotebook = getDefaultNotebook();
 
             if (defaultNotebook) {
-                const domainObject = defaultNotebook.domainObject;
+                const name = defaultNotebook.notebookMeta.name;
+                const sectionName = defaultNotebook.section.name;
+                const pageName = defaultNotebook.page.name;
 
-                if (domainObject.location) {
-                    const defaultPath = `${domainObject.name} - ${defaultNotebook.section.name} - ${defaultNotebook.page.name}`;
+                const defaultPath = `${name} - ${sectionName} - ${pageName}`;
 
-                    notebookTypes.push({
-                        cssClass: 'icon-notebook',
-                        name: `Save to Notebook ${defaultPath}`,
-                        type: NOTEBOOK_DEFAULT
-                    });
-                }
+                notebookTypes.push({
+                    cssClass: 'icon-notebook',
+                    name: `Save to Notebook ${defaultPath}`,
+                    type: NOTEBOOK_DEFAULT
+                });
             }
 
             notebookTypes.push({

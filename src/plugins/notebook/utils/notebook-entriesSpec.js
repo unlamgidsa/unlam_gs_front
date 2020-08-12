@@ -23,13 +23,6 @@ import * as NotebookEntries from './notebook-entries';
 import { createOpenMct, spyOnBuiltins, resetApplicationState } from 'utils/testing';
 
 const notebookStorage = {
-    domainObject: {
-        name: 'notebook',
-        identifier: {
-            namespace: '',
-            key: 'test-notebook'
-        }
-    },
     notebookMeta: {
         name: 'notebook',
         identifier: {
