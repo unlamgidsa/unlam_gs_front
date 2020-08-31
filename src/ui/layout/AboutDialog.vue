@@ -1,7 +1,9 @@
 <template>
 <!-- eslint-disable vue/no-v-html -->
 <div class="c-about c-about--splash">
-    <div class="c-about__image c-splash-image"></div>
+    <div class="c-about__image c-splash-image">
+			<div class="c-unlam-image"></div>
+		</div>
     <div class="c-about__text s-text">
         <div
             v-if="branding.aboutHtml"
