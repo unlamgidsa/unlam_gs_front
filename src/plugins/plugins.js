@@ -57,7 +57,13 @@ define([
     './notificationIndicator/plugin',
     './newFolderAction/plugin',
     './persistence/couch/plugin',
-    './defaultRootName/plugin'
+    './defaultRootName/plugin',
+    './UNLaM-plugins/telemetry-dictionary/plugin',
+    './UNLaM-plugins/historical-telemetry/plugin',
+    './UNLaM-plugins/realtime-telemetry/plugin',
+    './UNLaM-plugins/telemetry-dictionary/satellite-names',
+    './login/plugin',
+    './UNLaM-plugins/new-satellite/plugin'
 ], function (
     _,
     UTCTimeSystem,
@@ -95,12 +101,19 @@ define([
     NotificationIndicator,
     NewFolderAction,
     CouchDBPlugin,
-    DefaultRootName
+    DefaultRootName,
+    TelemetryDictionaryPlugin,
+    HistoricalTelemtry,
+    RealtimeTelemetry,
+    SatelliteNames,
+    Login,
+    NewSatellitePlugin
 ) {
     const bundleMap = {
         LocalStorage: 'platform/persistence/local',
         MyItems: 'platform/features/my-items',
-        Elasticsearch: 'platform/persistence/elastic'
+        Elasticsearch: 'platform/persistence/elastic',
+        LRStorage: 'src/plugins/UNLaM-plugins/LRStorage'
     };
 
     const plugins = _.mapValues(bundleMap, function (bundleName, pluginName) {
@@ -188,6 +201,32 @@ define([
     plugins.NewFolderAction = NewFolderAction.default;
     plugins.ISOTimeFormat = ISOTimeFormat.default;
     plugins.DefaultRootName = DefaultRootName.default;
+    plugins.Login = Login;
+		plugins.TelemetryDictionaryPlugin = TelemetryDictionaryPlugin.default;
+		plugins.HistoricalTelemetryPlugin = HistoricalTelemtry.default;
+		plugins.RealtimeTelemetryPlugin = RealtimeTelemetry.default;
+		plugins.SatelliteNames = SatelliteNames.default;
+		plugins.NewSatellitePlugin = NewSatellitePlugin.default;
+		plugins.LRStorage = function(url) {
+			return function(openmct) {
+				if (url) {
+					var bundleName = 'config/lrstorage';
+					openmct.legacyRegistry.register(bundleName, {
+						extensions: {
+							constants: [
+								{
+									key: 'STORE_PATH',
+									value: url,
+									priority: 'mandatory'
+								}
+							]
+						}
+					});
+					openmct.legacyRegistry.enable(bundleName);
+				}
+				openmct.legacyRegistry.enable(bundleMap.LRStorage);
+			};
+		};
 
     return plugins;
 });

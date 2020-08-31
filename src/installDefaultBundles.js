@@ -65,6 +65,7 @@ define([
     '../example/profiling/bundle',
     '../example/scratchpad/bundle',
     '../example/styleguide/bundle',
+	  '../src/plugins/UNLaM-plugins/LRStorage/bundle',
     '../platform/commonUI/about/bundle',
     '../platform/commonUI/browse/bundle',
     '../platform/commonUI/dialog/bundle',
