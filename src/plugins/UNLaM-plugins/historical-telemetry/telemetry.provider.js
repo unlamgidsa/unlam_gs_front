@@ -18,8 +18,9 @@ function getProvider(urlBase) {
 		},
 		request: function(domainObject, options) {
 			const name = parseNamespace(domainObject.identifier.namespace);
-			var url = `${urlBase}${name}.${domainObject.name}/${options.start}/${options.end}`;
-			url = sanitizeURL(url);
+			const start_date = Math.floor(options.start),
+						end_date = Math.floor(options.end);
+			var url = `${urlBase}${name}.${domainObject.name}/${start_date}/${end_date}`;
 
 			return http.httpGet(url).then(function(resp) {
 				if (resp.data.length === 0) {
@@ -53,6 +54,3 @@ function parseNamespace(namespace) {
 	return namespace.replace(".telemetry", "");
 }
 
-function sanitizeURL(url) {
-	return url.replace(/\/(\d*)\.\d*/g, "/$1");
-}
