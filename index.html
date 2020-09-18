@@ -49,7 +49,19 @@
 				max-height: 200px;
 				max-width: 400px;
 			}
-		</style>
+        </style>
+        
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-178329973-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-178329973-1');
+        </script>
+
+
     </head>
     <body>
 		<div id="splashscreen">
@@ -153,7 +165,7 @@
 		});
 
 		//const urlBase = "http://127.0.0.1:8000/API/";
-		const urlBase = "http://ugs.southcentralus.cloudapp.azure.com:8001/API/";
+		const urlBase = "ugsb.unlam.edu.ar/API/";
 		openmct.install(openmct.plugins.Login(["new-satellite"]));
 		openmct.install(openmct.plugins.LRStorage(urlBase + "UserItems"));
 		//openmct.install(openmct.plugins.LocalStorage());
