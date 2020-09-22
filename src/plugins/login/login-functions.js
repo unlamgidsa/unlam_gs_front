@@ -34,7 +34,7 @@ export function isUserLoggedIn() {
 
 export function isUserAnonym() {
 	let user = JSON.parse(localStorage.getItem("userData"));
-	return user.username != "anonym";
+	return user.username == "anonym";
 }
 
 export function logAnonymUser() {

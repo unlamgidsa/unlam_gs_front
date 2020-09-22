@@ -33,7 +33,7 @@ define(["../../http-server/service.js", "../../../login/login-functions.js"], fu
 		 * My Items (ni en ningun otro punto de root).
 		 */
 		this.localStorage[key] = stringValue;
-		if (login.isUserLoggedIn() && !isUserAnonym())
+		if (login.isUserLoggedIn() && !login.isUserAnonym())
 			http.httpPost(this.url + "/Create", { jsonf: stringValue });
 	};
 
@@ -70,6 +70,12 @@ define(["../../http-server/service.js", "../../../login/login-functions.js"], fu
 				let resData = response.data,
 					localData = this.getValue(space);
 
+				console.log(resData);
+
+				if (Array.isArray(resData))
+					resData = JSON.parse(resData[0]);
+
+				// si no es un objeto vacio
 				if (resData.hasOwnProperty(length) && resData.length != 0)
 					resData = JSON.parse(resData);
 
