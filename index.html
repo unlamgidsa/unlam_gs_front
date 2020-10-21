@@ -95,10 +95,73 @@
 	<script>
 		const THIRTY_SECONDS = 30 * 1000;
 		const THIRTY_MINUTES = THIRTY_SECONDS * 60;
+		const ONE_MINUTE     = 60 * 1000; 
+		const FIVE_MINUTES   = ONE_MINUTE * 5; 
 
 		["example/eventGenerator"].forEach(
 			openmct.legacyRegistry.enable.bind(openmct.legacyRegistry)
 		);
+
+
+
+		let omenuoptions = {
+                    menuOptions: [
+                        {
+                            name: "Fixed",
+                            timeSystem: 'utc',
+                            
+                            bounds: {
+                                start: Date.now() - FIVE_MINUTES*2,
+                                end: Date.now() - FIVE_MINUTES,
+                            },
+                            // commonly used bounds can be stored in history
+                            // bounds (start and end) can accept either a milliseconds number
+                            // or a callback function returning a milliseconds number
+                            // a function is useful for invoking Date.now() at exact moment of preset selection
+                            presets: [
+                                {
+                                    label: 'Last Day',
+                                    bounds: {
+                                        start: () => Date.now() - 1000 * 60 * 60 * 24,
+                                        end: () => Date.now(),
+                                    }
+                                },
+                                {
+                                    label: 'Last 2 hours',
+                                    bounds: {
+                                        start: () => Date.now() - 1000 * 60 * 60 * 2,
+                                        end: () => Date.now()
+                                    }
+                                },
+                                {
+                                    label: 'Last hour',
+                                    bounds: {
+                                        start: () => Date.now() - 1000 * 60 * 60,
+                                        end: () => Date.now()
+                                    }
+                                }
+                            ],
+                            // maximum recent bounds to retain in conductor history
+                            records: 10,
+                            // maximum duration between start and end bounds
+                            // for utc-based time systems this is in milliseconds
+                            limit: 1000 * 60 * 60 * 24 * 7
+                                                // 7 days
+                        },
+                        /*{
+                            name: "Realtime",
+                            timeSystem: 'utc',
+                            clock: 'local',
+                            clockOffsets: {
+                                start: - THIRTY_MINUTES,
+                                end: THIRTY_SECONDS
+                            }
+                        }*/
+                    ]
+                }
+
+
+
 
 		openmct.install(openmct.plugins.Espresso());
 		openmct.install(openmct.plugins.MyItems());
@@ -115,62 +178,27 @@
 				showAsView: ["summary-widget", "example.imagery"],
 			})
 		);
-		openmct.install(
-			openmct.plugins.Conductor({
-				menuOptions: [
-					{
-						name: "Fixed",
-						timeSystem: "utc",
-						bounds: {
-							start: Date.now() - THIRTY_MINUTES,
-							end: Date.now(),
-						},
-						// commonly used bounds can be stored in history
-						// bounds (start and end) can accept either a milliseconds number
-						// or a callback function returning a milliseconds number
-						// a function is useful for invoking Date.now() at exact moment of preset selection
-						presets: [
-							{
-								label: "Last Day",
-								bounds: {
-									start: () => Date.now() - 1000 * 60 * 60 * 24,
-									end: () => Date.now(),
-								},
-							},
-							{
-								label: "Last 2 hours",
-								bounds: {
-									start: () => Date.now() - 1000 * 60 * 60 * 2,
-									end: () => Date.now(),
-								},
-							},
-							{
-								label: "Last hour",
-								bounds: {
-									start: () => Date.now() - 1000 * 60 * 60,
-									end: () => Date.now(),
-								},
-							},
-						],
-						// maximum recent bounds to retain in conductor history
-						records: 10,
-						// maximum duration between start and end bounds
-						// for utc-based time systems this is in milliseconds
-						limit: 1000 * 60 * 60 * 24 * 7,
-						// 7 days
-					},
-					{
-						name: "Realtime",
-						timeSystem: "utc",
-						clock: "local",
-						clockOffsets: {
-							start: -THIRTY_MINUTES,
-							end: THIRTY_SECONDS,
-						},
-					},
-				],
-			})
-		);
+		
+		//const urlBase = "http://127.0.0.1:8000/API/";
+		const urlBase = "https://ugsb.unlam.edu.ar/API/";
+		const method        = "GetLastTelemetryTimeStamp";
+        const defSatellite  = "TITA"
+        let httpserver = openmct.plugins.HttpServer;
+        //const url = "http://localhost:8000/API/GetLastTelemetryTimeStamp/TITA";
+        var url = `${urlBase}${method}/${defSatellite}`;
+        let dt;
+        httpserver.httpGet(url).then(function(dtobj){
+            const last_tlmy_date = Date.parse(dtobj.data.tstamp);
+            omenuoptions.menuOptions[0].bounds.start = last_tlmy_date-FIVE_MINUTES;
+            omenuoptions.menuOptions[0].bounds.end   = last_tlmy_date;
+            openmct.install(openmct.plugins.Conductor(omenuoptions));
+            
+
+        }).catch(function(Error){
+            console.Error("Error trying to get last datetime telemetry");
+            openmct.install(openmct.plugins.Conductor(omenuoptions));
+        });      
+
 		openmct.install(openmct.plugins.SummaryWidget());
 		openmct.install(openmct.plugins.Notebook());
 		openmct.install(openmct.plugins.LADTable());
@@ -197,7 +225,7 @@
 		});
 
 		//const urlBase = "http://127.0.0.1:8000/API/";
-		const urlBase = "https://ugsb.unlam.edu.ar/API/";
+		
 		openmct.install(openmct.plugins.Login(["new-satellite"]));
 		openmct.install(openmct.plugins.LRStorage(urlBase + "UserItems"));
 		//openmct.install(openmct.plugins.LocalStorage());

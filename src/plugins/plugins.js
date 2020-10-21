@@ -63,7 +63,8 @@ define([
     './UNLaM-plugins/realtime-telemetry/plugin',
     './UNLaM-plugins/telemetry-dictionary/satellite-names',
     './login/plugin',
-    './UNLaM-plugins/new-satellite/plugin'
+    './UNLaM-plugins/new-satellite/plugin',
+    './UNLaM-plugins/http-server/service',
 ], function (
     _,
     UTCTimeSystem,
@@ -107,7 +108,8 @@ define([
     RealtimeTelemetry,
     SatelliteNames,
     Login,
-    NewSatellitePlugin
+    NewSatellitePlugin,
+    HttpServer,
 ) {
     const bundleMap = {
         LocalStorage: 'platform/persistence/local',
@@ -226,7 +228,8 @@ define([
 				}
 				openmct.legacyRegistry.enable(bundleMap.LRStorage);
 			};
-		};
-
+        };
+        
+        plugins.HttpServer = HttpServer;
     return plugins;
 });
