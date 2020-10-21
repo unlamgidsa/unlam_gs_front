@@ -19,18 +19,39 @@
  this source code distribution or the Licensing information page available
  at runtime from the About dialog for additional information.
 -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <title></title>
-        <script src="dist/openmct.js"></script>
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <link rel="icon" type="image/png" href="dist/favicons/favicon-96x96.ico" sizes="96x96" type="image/x-icon">
-        <link rel="icon" type="image/png" href="dist/favicons/favicon-32x32.ico" sizes="32x32" type="image/x-icon">
-        <link rel="icon" type="image/png" href="dist/favicons/favicon-16x16.ico" sizes="16x16" type="image/x-icon">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no"
+		/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title></title>
+		<script src="dist/openmct.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<link
+			rel="icon"
+			type="image/png"
+			href="dist/favicons/favicon-96x96.ico"
+			sizes="96x96"
+			type="image/x-icon"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			href="dist/favicons/favicon-32x32.ico"
+			sizes="32x32"
+			type="image/x-icon"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			href="dist/favicons/favicon-16x16.ico"
+			sizes="16x16"
+			type="image/x-icon"
+		/>
 		<style>
 			#splashscreen {
 				height: 100%;
@@ -49,118 +70,130 @@
 				max-height: 300px;
 				max-width: 600px;
 			}
-        </style>
-        
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-178329973-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+		</style>
 
-            gtag('config', 'UA-178329973-1');
-        </script>
-        
-    </head>
-    <body>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=UA-178329973-1"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "UA-178329973-1");
+		</script>
+	</head>
+	<body>
 		<div id="splashscreen">
 			<img class="center" src="dist/images/unlam-logo-splash.svg" alt="" />
 		</div>
-    </body>
-    <script>
-        const THIRTY_SECONDS = 30 * 1000;
-        const THIRTY_MINUTES = THIRTY_SECONDS * 60;
+	</body>
+	<script>
+		const THIRTY_SECONDS = 30 * 1000;
+		const THIRTY_MINUTES = THIRTY_SECONDS * 60;
 
-        [
-            'example/eventGenerator'
-        ].forEach(
-            openmct.legacyRegistry.enable.bind(openmct.legacyRegistry)
-        );
+		["example/eventGenerator"].forEach(
+			openmct.legacyRegistry.enable.bind(openmct.legacyRegistry)
+		);
 
-        openmct.install(openmct.plugins.Espresso());
-        openmct.install(openmct.plugins.MyItems());
-        openmct.install(openmct.plugins.Generator());
-        openmct.install(openmct.plugins.ExampleImagery());
-        openmct.install(openmct.plugins.UTCTimeSystem());
-        openmct.install(openmct.plugins.AutoflowView({
-            type: "telemetry.panel"
-        }));
-        openmct.install(openmct.plugins.DisplayLayout({
-            showAsView: ['summary-widget', 'example.imagery']
-        }));
-        openmct.install(openmct.plugins.Conductor({
-            menuOptions: [
-                {
-                    name: "Fixed",
-                    timeSystem: 'utc',
-                    bounds: {
-                        start: Date.now() - THIRTY_MINUTES,
-                        end: Date.now()
-                    },
-                    // commonly used bounds can be stored in history
-                    // bounds (start and end) can accept either a milliseconds number
-                    // or a callback function returning a milliseconds number
-                    // a function is useful for invoking Date.now() at exact moment of preset selection
-                    presets: [
-                        {
-                            label: 'Last Day',
-                            bounds: {
-                                start: () => Date.now() - 1000 * 60 * 60 * 24,
-                                end: () => Date.now()
-                            }
-                        },
-                        {
-                            label: 'Last 2 hours',
-                            bounds: {
-                                start: () => Date.now() - 1000 * 60 * 60 * 2,
-                                end: () => Date.now()
-                            }
-                        },
-                        {
-                            label: 'Last hour',
-                            bounds: {
-                                start: () => Date.now() - 1000 * 60 * 60,
-                                end: () => Date.now()
-                            }
-                        }
-                    ],
-                    // maximum recent bounds to retain in conductor history
-                    records: 10,
-                    // maximum duration between start and end bounds
-                    // for utc-based time systems this is in milliseconds
-                    limit: 1000 * 60 * 60 * 24 * 7
-										// 7 days
-                },
-                {
-                    name: "Realtime",
-                    timeSystem: 'utc',
-                    clock: 'local',
-                    clockOffsets: {
-                        start: - THIRTY_MINUTES,
-                        end: THIRTY_SECONDS
-                    }
-                }
-            ]
-        }));
-        openmct.install(openmct.plugins.SummaryWidget());
-        openmct.install(openmct.plugins.Notebook());
-        openmct.install(openmct.plugins.LADTable());
-        openmct.install(openmct.plugins.Filters(['table', 'telemetry.plot.overlay']));
-        openmct.install(openmct.plugins.ObjectMigration());
-        openmct.install(openmct.plugins.ClearData(
-            ['table', 'telemetry.plot.overlay', 'telemetry.plot.stacked'],
-            {indicator: true}
-        ));
+		openmct.install(openmct.plugins.Espresso());
+		openmct.install(openmct.plugins.MyItems());
+		openmct.install(openmct.plugins.Generator());
+		openmct.install(openmct.plugins.ExampleImagery());
+		openmct.install(openmct.plugins.UTCTimeSystem());
+		openmct.install(
+			openmct.plugins.AutoflowView({
+				type: "telemetry.panel",
+			})
+		);
+		openmct.install(
+			openmct.plugins.DisplayLayout({
+				showAsView: ["summary-widget", "example.imagery"],
+			})
+		);
+		openmct.install(
+			openmct.plugins.Conductor({
+				menuOptions: [
+					{
+						name: "Fixed",
+						timeSystem: "utc",
+						bounds: {
+							start: Date.now() - THIRTY_MINUTES,
+							end: Date.now(),
+						},
+						// commonly used bounds can be stored in history
+						// bounds (start and end) can accept either a milliseconds number
+						// or a callback function returning a milliseconds number
+						// a function is useful for invoking Date.now() at exact moment of preset selection
+						presets: [
+							{
+								label: "Last Day",
+								bounds: {
+									start: () => Date.now() - 1000 * 60 * 60 * 24,
+									end: () => Date.now(),
+								},
+							},
+							{
+								label: "Last 2 hours",
+								bounds: {
+									start: () => Date.now() - 1000 * 60 * 60 * 2,
+									end: () => Date.now(),
+								},
+							},
+							{
+								label: "Last hour",
+								bounds: {
+									start: () => Date.now() - 1000 * 60 * 60,
+									end: () => Date.now(),
+								},
+							},
+						],
+						// maximum recent bounds to retain in conductor history
+						records: 10,
+						// maximum duration between start and end bounds
+						// for utc-based time systems this is in milliseconds
+						limit: 1000 * 60 * 60 * 24 * 7,
+						// 7 days
+					},
+					{
+						name: "Realtime",
+						timeSystem: "utc",
+						clock: "local",
+						clockOffsets: {
+							start: -THIRTY_MINUTES,
+							end: THIRTY_SECONDS,
+						},
+					},
+				],
+			})
+		);
+		openmct.install(openmct.plugins.SummaryWidget());
+		openmct.install(openmct.plugins.Notebook());
+		openmct.install(openmct.plugins.LADTable());
+		openmct.install(
+			openmct.plugins.Filters(["table", "telemetry.plot.overlay"])
+		);
+		openmct.install(openmct.plugins.ObjectMigration());
+		openmct.install(
+			openmct.plugins.ClearData(
+				["table", "telemetry.plot.overlay", "telemetry.plot.stacked"],
+				{ indicator: true }
+			)
+		);
 
-				openmct.types.addType("sat.telemetry", {
+		openmct.types.addType("sat.telemetry", {
 			name: "Telemetry type",
 			description: "Telemetry point for every satellite",
-			cssClass: "icon-telemetry"
+			cssClass: "icon-telemetry",
 		});
 		openmct.types.addType("satellite", {
 			name: "Satellite folder",
 			description: "Satellite folder where telemetry points will be",
-			cssClass: "icon-object"
+			cssClass: "icon-object",
 		});
 
 		//const urlBase = "http://127.0.0.1:8000/API/";
@@ -185,15 +218,14 @@
 		};
 		satNames();
 
-
 		openmct.install(
 			openmct.plugins.HistoricalTelemetryPlugin(urlBase + "TlmyVarList/")
 		);
 
-    /* workaround. Giving promises time to resolve */
-		setTimeout(_ => {
+		/* workaround. Giving promises time to resolve */
+		setTimeout((_) => {
 			$("#splashscreen").fadeOut("slow");
 			openmct.start();
 		}, 2000);
-    </script>
+	</script>
 </html>

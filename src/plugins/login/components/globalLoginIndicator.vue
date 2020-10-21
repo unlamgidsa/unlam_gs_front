@@ -52,6 +52,7 @@ export default {
 					logOut();
 				});
 		}
+
 		EventBus.$on("login", usr => {
 			this.username = usr;
 			this.isLogged = true;

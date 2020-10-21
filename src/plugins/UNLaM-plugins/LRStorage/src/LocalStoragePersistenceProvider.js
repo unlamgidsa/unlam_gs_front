@@ -1,4 +1,7 @@
-define(["../../http-server/service.js", "../../../login/login-functions.js"], function(http, login) {
+define([
+	"../../http-server/service.js",
+	"../../../login/login-functions.js",
+], function(http, login) {
 	/**
 	 * The LocalStoragePersistenceProvider reads and writes JSON documents
 	 * (more specifically, domain object models) to/from the browser's
@@ -21,17 +24,56 @@ define(["../../http-server/service.js", "../../../login/login-functions.js"], fu
 		this.localStorage = $window.localStorage;
 	}
 
+	LocalStoragePersistenceProvider.prototype.getFromRemote = function(space) {
+		return http.httpGet(this.url).then(
+			(response) => {
+				let resData = response.data,
+					localData = this.getValue(space);
+
+				if (Array.isArray(resData)) resData = JSON.parse(resData[0]);
+
+				// si no es un objeto vacio
+				if (resData.hasOwnProperty(length) && resData.length != 0)
+					resData = JSON.parse(resData);
+
+				let spaceObj = { ...localData, ...resData };
+
+				// si existe datos en el back y en localStorage -> merge
+				if (
+					Object.keys(resData).length != 0 &&
+					Object.keys(localData).length !== 0
+				) {
+					//for (let key in space) {
+					//	if (spaceObj[key].hasOwnProperty)
+					//}
+					spaceObj.mine.composition = [
+						...localData.mine.composition,
+						...resData.mine.composition,
+					].unique();
+				}
+
+				this.localStorage[space] = JSON.stringify(spaceObj);
+				return spaceObj;
+			},
+			(error) => {
+				return this.getValue(space);
+			}
+		);
+	};
+
 	/**
 	 * Set a value in local storage.
 	 * Send my items to backend, and server decides storing.
 	 * @private
 	 */
 	LocalStoragePersistenceProvider.prototype.setValue = function(key, value) {
+		for (let key in value) {
+			if (!value[key].hasOwnProperty('location') || value[key].location == null) {
+				console.log("Borrando " + value[key].name);
+				delete value[key];
+			}
+		}
 		let stringValue = JSON.stringify(value);
-		/*
-		 * Aca deberia agregar que vaya sacando los items que no se encuentran en
-		 * My Items (ni en ningun otro punto de root).
-		 */
 		this.localStorage[key] = stringValue;
 		if (login.isUserLoggedIn() && !login.isUserAnonym())
 			http.httpPost(this.url + "/Create", { jsonf: stringValue });
@@ -46,7 +88,9 @@ define(["../../http-server/service.js", "../../../login/login-functions.js"], fu
 	};
 
 	LocalStoragePersistenceProvider.prototype.listSpaces = function() {
-		return this.$q.when(this.spaces);
+		return this.getFromRemote(this.spaces[0]).then((res) => {
+			return this.spaces;
+		});
 	};
 
 	LocalStoragePersistenceProvider.prototype.listObjects = function(space) {
@@ -65,40 +109,9 @@ define(["../../http-server/service.js", "../../../login/login-functions.js"], fu
 	};
 
 	LocalStoragePersistenceProvider.prototype.readObject = function(space, key) {
-		return http.httpGet(this.url).then(
-			response => {
-				let resData = response.data,
-					localData = this.getValue(space);
+		var spaceObj = this.getValue(space);
 
-				console.log(resData);
-
-				if (Array.isArray(resData))
-					resData = JSON.parse(resData[0]);
-
-				// si no es un objeto vacio
-				if (resData.hasOwnProperty(length) && resData.length != 0)
-					resData = JSON.parse(resData);
-
-				let spaceObj = { ...localData, ...resData };
-
-				if (
-					Object.keys(resData).length != 0 &&
-					Object.keys(localData).length !== 0
-				) {
-					spaceObj.mine.composition = [
-						...localData.mine.composition,
-						...resData.mine.composition
-					].unique();
-				}
-
-				this.localStorage[space] = JSON.stringify(spaceObj);
-				return spaceObj[key];
-			},
-			error => {
-				var spaceObj = this.getValue(space);
-				return spaceObj[key];
-			}
-		);
+		return this.$q.when(spaceObj[key]);
 	};
 
 	LocalStoragePersistenceProvider.prototype.deleteObject = function(
