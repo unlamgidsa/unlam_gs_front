@@ -69,6 +69,10 @@ const webpackConfig = {
                 from: 'src/images/favicons',
                 to: 'favicons'
             },
+            { 
+                from: 'data',
+                to: 'data'
+            },
             {
                 from: './index.html',
                 transform: function (content) {

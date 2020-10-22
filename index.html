@@ -166,7 +166,7 @@
 		openmct.install(openmct.plugins.Espresso());
 		openmct.install(openmct.plugins.MyItems());
 		openmct.install(openmct.plugins.Generator());
-		openmct.install(openmct.plugins.ExampleImagery());
+		//openmct.install(openmct.plugins.ExampleImagery());
 		openmct.install(openmct.plugins.UTCTimeSystem());
 		openmct.install(
 			openmct.plugins.AutoflowView({
@@ -249,11 +249,23 @@
 		openmct.install(
 			openmct.plugins.HistoricalTelemetryPlugin(urlBase + "TlmyVarList/")
 		);
-
+		//debugger;
+		try{
+			
+			//openmct.install(openmct.plugins.StaticRootPlugin('demo', 'data/static_dashboard.json'));
+			//webpack was modified to copy static dashboard from data to dist/data on build process
+			openmct.install(openmct.plugins.StaticRootPlugin('demo', 'http://127.0.0.1:8080/dist/data/static_dashboard.json'));
+			//http://127.0.0.1:8080/dist/data/static_dashboard.json
+		}catch(Error){
+			console.warn("Can't load the static demo", Error);
+		}
+		
 		/* workaround. Giving promises time to resolve */
 		setTimeout((_) => {
 			$("#splashscreen").fadeOut("slow");
+			
 			openmct.start();
+			//window.openmct = openmct;
 		}, 2000);
 	</script>
 </html>
