@@ -12,9 +12,15 @@
         ></div>
         <div class="c-about__text__element">
             <h1 class="l-title s-title">
-                Open MCT
+                UNLaM Ground Segment - NASA Open MCT
             </h1>
             <div class="l-description s-description">
+                <p>Backend developed by <a
+                        target="_blank"
+                        href="https://gidsa.unlam.edu.ar"
+                >GIDSA research group </a>at Universidad Nacional de La Matanza.</p>
+                <p>Raw data downloaded from <a href="https://satnogs.org/">SATNOGS NETWORK</a> and other sources.</p>
+                <p>Frontend based on NASA Open MCT</p>
                 <p>Open MCT, Copyright &copy; 2014-2020, United States Government as represented by the Administrator of the National Aeronautics and Space Administration. All rights reserved.</p>
                 <p>
                     Open MCT is licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at <a

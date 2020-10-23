@@ -102,8 +102,6 @@
 			openmct.legacyRegistry.enable.bind(openmct.legacyRegistry)
 		);
 
-
-
 		let omenuoptions = {
                     menuOptions: [
                         {
@@ -162,7 +160,7 @@
 
 
 
-
+		
 		openmct.install(openmct.plugins.Espresso());
 		openmct.install(openmct.plugins.MyItems());
 		openmct.install(openmct.plugins.Generator());
@@ -191,8 +189,7 @@
             const last_tlmy_date = Date.parse(dtobj.data.tstamp);
             omenuoptions.menuOptions[0].bounds.start = last_tlmy_date-FIVE_MINUTES;
             omenuoptions.menuOptions[0].bounds.end   = last_tlmy_date;
-            openmct.install(openmct.plugins.Conductor(omenuoptions));
-            
+            openmct.install(openmct.plugins.Conductor(omenuoptions));            
 
         }).catch(function(Error){
             console.Error("Error trying to get last datetime telemetry");
@@ -254,7 +251,7 @@
 			
 			//openmct.install(openmct.plugins.StaticRootPlugin('demo', 'data/static_dashboard.json'));
 			//webpack was modified to copy static dashboard from data to dist/data on build process
-			openmct.install(openmct.plugins.StaticRootPlugin('demo', 'http://127.0.0.1:8080/dist/data/static_dashboard.json'));
+			//openmct.install(openmct.plugins.StaticRootPlugin('demo', 'http://127.0.0.1:8080/dist/data/static_dashboard.json'));
 			//http://127.0.0.1:8080/dist/data/static_dashboard.json
 		}catch(Error){
 			console.warn("Can't load the static demo", Error);
@@ -265,7 +262,7 @@
 			$("#splashscreen").fadeOut("slow");
 			
 			openmct.start();
-			//window.openmct = openmct;
+			window.openmct = openmct;
 		}, 2000);
 	</script>
 </html>
