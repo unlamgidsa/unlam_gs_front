@@ -6,7 +6,9 @@ export function httpGet(url) {
 	if (user.hasOwnProperty("token") && user.token != null)
 		return axios.get(url, { headers: { Authorization: "Token " + user.token }});
 	else
-		throw "Trying to http.get without a token";
+		return new Promise((resolve, reject) => {
+			throw new Error("Trying to http.get without a token");
+		});
 }
 
 export function httpPost(url, data) {
