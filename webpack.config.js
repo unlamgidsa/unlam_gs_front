@@ -58,7 +58,7 @@ const webpackConfig = {
             __OPENMCT_REVISION__: `'${gitRevision}'`,
             __OPENMCT_BUILD_BRANCH__: `'${gitBranch}'`,
             __OPENMCT_ROOT_RELATIVE__: `'${devMode ? 'dist/' : ''}'`
-        }),
+        }), 
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
@@ -73,6 +73,10 @@ const webpackConfig = {
                 from: 'data',
                 to: 'data'
             },
+            { 
+                from: 'images',
+                to: 'images'
+            },  
             {
                 from: './index.html',
                 transform: function (content) {
