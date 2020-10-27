@@ -29,7 +29,7 @@ class RootObjectProvider {
                     key: "ROOT",
                     namespace: ""
                 },
-                name: 'Open MCT',
+                name: 'UNLaM UGS',
                 type: 'root',
                 composition: []
             };
