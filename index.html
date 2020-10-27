@@ -226,6 +226,9 @@
 		openmct.install(openmct.plugins.Login(["new-satellite"]));
 		openmct.install(openmct.plugins.LRStorage(urlBase + "UserItems"));
 		//openmct.install(openmct.plugins.LocalStorage());
+		openmct.objects.getRoot().then(rootProvider => {
+			rootProvider.name = 'UNLaM UGS';
+		});
 
 		const satNames = async () => {
 			const satellites = await openmct.plugins.SatelliteNames(
