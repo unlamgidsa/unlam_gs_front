@@ -55,7 +55,7 @@
                     "y": 1,
                     "width": 25,
                     "height": 22,
-                    "url": "https://ugs.unlam.edu.ar/favicons/bugsat1.png",
+                    "url": "https://ugs.unlam.edu.ar/mimics/bugsat1.png",
                     "type": "image-view",
                     "id": "553602b2-a316-4221-ab74-216728d52d14"
                 },
@@ -2176,7 +2176,7 @@
                     "y": 6,
                     "width": 21,
                     "height": 21,
-                    "url": "https://ugs.unlam.edu.ar/favicons/bugsat1.png",
+                    "url": "https://ugs.unlam.edu.ar/mimics/bugsat1.png",
                     "type": "image-view",
                     "id": "2d865fe5-85fe-48ec-8030-236bd33fda03"
                 },
@@ -4367,7 +4367,7 @@
                     "y": 0,
                     "width": 11,
                     "height": 11,
-                    "url": "https://ugs.unlam.edu.ar/dist/images/satnogs-data.png",
+                    "url": "https://ugs.unlam.edu.ar/others/satnogs-data.png",
                     "type": "image-view",
                     "id": "07457e73-24e3-4681-be4e-3c852266ae84"
                 },
@@ -4377,7 +4377,7 @@
                     "y": 0,
                     "width": 37,
                     "height": 8,
-                    "url": "https://ugs.unlam.edu.ar/dist/images/fulllogo.png",
+                    "url": "https://ugs.unlam.edu.ar/others/fulllogo.png",
                     "type": "image-view",
                     "id": "570982dc-c44a-4545-b40d-9947460085c3"
                 },
@@ -4487,7 +4487,7 @@
                 "07457e73-24e3-4681-be4e-3c852266ae84": {
                     "staticStyle": {
                         "style": {
-                            "imageUrl": "http://127.0.0.1:8080/dist/images/satnogs-data.png"
+                            "imageUrl": "https://ugs.unlam.edu.ar/others/satnogs-data.png"
                         }
                     }
                 },
