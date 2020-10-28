@@ -55,7 +55,7 @@
                     "y": 1,
                     "width": 25,
                     "height": 22,
-                    "url": "https://ugs.unlam.edu.ar/mimics/bugsat1.png",
+                    "url": "https://ugs.unlam.edu.ar/favicons/bugsat1.png",
                     "type": "image-view",
                     "id": "553602b2-a316-4221-ab74-216728d52d14"
                 },
@@ -104,7 +104,7 @@
                 10
             ]
         },
-        "name": "Thermal and Power",
+        "name": "Thermal, Power and others",
         "type": "layout",
         "location": "97432152-9e70-4852-ae22-ab7f6ddd4d3e",
         "modified": 1603389280379,
@@ -2176,7 +2176,7 @@
                     "y": 6,
                     "width": 21,
                     "height": 21,
-                    "url": "https://ugs.unlam.edu.ar/mimics/bugsat1.png",
+                    "url": "https://ugs.unlam.edu.ar/favicons/bugsat1.png",
                     "type": "image-view",
                     "id": "2d865fe5-85fe-48ec-8030-236bd33fda03"
                 },
@@ -3815,10 +3815,11 @@
             "yAxis": {},
             "xAxis": {}
         },
-        "name": "CPU_C",
-        "modified": 1603714706972,
+        "name": "Temps",
+        "modified": 1603906372580,
         "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
-        "persisted": 1603714706953
+        "persisted": 1603906349394,
+        "id": "2649b414-e373-42ff-aa68-5802418c6ab3"
     },
     "ed59e498-93f8-4db7-be81-37e623cc4617": {
         "type": "telemetry.plot.stacked",
@@ -4103,7 +4104,8 @@
             "a896b960-c7cb-45f9-b91e-081917c8db8b",
             "2f212342-e86f-4894-b9be-441e4a3bd1a9",
             "fd59b288-b735-49cc-93b3-33b30092e223",
-            "5c9875db-42b0-401a-b3e5-015934640f19"
+            "5c9875db-42b0-401a-b3e5-015934640f19",
+            "fb132a09-1838-4954-acd4-5937835080e1"
         ],
         "configuration": {
             "items": [
@@ -4300,7 +4302,7 @@
                     "width": 37,
                     "height": 20,
                     "x": 0,
-                    "y": 47,
+                    "y": 68,
                     "identifier": {
                         "key": "d341c878-88ef-48a0-be03-2b6705a00874",
                         "namespace": ""
@@ -4310,10 +4312,10 @@
                     "id": "79cb96b8-b48c-4ca1-ab61-23cd61c1f035"
                 },
                 {
-                    "width": 37,
-                    "height": 17,
-                    "x": 0,
-                    "y": 67,
+                    "width": 25,
+                    "height": 13,
+                    "x": 114,
+                    "y": 0,
                     "identifier": {
                         "key": "69617784-67ba-4b12-817f-fcdabc1d34d9",
                         "namespace": ""
@@ -4367,7 +4369,7 @@
                     "y": 0,
                     "width": 11,
                     "height": 11,
-                    "url": "https://ugs.unlam.edu.ar/others/satnogs-data.png",
+                    "url": "https://ugs.unlam.edu.ar/images/satnogs-data.png",
                     "type": "image-view",
                     "id": "07457e73-24e3-4681-be4e-3c852266ae84"
                 },
@@ -4377,7 +4379,7 @@
                     "y": 0,
                     "width": 37,
                     "height": 8,
-                    "url": "https://ugs.unlam.edu.ar/others/fulllogo.png",
+                    "url": "https://ugs.unlam.edu.ar/images/fulllogo.png",
                     "type": "image-view",
                     "id": "570982dc-c44a-4545-b40d-9947460085c3"
                 },
@@ -4406,6 +4408,19 @@
                     "hasFrame": true,
                     "type": "subobject-view",
                     "id": "e3e0f52b-43e2-432e-bca8-77f0c9a1fae6"
+                },
+                {
+                    "width": 37,
+                    "height": 21,
+                    "x": 0,
+                    "y": 47,
+                    "identifier": {
+                        "key": "fb132a09-1838-4954-acd4-5937835080e1",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "4eb8cdc4-f037-4e48-80dd-74e082cdddf0"
                 }
             ],
             "layoutGrid": [
@@ -4487,7 +4502,7 @@
                 "07457e73-24e3-4681-be4e-3c852266ae84": {
                     "staticStyle": {
                         "style": {
-                            "imageUrl": "https://ugs.unlam.edu.ar/others/satnogs-data.png"
+                            "imageUrl": "https://ugs.unlam.edu.ar/images/satnogs-data.png"
                         }
                     }
                 },
@@ -4503,9 +4518,9 @@
         "name": "Thermal & Power",
         "type": "layout",
         "notes": "Thermal & Power",
-        "modified": 1603835260394,
+        "modified": 1603906372582,
         "location": "demodash",
-        "persisted": 1603835257471
+        "persisted": 1603906367531
     },
     "demodash": {
         "composition": [
@@ -4516,9 +4531,9 @@
         "type": "tabs",
         "notes": "Demo Dashboard",
         "id": "maindashboard",
-        "modified": 1603833420736,
+        "modified": 1603906244311,
         "location": "mine",
-        "persisted": 1603833420212
+        "persisted": 1603906243861
     },
     "00adb356-e3f8-48e2-be04-635054a04b01": {
         "composition": [
@@ -4599,9 +4614,47 @@
             "yAxis": {},
             "xAxis": {}
         },
-        "name": "magnetometer_x",
+        "name": "magnetometers",
         "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
-        "modified": 1603835260461,
-        "persisted": 1603835260455
+        "modified": 1603906372579,
+        "persisted": 1603906334317,
+        "id": "5c9875db-42b0-401a-b3e5-015934640f19"
+    },
+    "fb132a09-1838-4954-acd4-5937835080e1": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.sunvectorX",
+            "TITA.telemetry:TITA.sunvectorY",
+            "TITA.telemetry:TITA.sunvectorZ"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorX"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorY"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorZ"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "sunvectors",
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "modified": 1603906372577,
+        "persisted": 1603906325509,
+        "id": "fb132a09-1838-4954-acd4-5937835080e1"
     }
 }
