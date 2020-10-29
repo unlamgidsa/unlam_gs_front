@@ -4534,10 +4534,9 @@
         "type": "tabs",
         "notes": "Demo Dashboard",
         "id": "maindashboard",
-        "modified": 1603994649640,
+        "modified": 1603993677923,
         "location": "mine",
-        "persisted": 1603994649577,
-        "currentTabIndex": 0
+        "persisted": 1603993677828
     },
     "00adb356-e3f8-48e2-be04-635054a04b01": {
         "composition": [
@@ -4684,7 +4683,7 @@
                     "y": 5,
                     "width": 92,
                     "height": 49,
-                    "url": "https://ugs.unlam.edu.ar/others/achitecture.PNG",
+                    "url": "http://ugs.unlam.edu.ar/dist/others/achitecture.PNG",
                     "type": "image-view",
                     "id": "84ad9323-bfe7-43be-9a2f-b7df05ae3934"
                 }

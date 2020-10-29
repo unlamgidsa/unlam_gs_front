@@ -4515,29 +4515,25 @@
                 }
             }
         },
-        "name": "Thermal, Power and Others",
+        "name": "Thermal & Power",
         "type": "layout",
-        "notes": "Thermal, Power and Others",
-        "modified": 1603993502347,
+        "notes": "Thermal & Power",
+        "modified": 1603906372582,
         "location": "demodash",
-        "persisted": 1603993502282,
-        "id": "b1990335-2993-4be3-a53f-4eb06b23f33e"
+        "persisted": 1603906367531
     },
     "demodash": {
         "composition": [
-            "b1990335-2993-4be3-a53f-4eb06b23f33e",
-            "9ddf06ed-12f8-4eb7-94e2-6e279b98c204",
-            "06477f0e-a231-4e3b-8820-f24d18338f71"
+            "b1990335-2993-4be3-a53f-4eb06b23f33e"
         ],
         "keep_alive": true,
         "name": "Demo Dashboard",
         "type": "tabs",
         "notes": "Demo Dashboard",
         "id": "maindashboard",
-        "modified": 1603994649640,
+        "modified": 1603906244311,
         "location": "mine",
-        "persisted": 1603994649577,
-        "currentTabIndex": 0
+        "persisted": 1603906243861
     },
     "00adb356-e3f8-48e2-be04-635054a04b01": {
         "composition": [
@@ -4660,62 +4656,5 @@
         "modified": 1603906372577,
         "persisted": 1603906325509,
         "id": "fb132a09-1838-4954-acd4-5937835080e1"
-    },
-    "9ddf06ed-12f8-4eb7-94e2-6e279b98c204": {
-        "composition": [],
-        "configuration": {
-            "items": [
-                {
-                    "fill": "",
-                    "stroke": "",
-                    "size": "16px",
-                    "color": "",
-                    "x": 1,
-                    "y": 1,
-                    "width": 26,
-                    "height": 4,
-                    "text": "High Level Architecture",
-                    "type": "text-view",
-                    "id": "224b7014-985d-488e-9d15-2902e3367f01"
-                },
-                {
-                    "stroke": "transparent",
-                    "x": 1,
-                    "y": 5,
-                    "width": 92,
-                    "height": 49,
-                    "url": "https://ugs.unlam.edu.ar/others/achitecture.PNG",
-                    "type": "image-view",
-                    "id": "84ad9323-bfe7-43be-9a2f-b7df05ae3934"
-                }
-            ],
-            "layoutGrid": [
-                10,
-                10
-            ],
-            "objectStyles": {
-                "224b7014-985d-488e-9d15-2902e3367f01": {
-                    "staticStyle": {
-                        "style": {
-                            "color": "#ffffff"
-                        }
-                    }
-                }
-            }
-        },
-        "name": "Architecture",
-        "type": "layout",
-        "location": "demodash",
-        "modified": 1603993633054,
-        "notes": "Architecture",
-        "persisted": 1603993626270
-    },
-    "06477f0e-a231-4e3b-8820-f24d18338f71": {
-        "name": "GIDSA",
-        "type": "webPage",
-        "location": "demodash",
-        "modified": 1603993678098,
-        "url": "https://gidsa.unlam.edu.ar",
-        "persisted": 1603993677978
     }
 }
