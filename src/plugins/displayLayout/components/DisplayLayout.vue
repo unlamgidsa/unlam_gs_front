@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -22,7 +22,7 @@
 
 <template>
 <div
-    class="l-layout"
+    class="l-layout u-style-receiver js-style-receiver"
     :class="{
         'is-multi-selected': selectedLayoutItems.length > 1,
         'allow-editing': isEditing
@@ -31,21 +31,19 @@
     @click.capture="bypassSelection"
     @drop="handleDrop"
 >
-    <!-- Background grid -->
-    <div
+    <display-layout-grid
         v-if="isEditing"
-        class="l-layout__grid-holder c-grid"
+        :grid-size="gridSize"
+        :show-grid="showGrid"
+    />
+    <div
+        v-if="shouldDisplayLayoutDimensions"
+        class="l-layout__dimensions"
+        :style="layoutDimensionsStyle"
     >
-        <div
-            v-if="gridSize[0] >= 3"
-            class="c-grid__x l-grid l-grid-x"
-            :style="[{ backgroundSize: gridSize[0] + 'px 100%' }]"
-        ></div>
-        <div
-            v-if="gridSize[1] >= 3"
-            class="c-grid__y l-grid l-grid-y"
-            :style="[{ backgroundSize: '100%' + gridSize[1] + 'px' }]"
-        ></div>
+        <div class="l-layout__dimensions-vals">
+            {{ layoutDimensions[0] }},{{ layoutDimensions[1] }}
+        </div>
     </div>
     <component
         :is="item.type"
@@ -81,6 +79,7 @@ import TextView from './TextView.vue';
 import LineView from './LineView.vue';
 import ImageView from './ImageView.vue';
 import EditMarquee from './EditMarquee.vue';
+import DisplayLayoutGrid from './DisplayLayoutGrid.vue';
 import _ from 'lodash';
 
 const TELEMETRY_IDENTIFIER_FUNCTIONS = {
@@ -127,6 +126,7 @@ const DUPLICATE_OFFSET = 3;
 
 let components = ITEM_TYPE_VIEW_MAP;
 components['edit-marquee'] = EditMarquee;
+components['display-layout-grid'] = DisplayLayoutGrid;
 
 function getItemDefinition(itemType, ...options) {
     let itemView = ITEM_TYPE_VIEW_MAP[itemType];
@@ -140,6 +140,7 @@ function getItemDefinition(itemType, ...options) {
 
 export default {
     components: components,
+    inject: ['openmct', 'options', 'objectPath'],
     props: {
         domainObject: {
             type: Object,
@@ -151,25 +152,40 @@ export default {
         }
     },
     data() {
-        let domainObject = JSON.parse(JSON.stringify(this.domainObject));
-
         return {
-            internalDomainObject: domainObject,
             initSelectIndex: undefined,
-            selection: []
+            selection: [],
+            showGrid: true
         };
     },
     computed: {
         gridSize() {
-            return this.internalDomainObject.configuration.layoutGrid;
+            return this.domainObject.configuration.layoutGrid;
         },
         layoutItems() {
-            return this.internalDomainObject.configuration.items;
+            return this.domainObject.configuration.items;
         },
         selectedLayoutItems() {
             return this.layoutItems.filter(item => {
                 return this.itemIsInCurrentSelection(item);
             });
+        },
+        layoutDimensions() {
+            return this.domainObject.configuration.layoutDimensions;
+        },
+        shouldDisplayLayoutDimensions() {
+            return this.layoutDimensions
+                && this.layoutDimensions[0] > 0
+                && this.layoutDimensions[1] > 0;
+        },
+        layoutDimensionsStyle() {
+            const width = `${this.layoutDimensions[0]}px`;
+            const height = `${this.layoutDimensions[1]}px`;
+
+            return {
+                width,
+                height
+            };
         },
         showMarquee() {
             let selectionPath = this.selection[0];
@@ -179,14 +195,17 @@ export default {
             return this.isEditing && selectionPath && selectionPath.length > 1 && !singleSelectedLine;
         }
     },
-    inject: ['openmct', 'options', 'objectPath'],
+    watch: {
+        isEditing(value) {
+            if (value) {
+                this.showGrid = value;
+            }
+        }
+    },
     mounted() {
-        this.unlisten = this.openmct.objects.observe(this.internalDomainObject, '*', function (obj) {
-            this.internalDomainObject = JSON.parse(JSON.stringify(obj));
-        }.bind(this));
         this.openmct.selection.on('change', this.setSelection);
         this.initializeItems();
-        this.composition = this.openmct.composition.get(this.internalDomainObject);
+        this.composition = this.openmct.composition.get(this.domainObject);
         this.composition.on('add', this.addChild);
         this.composition.on('remove', this.removeChild);
         this.composition.load();
@@ -195,7 +214,6 @@ export default {
         this.openmct.selection.off('change', this.setSelection);
         this.composition.off('add', this.addChild);
         this.composition.off('remove', this.removeChild);
-        this.unlisten();
     },
     methods: {
         addElement(itemType, element) {
@@ -322,7 +340,7 @@ export default {
             this.startingMinY2 = undefined;
         },
         mutate(path, value) {
-            this.openmct.objects.mutate(this.internalDomainObject, path, value);
+            this.openmct.objects.mutate(this.domainObject, path, value);
         },
         handleDrop($event) {
             if (!$event.dataTransfer.types.includes('openmct/domain-object-path')) {
@@ -362,11 +380,11 @@ export default {
             }
         },
         containsObject(identifier) {
-            return _.get(this.internalDomainObject, 'composition')
+            return _.get(this.domainObject, 'composition')
                 .some(childId => this.openmct.objects.areIdsEqual(childId, identifier));
         },
         handleDragOver($event) {
-            if (this.internalDomainObject.locked) {
+            if (this.domainObject.locked) {
                 return;
             }
 
@@ -395,7 +413,7 @@ export default {
             item.id = uuid();
             this.trackItem(item);
             this.layoutItems.push(item);
-            this.openmct.objects.mutate(this.internalDomainObject, "configuration.items", this.layoutItems);
+            this.openmct.objects.mutate(this.domainObject, "configuration.items", this.layoutItems);
             this.initSelectIndex = this.layoutItems.length - 1;
         },
         trackItem(item) {
@@ -452,7 +470,7 @@ export default {
             }
         },
         removeFromComposition(keyString) {
-            let composition = _.get(this.internalDomainObject, 'composition');
+            let composition = _.get(this.domainObject, 'composition');
             composition = composition.filter(identifier => {
                 return this.openmct.objects.makeKeyString(identifier) !== keyString;
             });
@@ -604,10 +622,10 @@ export default {
         createNewDomainObject(domainObject, composition, viewType, nameExtension, model) {
             let identifier = {
                 key: uuid(),
-                namespace: this.internalDomainObject.identifier.namespace
+                namespace: this.domainObject.identifier.namespace
             };
             let type = this.openmct.types.get(viewType);
-            let parentKeyString = this.openmct.objects.makeKeyString(this.internalDomainObject.identifier);
+            let parentKeyString = this.openmct.objects.makeKeyString(this.domainObject.identifier);
             let objectName = nameExtension ? `${domainObject.name}-${nameExtension}` : domainObject.name;
             let object = {};
 
@@ -664,7 +682,7 @@ export default {
             });
         },
         duplicateItem(selectedItems) {
-            let objectStyles = this.internalDomainObject.configuration.objectStyles || {};
+            let objectStyles = this.domainObject.configuration.objectStyles || {};
             let selectItemsArray = [];
             let newDomainObjectsArray = [];
 
@@ -703,8 +721,8 @@ export default {
             });
 
             this.$nextTick(() => {
-                this.openmct.objects.mutate(this.internalDomainObject, "configuration.items", this.layoutItems);
-                this.openmct.objects.mutate(this.internalDomainObject, "configuration.objectStyles", objectStyles);
+                this.openmct.objects.mutate(this.domainObject, "configuration.items", this.layoutItems);
+                this.openmct.objects.mutate(this.domainObject, "configuration.objectStyles", objectStyles);
                 this.$el.click(); //clear selection;
 
                 newDomainObjectsArray.forEach(domainObject => {
@@ -743,13 +761,13 @@ export default {
             };
             this.createNewDomainObject(mockDomainObject, overlayPlotIdentifiers, viewType).then((newDomainObject) => {
                 let newDomainObjectKeyString = this.openmct.objects.makeKeyString(newDomainObject.identifier);
-                let internalDomainObjectKeyString = this.openmct.objects.makeKeyString(this.internalDomainObject.identifier);
+                let domainObjectKeyString = this.openmct.objects.makeKeyString(this.domainObject.identifier);
 
                 this.composition.add(newDomainObject);
                 this.addItem('subobject-view', newDomainObject, position);
 
                 overlayPlots.forEach(overlayPlot => {
-                    if (overlayPlot.location === internalDomainObjectKeyString) {
+                    if (overlayPlot.location === domainObjectKeyString) {
                         this.openmct.objects.mutate(overlayPlot, 'location', newDomainObjectKeyString);
                     }
                 });
@@ -798,6 +816,9 @@ export default {
 
             this.removeItem(selection);
             this.initSelectIndex = this.layoutItems.length - 1; //restore selection
+        },
+        toggleGrid() {
+            this.showGrid = !this.showGrid;
         }
     }
 };

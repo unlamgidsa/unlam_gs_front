@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -35,6 +35,7 @@ define([
     './URLIndicatorPlugin/URLIndicatorPlugin',
     './telemetryMean/plugin',
     './plot/plugin',
+    './plot/vue/single/plugin',
     './telemetryTable/plugin',
     './staticRootPlugin/plugin',
     './notebook/plugin',
@@ -56,6 +57,7 @@ define([
     './URLTimeSettingsSynchronizer/plugin',
     './notificationIndicator/plugin',
     './newFolderAction/plugin',
+    './nonEditableFolder/plugin',
     './persistence/couch/plugin',
     './defaultRootName/plugin',
     './UNLaM-plugins/telemetry-dictionary/plugin',
@@ -65,6 +67,12 @@ define([
     './login/plugin',
     './UNLaM-plugins/new-satellite/plugin',
     './UNLaM-plugins/http-server/service',
+    './plan/plugin',
+    './viewDatumAction/plugin',
+    './interceptors/plugin',
+    './performanceIndicator/plugin',
+    './CouchDBSearchFolder/plugin',
+    './timeline/plugin'
 ], function (
     _,
     UTCTimeSystem,
@@ -80,6 +88,7 @@ define([
     URLIndicatorPlugin,
     TelemetryMean,
     PlotPlugin,
+    PlotVuePlugin,
     TelemetryTablePlugin,
     StaticRootPlugin,
     Notebook,
@@ -101,6 +110,7 @@ define([
     URLTimeSettingsSynchronizer,
     NotificationIndicator,
     NewFolderAction,
+    NonEditableFolder,
     CouchDBPlugin,
     DefaultRootName,
     TelemetryDictionaryPlugin,
@@ -110,6 +120,12 @@ define([
     Login,
     NewSatellitePlugin,
     HttpServer,
+    PlanLayout,
+    ViewDatumAction,
+    ObjectInterceptors,
+    PerformanceIndicator,
+    CouchDBSearchFolder,
+    Timeline
 ) {
     const bundleMap = {
         LocalStorage: 'platform/persistence/local',
@@ -177,6 +193,7 @@ define([
     plugins.ExampleImagery = ExampleImagery;
     plugins.ImageryPlugin = ImageryPlugin;
     plugins.Plot = PlotPlugin;
+    plugins.PlotVue = PlotVuePlugin.default;
     plugins.TelemetryTable = TelemetryTablePlugin;
 
     plugins.SummaryWidget = SummaryWidget;
@@ -201,8 +218,16 @@ define([
     plugins.URLTimeSettingsSynchronizer = URLTimeSettingsSynchronizer.default;
     plugins.NotificationIndicator = NotificationIndicator.default;
     plugins.NewFolderAction = NewFolderAction.default;
+    plugins.NonEditableFolder = NonEditableFolder.default;
     plugins.ISOTimeFormat = ISOTimeFormat.default;
     plugins.DefaultRootName = DefaultRootName.default;
+    plugins.PlanLayout = PlanLayout.default;
+    plugins.ViewDatumAction = ViewDatumAction.default;
+    plugins.ObjectInterceptors = ObjectInterceptors.default;
+    plugins.PerformanceIndicator = PerformanceIndicator.default;
+    plugins.CouchDBSearchFolder = CouchDBSearchFolder.default;
+    plugins.Timeline = Timeline.default;
+
     plugins.Login = Login;
 		plugins.TelemetryDictionaryPlugin = TelemetryDictionaryPlugin.default;
 		plugins.HistoricalTelemetryPlugin = HistoricalTelemtry.default;
@@ -229,7 +254,8 @@ define([
 				openmct.legacyRegistry.enable(bundleMap.LRStorage);
 			};
         };
-        
+
         plugins.HttpServer = HttpServer;
+
     return plugins;
 });

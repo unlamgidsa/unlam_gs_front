@@ -26,10 +26,12 @@
         overflow: hidden;
         transition: all;
 
-        .scrollable-children {
-            .c-tree__item-h {
-                width: 100%;
-            }
+        .c-tree__item-h {
+            width: 100%;
+        }
+
+        &__scrollable-children {
+            overflow: auto;
         }
 
         &__item--empty {
@@ -55,9 +57,21 @@
     overflow-x: hidden;
     overflow-y: auto;
 
+    .icon-arrow-nav-to-parent {
+        visibility: hidden;
+
+        &.is-enabled {
+            visibility: visible;
+        }
+    }
+
     li {
         position: relative;
-        &[class*="__item-h"] { display: block; }
+        &[class*="__item-h"] {
+            display: block;
+            width: 100%;
+        }
+
         + li {
             margin-top: 1px;
         }
@@ -87,6 +101,18 @@
 
             [class*="__name"] {
                 color: $colorItemTreeSelectedFg;
+            }
+        }
+
+        &.is-context-clicked {
+            box-shadow: inset $colorItemTreeSelectedBg 0 0 0 1px;
+        }
+
+        .icon-arrow-nav-to-parent {
+            visibility: hidden;
+
+            &.is-enabled {
+                visibility: visible;
             }
         }
     }
@@ -248,20 +274,14 @@
 }
 
 // TRANSITIONS
-.slide-left,
-.slide-right {
-    animation-duration: 500ms;
-    animation-iteration-count: 1;
-    transition: all;
-    transition-timing-function: ease-in-out;
-}
+.children-enter-active {
+    &.down {
+        animation: animSlideLeft 500ms;
+    }
 
-.slide-left {
-    animation-name: animSlideLeft;
-}
-
-.slide-right {
-    animation-name: animSlideRight;
+    &.up {
+        animation: animSlideRight 500ms;
+    }
 }
 
 @keyframes animSlideLeft {

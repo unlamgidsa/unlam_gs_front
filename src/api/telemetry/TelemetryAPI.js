@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -21,12 +21,14 @@
  *****************************************************************************/
 
 define([
+    '../../plugins/displayLayout/CustomStringFormatter',
     './TelemetryMetadataManager',
     './TelemetryValueFormatter',
     './DefaultMetadataProvider',
     'objectUtils',
     'lodash'
 ], function (
+    CustomStringFormatter,
     TelemetryMetadataManager,
     TelemetryValueFormatter,
     DefaultMetadataProvider,
@@ -141,6 +143,17 @@ define([
         this.formatMapCache = new WeakMap();
         this.valueFormatterCache = new WeakMap();
     }
+
+    /**
+     * Return Custom String Formatter
+     *
+     * @param {Object} valueMetadata valueMetadata for given telemetry object
+     * @param {string} format custom formatter string (eg: %.4f, &lts etc.)
+     * @returns {CustomStringFormatter}
+     */
+    TelemetryAPI.prototype.customStringFormatter = function (valueMetadata, format) {
+        return new CustomStringFormatter.default(this.openmct, valueMetadata, format);
+    };
 
     /**
      * Return true if the given domainObject is a telemetry object.  A telemetry
@@ -401,23 +414,42 @@ define([
     };
 
     /**
+     * @private
+     */
+    TelemetryAPI.prototype.getFormatService = function () {
+        if (!this.formatService) {
+            this.formatService = this.openmct.$injector.get('formatService');
+        }
+
+        return this.formatService;
+    };
+
+    /**
      * Get a value formatter for a given valueMetadata.
      *
      * @returns {TelemetryValueFormatter}
      */
     TelemetryAPI.prototype.getValueFormatter = function (valueMetadata) {
         if (!this.valueFormatterCache.has(valueMetadata)) {
-            if (!this.formatService) {
-                this.formatService = this.openmct.$injector.get('formatService');
-            }
-
             this.valueFormatterCache.set(
                 valueMetadata,
-                new TelemetryValueFormatter(valueMetadata, this.formatService)
+                new TelemetryValueFormatter(valueMetadata, this.getFormatService())
             );
         }
 
         return this.valueFormatterCache.get(valueMetadata);
+    };
+
+    /**
+     * Get a value formatter for a given key.
+     * @param {string} key
+     *
+     * @returns {Format}
+     */
+    TelemetryAPI.prototype.getFormatter = function (key) {
+        const formatMap = this.getFormatService().formatMap;
+
+        return formatMap[key];
     };
 
     /**

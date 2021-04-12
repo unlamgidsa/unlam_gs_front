@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -26,9 +26,12 @@ import objectUtils from 'objectUtils';
 import DisplayLayoutType from './DisplayLayoutType.js';
 import DisplayLayoutToolbar from './DisplayLayoutToolbar.js';
 import AlphaNumericFormatViewProvider from './AlphanumericFormatViewProvider.js';
+import CopyToClipboardAction from './actions/CopyToClipboardAction';
 
 export default function DisplayLayoutPlugin(options) {
     return function (openmct) {
+        openmct.actions.register(new CopyToClipboardAction(openmct));
+
         openmct.objectViews.addProvider({
             key: 'layout.view',
             canView: function (domainObject) {
@@ -72,7 +75,8 @@ export default function DisplayLayoutPlugin(options) {
                             duplicateItem: component && component.$refs.displayLayout.duplicateItem,
                             switchViewType: component && component.$refs.displayLayout.switchViewType,
                             mergeMultipleTelemetryViews: component && component.$refs.displayLayout.mergeMultipleTelemetryViews,
-                            mergeMultipleOverlayPlots: component && component.$refs.displayLayout.mergeMultipleOverlayPlots
+                            mergeMultipleOverlayPlots: component && component.$refs.displayLayout.mergeMultipleOverlayPlots,
+                            toggleGrid: component && component.$refs.displayLayout.toggleGrid
                         };
                     },
                     onEditModeChange: function (isEditing) {

@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -54,33 +54,32 @@ define([
             view(domainObject, objectPath) {
                 let table = new TelemetryTable(domainObject, openmct);
                 let component;
-
                 let markingProp = {
                     enable: true,
                     useAlternateControlBar: false,
                     rowName: '',
                     rowNamePlural: ''
                 };
-
-                return {
+                const view = {
                     show: function (element, editMode) {
                         component = new Vue({
                             el: element,
                             components: {
                                 TableComponent: TableComponent.default
                             },
-                            data() {
-                                return {
-                                    isEditing: editMode,
-                                    markingProp
-                                };
-                            },
                             provide: {
                                 openmct,
                                 table,
                                 objectPath
                             },
-                            template: '<table-component :isEditing="isEditing" :marking="markingProp"/>'
+                            data() {
+                                return {
+                                    isEditing: editMode,
+                                    markingProp,
+                                    view
+                                };
+                            },
+                            template: '<table-component ref="tableComponent" :isEditing="isEditing" :marking="markingProp" :view="view"/>'
                         });
                     },
                     onEditModeChange(editMode) {
@@ -89,11 +88,22 @@ define([
                     onClearData() {
                         table.clearData();
                     },
+                    getViewContext() {
+                        if (component) {
+                            return component.$refs.tableComponent.getViewContext();
+                        } else {
+                            return {
+                                type: 'telemetry-table'
+                            };
+                        }
+                    },
                     destroy: function (element) {
                         component.$destroy();
                         component = undefined;
                     }
                 };
+
+                return view;
             },
             priority() {
                 return 1;

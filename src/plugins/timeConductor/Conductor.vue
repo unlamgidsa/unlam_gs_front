@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT Web, Copyright (c) 2014-2020, United States Government
+ * Open MCT Web, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -141,10 +141,11 @@
             <ConductorMode class="c-conductor__mode-select" />
             <ConductorTimeSystem class="c-conductor__time-system-select" />
             <ConductorHistory
-                v-if="isFixed"
                 class="c-conductor__history-select"
+                :offsets="openmct.time.clockOffsets()"
                 :bounds="bounds"
                 :time-system="timeSystem"
+                :mode="timeMode"
             />
         </div>
         <input
@@ -156,6 +157,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import ConductorMode from './ConductorMode.vue';
 import ConductorTimeSystem from './ConductorTimeSystem.vue';
 import DatePicker from './DatePicker.vue';
@@ -166,7 +168,6 @@ import ConductorHistory from './ConductorHistory.vue';
 const DEFAULT_DURATION_FORMATTER = 'duration';
 
 export default {
-    inject: ['openmct', 'configuration'],
     components: {
         ConductorMode,
         ConductorTimeSystem,
@@ -175,6 +176,7 @@ export default {
         ConductorModeIcon,
         ConductorHistory
     },
+    inject: ['openmct', 'configuration'],
     data() {
         let bounds = this.openmct.time.bounds();
         let offsets = this.openmct.time.clockOffsets();
@@ -210,11 +212,16 @@ export default {
             isZooming: false
         };
     },
+    computed: {
+        timeMode() {
+            return this.isFixed ? 'fixed' : 'realtime';
+        }
+    },
     mounted() {
         document.addEventListener('keydown', this.handleKeyDown);
         document.addEventListener('keyup', this.handleKeyUp);
         this.setTimeSystem(JSON.parse(JSON.stringify(this.openmct.time.timeSystem())));
-        this.openmct.time.on('bounds', this.handleNewBounds);
+        this.openmct.time.on('bounds', _.throttle(this.handleNewBounds, 300));
         this.openmct.time.on('timeSystem', this.setTimeSystem);
         this.openmct.time.on('clock', this.setViewFromClock);
         this.openmct.time.on('clockOffsets', this.setViewFromOffsets);

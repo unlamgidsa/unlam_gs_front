@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -30,16 +30,15 @@
 >
     <div
         v-if="domainObject"
-        class="c-telemetry-view"
-        :class="{
-            styleClass,
-            'is-missing': domainObject.status === 'missing'
-        }"
+        class="c-telemetry-view u-style-receiver"
+        :class="[statusClass]"
         :style="styleObject"
+        :data-font-size="item.fontSize"
+        :data-font="item.font"
         @contextmenu.prevent="showContextMenu"
     >
-        <div class="is-missing__indicator"
-             title="This item is missing"
+        <div class="is-status__indicator"
+             :title="`This item is ${status}`"
         ></div>
         <div
             v-if="showLabel"
@@ -72,12 +71,12 @@
 
 <script>
 import LayoutFrame from './LayoutFrame.vue';
-import printj from 'printj';
 import conditionalStylesMixin from "../mixins/objectStyles-mixin";
+import { getDefaultNotebook } from '@/plugins/notebook/utils/notebook-storage.js';
 
 const DEFAULT_TELEMETRY_DIMENSIONS = [10, 5];
 const DEFAULT_POSITION = [1, 1];
-const CONTEXT_MENU_ACTIONS = ['viewHistoricalData'];
+const CONTEXT_MENU_ACTIONS = ['copyToClipboard', 'copyToNotebook', 'viewHistoricalData'];
 
 export default {
     makeDefinition(openmct, gridSize, domainObject, position) {
@@ -95,14 +94,15 @@ export default {
             stroke: "",
             fill: "",
             color: "",
-            size: "13px"
+            fontSize: 'default',
+            font: 'default'
         };
     },
-    inject: ['openmct', 'objectPath'],
     components: {
         LayoutFrame
     },
     mixins: [conditionalStylesMixin],
+    inject: ['openmct', 'objectPath'],
     props: {
         item: {
             type: Object,
@@ -126,13 +126,19 @@ export default {
     },
     data() {
         return {
+            currentObjectPath: undefined,
             datum: undefined,
-            formats: undefined,
             domainObject: undefined,
-            currentObjectPath: undefined
+            formats: undefined,
+            viewKey: `alphanumeric-format-${Math.random()}`,
+            status: '',
+            mutablePromise: undefined
         };
     },
     computed: {
+        statusClass() {
+            return (this.status) ? `is-status--${this.status}` : '';
+        },
         showLabel() {
             let displayMode = this.item.displayMode;
 
@@ -150,10 +156,15 @@ export default {
             return unit;
         },
         styleObject() {
-            return Object.assign({}, {
-                fontSize: this.item.size
-            }, this.itemStyle);
+            let size;
+            //for legacy size support
+            if (!this.item.fontSize) {
+                size = this.item.size;
+            }
 
+            return Object.assign({}, {
+                size
+            }, this.itemStyle);
         },
         fieldName() {
             return this.valueMetadata && this.valueMetadata.name;
@@ -161,7 +172,11 @@ export default {
         valueMetadata() {
             return this.datum && this.metadata.value(this.item.value);
         },
-        valueFormatter() {
+        formatter() {
+            if (this.item.format) {
+                return this.customStringformatter;
+            }
+
             return this.formats[this.item.value];
         },
         telemetryValue() {
@@ -169,11 +184,7 @@ export default {
                 return;
             }
 
-            if (this.item.format) {
-                return printj.sprintf(this.item.format, this.datum[this.valueMetadata.key]);
-            }
-
-            return this.valueFormatter && this.valueFormatter.format(this.datum);
+            return this.formatter && this.formatter.format(this.datum);
         },
         telemetryClass() {
             if (!this.datum) {
@@ -202,20 +213,45 @@ export default {
         }
     },
     mounted() {
-        this.openmct.objects.get(this.item.identifier)
-            .then(this.setObject);
+        if (this.openmct.objects.supportsMutation(this.item.identifier)) {
+            this.mutablePromise = this.openmct.objects.getMutable(this.item.identifier)
+                .then(this.setObject);
+        } else {
+            this.openmct.objects.get(this.item.identifier)
+                .then(this.setObject);
+        }
+
         this.openmct.time.on("bounds", this.refreshData);
+
+        this.status = this.openmct.status.get(this.item.identifier);
+        this.removeStatusListener = this.openmct.status.observe(this.item.identifier, this.setStatus);
     },
-    destroyed() {
+    beforeDestroy() {
         this.removeSubscription();
+        this.removeStatusListener();
 
         if (this.removeSelectable) {
             this.removeSelectable();
         }
 
         this.openmct.time.off("bounds", this.refreshData);
+
+        if (this.mutablePromise) {
+            this.mutablePromise.then(() => {
+                this.openmct.objects.destroyMutable(this.domainObject);
+            });
+        } else {
+            this.openmct.objects.destroyMutable(this.domainObject);
+        }
     },
     methods: {
+        formattedValueForCopy() {
+            const timeFormatterKey = this.openmct.time.timeSystem().key;
+            const timeFormatter = this.formats[timeFormatterKey];
+            const unit = this.unit ? ` ${this.unit}` : '';
+
+            return `At ${timeFormatter.format(this.datum)} ${this.domainObject.name} had a value of ${this.telemetryValue}${unit}`;
+        },
         requestHistoricalData() {
             let bounds = this.openmct.time.bounds();
             let options = {
@@ -253,12 +289,27 @@ export default {
                 this.requestHistoricalData(this.domainObject);
             }
         },
+        getView() {
+            return {
+                getViewContext: () => {
+                    return {
+                        viewHistoricalData: true,
+                        formattedValueForCopy: this.formattedValueForCopy
+                    };
+                }
+            };
+        },
         setObject(domainObject) {
             this.domainObject = domainObject;
+            this.mutablePromise = undefined;
             this.keyString = this.openmct.objects.makeKeyString(domainObject.identifier);
             this.metadata = this.openmct.telemetry.getMetadata(this.domainObject);
             this.limitEvaluator = this.openmct.telemetry.limitEvaluator(this.domainObject);
             this.formats = this.openmct.telemetry.getFormatMap(this.metadata);
+
+            const valueMetadata = this.metadata.value(this.item.value);
+            this.customStringformatter = this.openmct.telemetry.customStringFormatter(valueMetadata, this.item.format);
+
             this.requestHistoricalData();
             this.subscribeToObject();
 
@@ -278,10 +329,37 @@ export default {
             delete this.immediatelySelect;
         },
         updateTelemetryFormat(format) {
+            this.customStringformatter.setFormat(format);
+
             this.$emit('formatChanged', this.item, format);
         },
-        showContextMenu(event) {
-            this.openmct.contextMenu._showContextMenuForObjectPath(this.currentObjectPath, event.x, event.y, CONTEXT_MENU_ACTIONS);
+        async getContextMenuActions() {
+            const defaultNotebook = getDefaultNotebook();
+            const domainObject = defaultNotebook && await this.openmct.objects.get(defaultNotebook.notebookMeta.identifier);
+            const actionCollection = this.openmct.actions.get(this.currentObjectPath, this.getView());
+            const actionsObject = actionCollection.getActionsObject();
+
+            let copyToNotebookAction = actionsObject.copyToNotebook;
+
+            if (defaultNotebook) {
+                const defaultPath = domainObject && `${domainObject.name} - ${defaultNotebook.section.name} - ${defaultNotebook.page.name}`;
+                copyToNotebookAction.name = `Copy to Notebook ${defaultPath}`;
+            } else {
+                actionsObject.copyToNotebook = undefined;
+                delete actionsObject.copyToNotebook;
+            }
+
+            return CONTEXT_MENU_ACTIONS.map(actionKey => {
+                return actionsObject[actionKey];
+            }).filter(action => action !== undefined);
+        },
+        async showContextMenu(event) {
+            const contextMenuActions = await this.getContextMenuActions();
+
+            this.openmct.menus.showMenu(event.x, event.y, contextMenuActions);
+        },
+        setStatus(status) {
+            this.status = status;
         }
     }
 };

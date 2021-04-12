@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -46,10 +46,10 @@
 import TableCell from './table-cell.vue';
 
 export default {
-    inject: ['openmct'],
     components: {
         TableCell
     },
+    inject: ['openmct'],
     props: {
         headers: {
             type: Object,
@@ -102,7 +102,16 @@ export default {
                 selectable[columnKeys] = this.row.columns[columnKeys].selectable;
 
                 return selectable;
-            }, {})
+            }, {}),
+            actionsViewContext: {
+                getViewContext: () => {
+                    return {
+                        viewHistoricalData: true,
+                        viewDatumAction: true,
+                        getDatum: this.getDatum
+                    };
+                }
+            }
         };
     },
     computed: {
@@ -170,14 +179,25 @@ export default {
                 event.stopPropagation();
             }
         },
+        getDatum() {
+            return this.row.fullDatum;
+        },
         showContextMenu: function (event) {
             event.preventDefault();
+
+            this.markRow(event);
 
             this.row.getContextualDomainObject(this.openmct, this.row.objectKeyString).then(domainObject => {
                 let contextualObjectPath = this.objectPath.slice();
                 contextualObjectPath.unshift(domainObject);
 
-                this.openmct.contextMenu._showContextMenuForObjectPath(contextualObjectPath, event.x, event.y, this.row.getContextMenuActions());
+                let actionsCollection = this.openmct.actions.get(contextualObjectPath, this.actionsViewContext);
+                let allActions = actionsCollection.getActionsObject();
+                let applicableActions = this.row.getContextMenuActions().map(key => allActions[key]);
+
+                if (applicableActions.length) {
+                    this.openmct.menus.showMenu(event.x, event.y, applicableActions);
+                }
             });
         }
     }

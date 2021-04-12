@@ -1,6 +1,5 @@
 <template>
-<li
-    ref="me"
+<div
     :style="{
         'top': virtualScroll ? itemTop : 'auto',
         'position': virtualScroll ? 'absolute' : 'relative'
@@ -11,30 +10,37 @@
         class="c-tree__item"
         :class="{
             'is-alias': isAlias,
-            'is-navigated-object': navigated
+            'is-navigated-object': navigated,
+            'is-context-clicked': contextClickActive
         }"
+        @click.capture="handleClick"
+        @contextmenu.capture="handleContextMenu"
     >
         <view-control
+            ref="navUp"
             v-model="expanded"
             class="c-tree__item__view-control"
-            :control-class="'c-nav__up'"
+            :control-class="'icon-arrow-nav-to-parent'"
             :enabled="showUp"
             @input="resetTreeHere"
         />
         <object-label
+            ref="objectLabel"
             :domain-object="node.object"
             :object-path="node.objectPath"
-            :navigate-to-path="navigateToPath"
+            :navigate-to-path="navigationPath"
             :style="{ paddingLeft: leftOffset }"
+            @context-click-active="setContextClickActive"
         />
         <view-control
+            ref="navDown"
             v-model="expanded"
             class="c-tree__item__view-control"
             :control-class="'c-nav__down'"
             :enabled="hasComposition && showDown"
         />
     </div>
-</li>
+</div>
 </template>
 
 <script>
@@ -43,11 +49,11 @@ import ObjectLabel from '../components/ObjectLabel.vue';
 
 export default {
     name: 'TreeItem',
-    inject: ['openmct'],
     components: {
         viewControl,
         ObjectLabel
     },
+    inject: ['openmct'],
     props: {
         node: {
             type: Object,
@@ -83,24 +89,22 @@ export default {
         virtualScroll: {
             type: Boolean,
             default: false
-        },
-        emitHeight: {
-            type: Boolean,
-            default: false
         }
     },
     data() {
-        this.navigateToPath = this.buildPathString(this.node.navigateToParent);
+        this.navigationPath = this.node.navigationPath;
 
         return {
             hasComposition: false,
-            navigated: this.navigateToPath === this.openmct.router.currentLocation.path,
-            expanded: false
+            navigated: this.isNavigated(),
+            expanded: false,
+            contextClickActive: false
         };
     },
     computed: {
         isAlias() {
             let parent = this.node.objectPath[1];
+
             if (!parent) {
                 return false;
             }
@@ -116,11 +120,6 @@ export default {
     watch: {
         expanded() {
             this.$emit('expanded', this.domainObject);
-        },
-        emitHeight() {
-            this.$nextTick(() => {
-                this.$emit('emittedHeight', this.$refs.me);
-            });
         }
     },
     mounted() {
@@ -137,26 +136,35 @@ export default {
         }
 
         this.openmct.router.on('change:path', this.highlightIfNavigated);
-        if (this.emitHeight) {
-            this.$emit('emittedHeight', this.$refs.me);
-        }
     },
     destroyed() {
         this.openmct.router.off('change:path', this.highlightIfNavigated);
     },
     methods: {
-        buildPathString(parentPath) {
-            return [parentPath, this.openmct.objects.makeKeyString(this.node.object.identifier)].join('/');
-        },
-        highlightIfNavigated(newPath, oldPath) {
-            if (newPath === this.navigateToPath) {
-                this.navigated = true;
-            } else if (oldPath === this.navigateToPath) {
-                this.navigated = false;
+        handleClick(event) {
+            // skip for navigation, let viewControl handle click
+            if ([this.$refs.navUp.$el, this.$refs.navDown.$el].includes(event.target)) {
+                return;
             }
+
+            event.stopPropagation();
+            this.$refs.objectLabel.navigateOrPreview(event);
+        },
+        handleContextMenu(event) {
+            event.stopPropagation();
+            this.$refs.objectLabel.showContextMenu(event);
+        },
+        isNavigated() {
+            return this.navigationPath === this.openmct.router.currentLocation.path;
+        },
+        highlightIfNavigated() {
+            this.navigated = this.isNavigated();
         },
         resetTreeHere() {
             this.$emit('resetTree', this.node);
+        },
+        setContextClickActive(active) {
+            this.contextClickActive = active;
         }
     }
 };

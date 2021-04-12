@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -34,6 +34,9 @@ export default class ConditionManager extends EventEmitter {
         this.composition = this.openmct.composition.get(conditionSetDomainObject);
         this.composition.on('add', this.subscribeToTelemetry, this);
         this.composition.on('remove', this.unsubscribeFromTelemetry, this);
+
+        this.shouldEvaluateNewTelemetry = this.shouldEvaluateNewTelemetry.bind(this);
+
         this.compositionLoad = this.composition.load();
         this.subscriptions = {};
         this.telemetryObjects = {};
@@ -79,6 +82,17 @@ export default class ConditionManager extends EventEmitter {
         delete this.subscriptions[id];
         delete this.telemetryObjects[id];
         this.removeConditionTelemetryObjects();
+
+        //force re-computation of condition set result as we might be in a state where
+        // there is no telemetry datum coming in for a while or at all.
+        let latestTimestamp = getLatestTimestamp(
+            {},
+            {},
+            this.timeSystems,
+            this.openmct.time.timeSystem()
+        );
+        this.updateConditionResults({id: id});
+        this.updateCurrentCondition(latestTimestamp);
     }
 
     initialize() {
@@ -326,6 +340,10 @@ export default class ConditionManager extends EventEmitter {
         return false;
     }
 
+    shouldEvaluateNewTelemetry(currentTimestamp) {
+        return this.openmct.time.bounds().end >= currentTimestamp;
+    }
+
     telemetryReceived(endpoint, datum) {
         if (!this.isTelemetryUsed(endpoint)) {
             return;
@@ -334,16 +352,21 @@ export default class ConditionManager extends EventEmitter {
         const normalizedDatum = this.createNormalizedDatum(datum, endpoint);
         const timeSystemKey = this.openmct.time.timeSystem().key;
         let timestamp = {};
-        timestamp[timeSystemKey] = normalizedDatum[timeSystemKey];
+        const currentTimestamp = normalizedDatum[timeSystemKey];
+        timestamp[timeSystemKey] = currentTimestamp;
+        if (this.shouldEvaluateNewTelemetry(currentTimestamp)) {
+            this.updateConditionResults(normalizedDatum);
+            this.updateCurrentCondition(timestamp);
+        }
+    }
 
+    updateConditionResults(normalizedDatum) {
         //We want to stop when the first condition evaluates to true.
         this.conditions.some((condition) => {
             condition.updateResult(normalizedDatum);
 
             return condition.result === true;
         });
-
-        this.updateCurrentCondition(timestamp);
     }
 
     updateCurrentCondition(timestamp) {

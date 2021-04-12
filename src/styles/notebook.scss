@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Open MCT, Copyright (c) 2014-2020, United States Government
+ * Open MCT, Copyright (c) 2014-2021, United States Government
  * as represented by the Administrator of the National Aeronautics and Space
  * Administration. All rights reserved.
  *
@@ -21,10 +21,17 @@
  *****************************************************************************/
 
 /*********************************************** NOTEBOOK */
+@mixin searchHighlight {
+    background: rgba($colorBtnSelectedBg, 0.4);
+    color: $colorBtnSelectedFg;
+    font-weight: bold;
+}
+
 .c-notebook {
     $headerFontSize: 1.3em;
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
     overflow: hidden;
     height: 100%;
 
@@ -188,6 +195,7 @@
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
+        overflow-y: auto;
 
         > * + * {
             margin-top: 5px;
@@ -212,17 +220,16 @@
     }
 }
 
-.is-notebook-default {
+.is-notebook-default,
+.is-status--notebook-default {
     &:after {
         color: $colorFilter;
-        content: $glyph-icon-notebook-page;
-        display: block;
         font-family: symbolsfont;
         font-size: 0.9em;
-        margin-left: $interiorMargin;
     }
 
     &.c-list__item:after {
+        content: $glyph-icon-notebook-page;
         flex: 1 0 auto;
         text-align: right;
     }
@@ -274,23 +281,33 @@
 
     &__text {
         min-height: 22px; // Needed in Firefox when field is blank
-        white-space: pre-wrap;
 
-        &.is-blank-notebook-entry {
-            &:not(:focus):before {
-                content: 'Blank entry';
-                font-style: italic;
-                opacity: 0.5;
-            }
+        &:not(.highlight) {
+            white-space: pre-wrap;
+        }
+
+        .search-highlight {
+            @include searchHighlight();
         }
     }
 
-    &__embeds {
-        //flex-wrap: wrap;
+    &__input {
+        // Appended to __text element when Notebook is not in readOnly mode
+        @include inlineInput;
+        padding-left: $inputTextPLeftRight;
+        padding-right: $inputTextPLeftRight;
 
-        > [class*="__embed"] {
-            //margin: 0 $interiorMarginSm $interiorMarginSm 0;
+        @include hover {
+            &:not(:focus) {
+                background: rgba($colorBodyFg, 0.1);
+            }
         }
+
+        &:focus {
+            background: $colorInputBg;
+        }
+
+        white-space: pre-wrap;
     }
 
     &__section-and-page {
@@ -301,6 +318,10 @@
         align-items: center;
         align-self: flex-start;
         padding: $interiorMargin;
+
+        .search-highlight {
+            @include searchHighlight();
+        }
 
         > * + * {
             margin-left: $interiorMargin;
