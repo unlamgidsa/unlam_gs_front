@@ -1,0 +1,4720 @@
+{
+    "mine": {
+        "name": "My Items",
+        "type": "folder",
+        "composition": [
+            "demodash"
+        ],
+        "location": "ROOT",
+        "modified": 1603741071334,
+        "persisted": 1603741070886
+    },
+    "7ed0964a-cdbf-416e-9be0-6412171021d0": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.temp_imo_c",
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "TEMPS",
+        "type": "telemetry.plot.overlay",
+        "location": "ea8fafd0-866c-4ca1-acc4-9f0638e99023",
+        "modified": 1603387740570,
+        "persisted": 1603387733238
+    },
+    "e839fb58-8bc2-479f-b148-8a890a754457": {
+        "composition": [],
+        "configuration": {
+            "items": [
+                {
+                    "stroke": "transparent",
+                    "x": 1,
+                    "y": 1,
+                    "width": 25,
+                    "height": 22,
+                    "url": "https://ugs.unlam.edu.ar/favicons/bugsat1.png",
+                    "type": "image-view",
+                    "id": "553602b2-a316-4221-ab74-216728d52d14"
+                },
+                {
+                    "width": 40,
+                    "height": 23,
+                    "x": 2,
+                    "y": 38,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "fb92ed9a-573e-41e1-b187-939b21404c13"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "e29dd8be-8dc1-4139-a1b4-cf12a2298cad"
+                }
+            ],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Thermal_Power",
+        "type": "layout",
+        "location": "ea8fafd0-866c-4ca1-acc4-9f0638e99023",
+        "modified": 1603388796237,
+        "persisted": 1603388795936
+    },
+    "ec63b34c-f64d-4691-ab65-9dbde6eb6dc1": {
+        "composition": [],
+        "configuration": {
+            "items": [
+                {
+                    "fill": "#717171",
+                    "stroke": "",
+                    "x": 45,
+                    "y": 13,
+                    "width": 10,
+                    "height": 5,
+                    "type": "box-view",
+                    "id": "f2e389f3-35c4-4fcf-af56-1d8fe73dec9e"
+                }
+            ],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Thermal, Power and others",
+        "type": "layout",
+        "location": "97432152-9e70-4852-ae22-ab7f6ddd4d3e",
+        "modified": 1603389280379,
+        "persisted": 1603389274882
+    },
+    "ac963db0-8830-4bfb-8f68-3cc0f97cf996": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.temp_imo_c",
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "Temps",
+        "type": "telemetry.plot.overlay",
+        "location": "7290f681-6cb3-4b1e-b04c-91dcf1a896db",
+        "modified": 1603389759754,
+        "persisted": 1603389754863
+    },
+    "9fbb3e45-f0f2-4d9a-b6b4-078c2d6b63b3": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock24"
+        ],
+        "timezone": "UTC",
+        "name": "UTC CLOCK",
+        "type": "clock",
+        "location": "873be589-9096-442b-a787-9e9db6b5d979",
+        "modified": 1603391897229,
+        "persisted": 1603391897129
+    },
+    "790e5a82-41f7-4843-ad9c-bdbfb5d87d70": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock12"
+        ],
+        "timezone": "UTC",
+        "name": "Reloj ejemplo",
+        "type": "clock",
+        "modified": 1596225759589,
+        "location": "mine",
+        "persisted": 1596225759589
+    },
+    "cba6697f-4bba-4b3c-9580-2e4dd5b61541": {
+        "timerFormat": "DDD hh:mm:ss",
+        "name": "Reloj admin",
+        "type": "timer",
+        "modified": 1596733493018,
+        "location": "mine",
+        "persisted": 1596733493018
+    },
+    "6032b6db-8d03-48ac-b55e-ae3a75554ae0": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock12"
+        ],
+        "timezone": "UTC",
+        "name": "Reloj admin",
+        "type": "clock",
+        "modified": 1596733523728,
+        "location": "mine",
+        "persisted": 1596733523728
+    },
+    "faa14997-86d3-450a-91fe-3c9561d1c9ce": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock12"
+        ],
+        "timezone": "UTC",
+        "name": "Unnamed Clock",
+        "type": "clock",
+        "modified": 1596733738172,
+        "location": "mine",
+        "persisted": 1596733738172
+    },
+    "3eb4beac-d060-4def-ad03-7f23af1ead52": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock12"
+        ],
+        "timezone": "UTC",
+        "name": "Unnamed Clock",
+        "type": "clock",
+        "modified": 1596733844155,
+        "location": "mine",
+        "persisted": 1596733844155
+    },
+    "c731288e-d33d-450a-8404-21caceacb911": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock12"
+        ],
+        "timezone": "UTC",
+        "name": "Unnamed Clock",
+        "type": "clock",
+        "modified": 1596733970554,
+        "location": "mine",
+        "persisted": 1596733970554
+    },
+    "198aa2bf-dcd2-4e6e-831f-8c5176984dcc": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock12"
+        ],
+        "timezone": "UTC",
+        "name": "Unnamed Clock",
+        "type": "clock",
+        "modified": 1596734293761,
+        "location": "mine",
+        "persisted": 1596734293761
+    },
+    "35cc1f17-a8c9-42c0-9f50-7c060e239e10": {
+        "composition": [],
+        "configuration": {
+            "items": [],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Prueba",
+        "type": "layout",
+        "modified": 1597357159962,
+        "location": "mine",
+        "persisted": 1597357159962
+    },
+    "62a8b22c-50a0-4187-b854-1d9622699fcc": {
+        "composition": [
+            "FS2017.telemetry:FS2017.antSA1Deploying",
+            "FS2017.telemetry:FS2017.obcT2",
+            "FS2017.telemetry:FS2017.BattV"
+        ],
+        "configuration": {},
+        "name": "Stacked Plots",
+        "type": "telemetry.plot.stacked",
+        "modified": 1597357215066,
+        "location": "mine",
+        "persisted": 1597357215066
+    },
+    "fba3f357-96cb-4c4a-8292-165c08a0ff3a": {
+        "composition": [
+            "FS2017.telemetry:FS2017.obcT1",
+            "FS2017.telemetry:FS2017.BattV",
+            "FS2017.telemetry:FS2017.PktN"
+        ],
+        "configuration": {},
+        "name": "Stacked Plot",
+        "type": "telemetry.plot.stacked",
+        "modified": 1597357370820,
+        "location": "mine",
+        "persisted": 1597357370820
+    },
+    "0340309c-23df-4f18-ac82-0a66f44a3a7a": {
+        "composition": [
+            "TITA.telemetry:TITA.magnetometer_z",
+            "TITA.telemetry:TITA.magnetometer_y",
+            "TITA.telemetry:TITA.magnetometer_x"
+        ],
+        "configuration": {
+            "items": [
+                {
+                    "stroke": "transparent",
+                    "x": 0,
+                    "y": 0,
+                    "width": 72,
+                    "height": 60,
+                    "url": "https://www.adcolemai.com/wp-content/uploads/2018/10/6u-12u-cubesat.png",
+                    "type": "image-view",
+                    "id": "cb9ac0aa-5f0e-4914-b3ac-85980f452267"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_z"
+                    },
+                    "x": 65,
+                    "y": 5,
+                    "width": 28,
+                    "height": 4,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "transparent",
+                    "fill": "transparent",
+                    "color": "",
+                    "size": "13px",
+                    "type": "telemetry-view",
+                    "id": "22436087-aa30-4657-9446-f529277403fd"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_y"
+                    },
+                    "x": 65,
+                    "y": 9,
+                    "width": 28,
+                    "height": 4,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "transparent",
+                    "fill": "transparent",
+                    "color": "",
+                    "size": "13px",
+                    "type": "telemetry-view",
+                    "id": "3cfea853-32a4-48cf-a32b-087b0c9959d4"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_x"
+                    },
+                    "x": 65,
+                    "y": 1,
+                    "width": 28,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "transparent",
+                    "fill": "transparent",
+                    "color": "",
+                    "size": "13px",
+                    "type": "telemetry-view",
+                    "id": "2d612bc3-7aee-4263-8150-e5dfc1de0986"
+                }
+            ],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "TITA(Bugsat1)",
+        "type": "layout",
+        "modified": 1597783260559,
+        "location": "mine",
+        "persisted": 1597783260559
+    },
+    "11ef30ba-7f7e-4a2e-b071-cd9067ea3f08": {
+        "configuration": {
+            "containers": [
+                {
+                    "id": "126f49dc-8357-43fa-b11e-1afb8c4c4e9e",
+                    "frames": [],
+                    "size": 50
+                },
+                {
+                    "id": "d47d4d27-7a98-478a-9388-b2f893466973",
+                    "frames": [],
+                    "size": 50
+                }
+            ],
+            "rowsLayout": false
+        },
+        "composition": [],
+        "name": "FL",
+        "type": "flexible-layout",
+        "modified": 1597783525962,
+        "location": "mine",
+        "persisted": 1597783525962
+    },
+    "767af414-c207-48c4-a6db-c4e7a15bf2da": {
+        "composition": [],
+        "configuration": {
+            "items": [],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Bugsat_1",
+        "type": "layout",
+        "modified": 1597784117611,
+        "location": "mine",
+        "persisted": 1597784117611
+    },
+    "49490743-03d5-489f-b411-e2e869347ccd": {
+        "composition": [],
+        "configuration": {
+            "items": [],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Unnamed Display Layout",
+        "type": "layout",
+        "modified": 1597956912845,
+        "location": "mine",
+        "persisted": 1597956912845
+    },
+    "35039702-5084-46a1-bf89-d14661a1d0a6": {
+        "composition": [],
+        "configuration": {
+            "items": [],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Unnamed Display Layout",
+        "type": "layout",
+        "modified": 1597957603907,
+        "location": "mine",
+        "persisted": 1597957603907
+    },
+    "12e14c01-e01e-44b8-9aa3-cbfb54dad09d": {
+        "composition": [],
+        "configuration": {
+            "items": [],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Unnamed Display Layout",
+        "type": "layout",
+        "modified": 1597958892751,
+        "location": "mine",
+        "persisted": 1597958892751
+    },
+    "670360f2-f658-4adf-a38b-1409168e27aa": {
+        "composition": [],
+        "configuration": {
+            "items": [],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Unnamed Display Layout",
+        "type": "layout",
+        "modified": 1598121908854,
+        "location": "mine",
+        "persisted": 1598121908854
+    },
+    "240bfdbc-7b60-45fd-baac-886c0040fbcc": {
+        "composition": [],
+        "configuration": {
+            "items": [],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Unnamed Display Layout",
+        "type": "layout",
+        "modified": 1598122619541,
+        "location": "mine",
+        "persisted": 1598122619541
+    },
+    "0b5fe42d-6c10-460d-a29d-9fa3b20e82e5": {
+        "composition": [],
+        "configuration": {
+            "items": [],
+            "layoutGrid": [
+                10,
+                10
+            ]
+        },
+        "name": "Unnamed Display Layout",
+        "type": "layout",
+        "modified": 1598124286485,
+        "location": "mine",
+        "persisted": 1598124286485
+    },
+    "5c42f14c-0258-471c-aee1-364d76fff3fc": {
+        "configuration": {
+            "containers": [
+                {
+                    "id": "7d706ca8-c4e5-444d-8256-10c2fd999105",
+                    "frames": [],
+                    "size": 50
+                },
+                {
+                    "id": "780d5b78-ddc2-4921-8bec-15f630d83988",
+                    "frames": [],
+                    "size": 50
+                }
+            ],
+            "rowsLayout": false
+        },
+        "composition": [],
+        "name": "Unnamed Flexible Layout",
+        "type": "flexible-layout",
+        "modified": 1598124406157,
+        "location": "mine",
+        "persisted": 1598124406157
+    },
+    "d49fc07c-b306-4263-b272-6c44af300a23": {
+        "composition": [],
+        "name": "Unnamed LAD Table",
+        "type": "LadTable",
+        "modified": 1598124456368,
+        "location": "mine",
+        "persisted": 1598124456368
+    },
+    "69d17799-9969-4494-b075-193f17fa673b": {
+        "timerFormat": "DDD hh:mm:ss",
+        "name": "Unnamed Timer",
+        "type": "timer",
+        "location": "mine",
+        "modified": 1600798030539,
+        "persisted": 1600798030524
+    },
+    "d052ea7c-99a1-4c53-aa50-76f269a6293f": {
+        "composition": [
+            "6a9ed15f-4316-4261-918f-54c1af0d012d",
+            "7ecc6300-0cdf-4b12-b2a4-4ffe7eba3faf",
+            "cb1835a8-7970-4d9e-833c-0ca67dbeb7cd",
+            "e4ec7290-1bb5-43f0-80b3-317d02bf1c87",
+            "TITA.telemetry:TITA.CPU_C",
+            "b8616438-3f87-497f-899b-cdb891e8a7a8",
+            "a482519b-7324-400b-90ed-ede2990d82cc",
+            "da0e6f80-4d8c-494f-8238-2f0a7a1d77fb",
+            "2991c950-5fc0-441e-a0e7-d06c03c0c593",
+            "TITA.telemetry:TITA.nice_battery",
+            "TITA.telemetry:TITA.current_state"
+        ],
+        "configuration": {
+            "items": [
+                {
+                    "width": 12,
+                    "height": 3,
+                    "x": 0,
+                    "y": 0,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "6a9ed15f-4316-4261-918f-54c1af0d012d"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "fad4fece-b80c-493c-a63c-6901d51486c5"
+                },
+                {
+                    "width": 12,
+                    "height": 3,
+                    "x": 12,
+                    "y": 0,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "7ecc6300-0cdf-4b12-b2a4-4ffe7eba3faf"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "3bfd8eaa-de08-47f9-b28f-f1e427e8df63"
+                },
+                {
+                    "width": 24,
+                    "height": 26,
+                    "x": 0,
+                    "y": 3,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "cb1835a8-7970-4d9e-833c-0ca67dbeb7cd"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "174e08bc-f2af-491f-a7f8-d569308e373c"
+                },
+                {
+                    "width": 9,
+                    "height": 3,
+                    "x": 24,
+                    "y": 22,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "e4ec7290-1bb5-43f0-80b3-317d02bf1c87"
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "292a2221-d7d7-4e6d-a49e-34f3f990cc4c"
+                },
+                {
+                    "stroke": "transparent",
+                    "x": 33,
+                    "y": 0,
+                    "width": 20,
+                    "height": 24,
+                    "url": "https://gtm-as.com/wp-content/uploads/2017/08/CubeSat-with-payload_cut-out-3.png",
+                    "type": "image-view",
+                    "id": "72c623f1-e06f-4c4f-bc0e-16b9f97accbe"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    },
+                    "x": 25,
+                    "y": 1,
+                    "width": 7,
+                    "height": 3,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "13px",
+                    "type": "telemetry-view",
+                    "id": "58dc525a-93da-4c31-9ac9-ed80446afcab"
+                },
+                {
+                    "x": 43,
+                    "y": 13,
+                    "x2": 32,
+                    "y2": 4,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "17f514ca-663f-4cf1-9fb4-7b0f31b53b49"
+                },
+                {
+                    "width": 9,
+                    "height": 8,
+                    "x": 24,
+                    "y": 14,
+                    "identifier": {
+                        "key": "b8616438-3f87-497f-899b-cdb891e8a7a8",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "ebad6834-609f-4570-b784-f2c775d11b51"
+                },
+                {
+                    "x": 32,
+                    "y": 15,
+                    "x2": 38,
+                    "y2": 13,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "e04842c9-a09b-45c8-807e-f55be41190f6"
+                },
+                {
+                    "width": 16,
+                    "height": 13,
+                    "x": 24,
+                    "y": 25,
+                    "identifier": {
+                        "key": "a482519b-7324-400b-90ed-ede2990d82cc",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "e979c53d-f2c4-4382-81da-bec8ba6881c1"
+                },
+                {
+                    "x": 32,
+                    "y": 23,
+                    "x2": 43,
+                    "y2": 15,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "65468028-aa88-4ce0-9891-032de97a2ae8"
+                },
+                {
+                    "width": 16,
+                    "height": 13,
+                    "x": 40,
+                    "y": 25,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "da0e6f80-4d8c-494f-8238-2f0a7a1d77fb"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "6cffa596-d67c-4786-8e9f-d3d474edfb38"
+                },
+                {
+                    "width": 24,
+                    "height": 9,
+                    "x": 0,
+                    "y": 29,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "2991c950-5fc0-441e-a0e7-d06c03c0c593"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "a9843fc5-72f6-4a0e-8a42-ca4f4e70d675"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    },
+                    "x": 24,
+                    "y": 4,
+                    "width": 8,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "13px",
+                    "type": "telemetry-view",
+                    "id": "1a63ef43-f9cc-46f0-ba60-534c0281df59"
+                },
+                {
+                    "x": 43,
+                    "y": 14,
+                    "x2": 31,
+                    "y2": 7,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "4a30bb7e-33cd-479a-a4d0-b1fa394cc403"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.current_state"
+                    },
+                    "x": 24,
+                    "y": 9,
+                    "width": 7,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "13px",
+                    "type": "telemetry-view",
+                    "id": "68d4d58b-5771-42ef-997f-4340f58a638e"
+                },
+                {
+                    "x": 37,
+                    "y": 12,
+                    "x2": 31,
+                    "y2": 11,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "6465246d-e805-4d25-9431-1678e6fd1c72"
+                }
+            ],
+            "layoutGrid": [
+                20,
+                20
+            ],
+            "objectStyles": {
+                "17f514ca-663f-4cf1-9fb4-7b0f31b53b49": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #85200c"
+                        }
+                    },
+                    "styles": [
+                        {
+                            "conditionId": "fa0fd0e2-84f0-4c52-bec2-6a6cbff8f2cc",
+                            "style": {
+                                "border": "1px solid #a61c00",
+                                "isStyleInvisible": ""
+                            }
+                        },
+                        {
+                            "conditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                            "style": {
+                                "border": "1px solid #6aa84f",
+                                "isStyleInvisible": ""
+                            }
+                        }
+                    ],
+                    "selectedConditionId": "fa0fd0e2-84f0-4c52-bec2-6a6cbff8f2cc",
+                    "defaultConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "conditionSetIdentifier": {
+                        "namespace": "",
+                        "key": "76d5858a-2761-47c1-a4bd-c2a0c39cc1d2"
+                    }
+                },
+                "e04842c9-a09b-45c8-807e-f55be41190f6": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #a61c00"
+                        }
+                    },
+                    "styles": [
+                        {
+                            "conditionId": "29a981ba-4d77-4147-b2ad-91859aa465c8",
+                            "style": {
+                                "border": "1px solid #a61c00",
+                                "isStyleInvisible": ""
+                            }
+                        },
+                        {
+                            "conditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                            "style": {
+                                "border": "1px solid #93c47d",
+                                "isStyleInvisible": ""
+                            }
+                        }
+                    ],
+                    "selectedConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "defaultConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "conditionSetIdentifier": {
+                        "namespace": "",
+                        "key": "c730e658-4240-4b60-aa4e-b08ceb16af5f"
+                    }
+                },
+                "65468028-aa88-4ce0-9891-032de97a2ae8": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #a61c00"
+                        }
+                    },
+                    "styles": [
+                        {
+                            "conditionId": "2ae9b196-69cb-41fe-b871-e68620024411",
+                            "style": {
+                                "border": "1px solid #a61c00",
+                                "isStyleInvisible": ""
+                            }
+                        },
+                        {
+                            "conditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                            "style": {
+                                "border": "1px solid #93c47d",
+                                "isStyleInvisible": ""
+                            }
+                        }
+                    ],
+                    "selectedConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "defaultConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "conditionSetIdentifier": {
+                        "namespace": "",
+                        "key": "126876e3-99e5-4871-b4e1-e25a8f17b37a"
+                    }
+                },
+                "4a30bb7e-33cd-479a-a4d0-b1fa394cc403": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #a61c00"
+                        }
+                    },
+                    "styles": [
+                        {
+                            "conditionId": "2ae9b196-69cb-41fe-b871-e68620024411",
+                            "style": {
+                                "border": "1px solid #a61c00",
+                                "isStyleInvisible": ""
+                            }
+                        },
+                        {
+                            "conditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                            "style": {
+                                "border": "1px solid #93c47d",
+                                "isStyleInvisible": ""
+                            }
+                        }
+                    ],
+                    "selectedConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "defaultConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "conditionSetIdentifier": {
+                        "namespace": "",
+                        "key": "126876e3-99e5-4871-b4e1-e25a8f17b37a"
+                    }
+                },
+                "6465246d-e805-4d25-9431-1678e6fd1c72": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #a61c00"
+                        }
+                    },
+                    "styles": [
+                        {
+                            "conditionId": "e4602aba-5480-4cbc-9738-041e88015415",
+                            "style": {
+                                "border": "1px solid #a61c00",
+                                "isStyleInvisible": ""
+                            }
+                        },
+                        {
+                            "conditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                            "style": {
+                                "border": "1px solid #93c47d",
+                                "isStyleInvisible": ""
+                            }
+                        }
+                    ],
+                    "selectedConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "defaultConditionId": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "conditionSetIdentifier": {
+                        "namespace": "",
+                        "key": "33404d33-3f71-409e-9e18-4e3bf5e06982"
+                    }
+                }
+            }
+        },
+        "name": "DL - TITA",
+        "type": "layout",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601517193235,
+        "notes": "Display Layout de prueba para TITA",
+        "persisted": 1601517192807,
+        "id": "d052ea7c-99a1-4c53-aa50-76f269a6293f"
+    },
+    "6a9ed15f-4316-4261-918f-54c1af0d012d": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock24"
+        ],
+        "timezone": "America/Argentina/Buenos_Aires",
+        "name": "Reloj - Argentina",
+        "type": "clock",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601394340212,
+        "persisted": 1601394340195,
+        "id": "6a9ed15f-4316-4261-918f-54c1af0d012d"
+    },
+    "7ecc6300-0cdf-4b12-b2a4-4ffe7eba3faf": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock24"
+        ],
+        "timezone": "UTC",
+        "name": "Reloj - UTC",
+        "type": "clock",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601394561112,
+        "persisted": 1601394561039
+    },
+    "1ad4b3ee-4f1e-4c12-ad11-ab8d69f8e24d": {
+        "configuration": {
+            "containers": [
+                {
+                    "id": "180df428-b07a-48db-8cbb-72d857411169",
+                    "frames": [],
+                    "size": 50
+                },
+                {
+                    "id": "6acefb3a-39c5-4a62-b2cf-b99c35b4b795",
+                    "frames": [],
+                    "size": 50
+                }
+            ],
+            "rowsLayout": false
+        },
+        "composition": [],
+        "name": "FL - TITA",
+        "type": "flexible-layout",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601394673859,
+        "persisted": 1601394667145
+    },
+    "ad00c68a-9c4e-4224-931a-d136a0b46dc3": {
+        "composition": [],
+        "configuration": {
+            "ruleOrder": [
+                "default"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "Default",
+                    "label": "Unnamed Rule",
+                    "message": "",
+                    "id": "default",
+                    "icon": " ",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": "true"
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "",
+                    "key": "",
+                    "value": ""
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Summary 1",
+        "type": "summary-widget",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601394736484,
+        "persisted": 1601394736463
+    },
+    "a21b75dc-5add-4715-9498-8a193d833ba8": {
+        "composition": [
+            "TITA.telemetry:TITA.gyro_z"
+        ],
+        "configuration": {
+            "columnWidths": {},
+            "hiddenColumns": {},
+            "columnOrder": [],
+            "cellFormat": {},
+            "autosize": true
+        },
+        "name": "Tabla - Gyro_x",
+        "type": "table",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601394840626,
+        "persisted": 1601394830779
+    },
+    "cb1835a8-7970-4d9e-833c-0ca67dbeb7cd": {
+        "configuration": {
+            "containers": [
+                {
+                    "id": "443d87c4-0138-41a5-86f0-8ec73b057c86",
+                    "frames": [
+                        {
+                            "id": "b2840b0f-8550-4eb8-a033-cc3c2d0f8c0c",
+                            "domainObjectIdentifier": {
+                                "namespace": "TITA.telemetry",
+                                "key": "TITA.gyro_x"
+                            },
+                            "size": 100,
+                            "noFrame": false
+                        }
+                    ],
+                    "size": 41
+                },
+                {
+                    "id": "4d7cb0da-ae10-4a7b-aea6-c2b94315626c",
+                    "frames": [
+                        {
+                            "id": "fbd9c006-5287-4837-9d64-1896240a6332",
+                            "domainObjectIdentifier": {
+                                "namespace": "",
+                                "key": "a21b75dc-5add-4715-9498-8a193d833ba8"
+                            },
+                            "size": 100,
+                            "noFrame": false
+                        }
+                    ],
+                    "size": 59
+                }
+            ],
+            "rowsLayout": true
+        },
+        "composition": [
+            "a21b75dc-5add-4715-9498-8a193d833ba8",
+            "TITA.telemetry:TITA.gyro_x"
+        ],
+        "name": "Gyro_x - Table&Grid",
+        "type": "flexible-layout",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601395298481,
+        "persisted": 1601395282029
+    },
+    "96b2a33d-4849-40db-ac55-4f79827299ee": {
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "OK",
+                    "label": "BatteryOK",
+                    "message": "",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "Failing",
+                    "label": "BatteryFailing",
+                    "message": "",
+                    "id": "rule0",
+                    "icon": "icon-alert-rect",
+                    "style": {
+                        "color": "#cccccc",
+                        "background-color": "#ff0000",
+                        "border-color": "#980000"
+                    },
+                    "description": "when nice_battery's Value  < 10  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.nice_battery",
+                            "key": "value",
+                            "operation": "lessThan",
+                            "values": [
+                                10
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.nice_battery",
+                    "key": "value",
+                    "value": 9
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Battery - Summary",
+        "type": "summary-widget",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601395220879,
+        "persisted": 1601395213614
+    },
+    "9c1c8e8b-26c1-49ec-ac36-347ac285b4d4": {
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "OK",
+                    "label": "BatteryOK",
+                    "message": "",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "Fail",
+                    "label": "BatteryFailing",
+                    "message": "",
+                    "id": "rule0",
+                    "icon": "icon-alert-rect",
+                    "style": {
+                        "color": "#cccccc",
+                        "background-color": "#a61c00",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "when nice_battery's Value  < 10  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.nice_battery",
+                            "key": "value",
+                            "operation": "lessThan",
+                            "values": [
+                                10
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "all",
+                    "expanded": "true"
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "",
+                    "key": "",
+                    "value": ""
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Battery - Summary",
+        "type": "summary-widget",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601395429828,
+        "persisted": 1601395421959
+    },
+    "f2f64735-4ed5-457c-b2e6-88a9c7504fc0": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {},
+        "name": "mirror_cell_C",
+        "location": "d052ea7c-99a1-4c53-aa50-76f269a6293f",
+        "created": 1601396168256,
+        "modified": 1601396271445,
+        "persisted": 1601396168257
+    },
+    "c2115f39-67bd-42fa-bcc4-156171408bc1": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "mirror_cell_C",
+        "location": "d052ea7c-99a1-4c53-aa50-76f269a6293f",
+        "created": 1601396171092,
+        "modified": 1601396271446,
+        "persisted": 1601396171337
+    },
+    "cc3a028c-4908-42cf-8293-6d288f800596": {
+        "type": "table",
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "columnWidths": {},
+            "hiddenColumns": {}
+        },
+        "name": "mirror_cell_C",
+        "location": "d052ea7c-99a1-4c53-aa50-76f269a6293f",
+        "created": 1601396177661,
+        "modified": 1601396271446,
+        "persisted": 1601396177662
+    },
+    "d19450f5-9ad9-48e4-840f-669f72986fea": {
+        "type": "table",
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "columnWidths": {},
+            "hiddenColumns": {}
+        },
+        "name": "mirror_cell_C",
+        "location": "d052ea7c-99a1-4c53-aa50-76f269a6293f",
+        "created": 1601515468124,
+        "modified": 1601515594741,
+        "persisted": 1601515468124
+    },
+    "b8616438-3f87-497f-899b-cdb891e8a7a8": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "mirror_cell_C",
+        "location": "d052ea7c-99a1-4c53-aa50-76f269a6293f",
+        "created": 1601515470821,
+        "modified": 1601515594743,
+        "persisted": 1601515471033
+    },
+    "ac993e31-4ad2-4bde-8246-1fb8c7e8cecd": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {},
+        "name": "nice_battery",
+        "location": "d052ea7c-99a1-4c53-aa50-76f269a6293f",
+        "created": 1601515517995,
+        "modified": 1601515594745,
+        "persisted": 1601515517996
+    },
+    "a482519b-7324-400b-90ed-ede2990d82cc": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "nice_battery",
+        "location": "d052ea7c-99a1-4c53-aa50-76f269a6293f",
+        "created": 1601515519771,
+        "modified": 1601515594745,
+        "persisted": 1601515519943
+    },
+    "2991c950-5fc0-441e-a0e7-d06c03c0c593": {
+        "composition": [
+            "TITA.telemetry:TITA.gyro_y",
+            "TITA.telemetry:TITA.gyro_z",
+            "TITA.telemetry:TITA.magnetometer_x",
+            "TITA.telemetry:TITA.magnetometer_y",
+            "TITA.telemetry:TITA.magnetometer_z",
+            "TITA.telemetry:TITA.gyro_x"
+        ],
+        "name": "LAD - TITA",
+        "type": "LadTable",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601515705145,
+        "persisted": 1601515696388
+    },
+    "76d5858a-2761-47c1-a4bd-c2a0c39cc1d2": {
+        "configuration": {
+            "conditionTestData": [
+                {
+                    "telemetry": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    },
+                    "metadata": "value",
+                    "input": "",
+                    "value": "1"
+                }
+            ],
+            "conditionCollection": [
+                {
+                    "id": "fa0fd0e2-84f0-4c52-bec2-6a6cbff8f2cc",
+                    "configuration": {
+                        "name": "Fail",
+                        "output": "Failing",
+                        "trigger": "all",
+                        "criteria": [
+                            {
+                                "id": "f8a71867-2969-46be-9186-c52eb8911a8c",
+                                "telemetry": {
+                                    "namespace": "TITA.telemetry",
+                                    "key": "TITA.CPU_C"
+                                },
+                                "operation": "lessThan",
+                                "input": [
+                                    "10"
+                                ],
+                                "metadata": "value"
+                            }
+                        ]
+                    },
+                    "summary": "Match if all criteria are met:  CPU_C Value  < 10 "
+                },
+                {
+                    "isDefault": true,
+                    "id": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "configuration": {
+                        "name": "OK",
+                        "output": "OK",
+                        "trigger": "all",
+                        "criteria": []
+                    },
+                    "summary": ""
+                }
+            ]
+        },
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C"
+        ],
+        "telemetry": {},
+        "name": "CPU - Condition Set",
+        "type": "conditionSet",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1603740994210,
+        "persisted": 1603740994200
+    },
+    "f1fd9db1-f79c-4251-817d-d6153dcab8cf": {
+        "configuration": {
+            "conditionTestData": [
+                {
+                    "telemetry": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    },
+                    "metadata": "",
+                    "input": ""
+                }
+            ],
+            "conditionCollection": [
+                {
+                    "id": "442ea4b7-e643-41fa-92df-15a653f4a947",
+                    "configuration": {
+                        "name": "Failing",
+                        "output": "Failing",
+                        "trigger": "all",
+                        "criteria": [
+                            {
+                                "id": "9810a20f-88c5-46a2-a908-596fb225c689",
+                                "telemetry": {
+                                    "namespace": "TITA.telemetry",
+                                    "key": "TITA.nice_battery"
+                                },
+                                "operation": "lessThan",
+                                "input": [
+                                    "10"
+                                ],
+                                "metadata": "value"
+                            }
+                        ]
+                    },
+                    "summary": ""
+                },
+                {
+                    "isDefault": true,
+                    "id": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "configuration": {
+                        "name": "OK",
+                        "output": "OK",
+                        "trigger": "all",
+                        "criteria": []
+                    },
+                    "summary": ""
+                }
+            ]
+        },
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "telemetry": {},
+        "name": "Battery - Condition Set",
+        "type": "conditionSet",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601516261312,
+        "persisted": 1601516261157
+    },
+    "263186c9-b5bc-4d1c-8164-678aa4f9db17": {
+        "configuration": {
+            "conditionTestData": [
+                {
+                    "telemetry": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    },
+                    "metadata": "value",
+                    "input": ""
+                }
+            ],
+            "conditionCollection": [
+                {
+                    "id": "841212be-087a-41ac-bece-ad62b3e1bb09",
+                    "configuration": {
+                        "name": "Failing",
+                        "output": "Failing",
+                        "trigger": "all",
+                        "criteria": [
+                            {
+                                "id": "4226b17f-b913-4c9d-8973-a3a75244ed6e",
+                                "telemetry": {
+                                    "namespace": "TITA.telemetry",
+                                    "key": "TITA.nice_battery"
+                                },
+                                "operation": "lessThan",
+                                "input": [
+                                    "10"
+                                ],
+                                "metadata": "value"
+                            }
+                        ]
+                    },
+                    "summary": ""
+                },
+                {
+                    "isDefault": true,
+                    "id": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "configuration": {
+                        "name": "OK",
+                        "output": "OK",
+                        "trigger": "all",
+                        "criteria": []
+                    },
+                    "summary": ""
+                }
+            ]
+        },
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "telemetry": {},
+        "name": "Battery - Condition Set",
+        "type": "conditionSet",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601516369871,
+        "persisted": 1601516369802
+    },
+    "79a47855-3c35-489a-8d2e-98f1ec5e14cc": {
+        "composition": [
+            "d052ea7c-99a1-4c53-aa50-76f269a6293f",
+            "d0a700ec-f97e-4dad-82e9-78f55b74f065"
+        ],
+        "keep_alive": true,
+        "name": "TITA - Tab view",
+        "type": "tabs",
+        "location": "e2dc05b0-4049-4268-b316-b6a9470ca136",
+        "modified": 1601516990556,
+        "persisted": 1601516986701
+    },
+    "98b6d5ab-19b5-42c1-8a28-1e54addbccad": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C"
+        ],
+        "configuration": {},
+        "name": "CPU_C",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "created": 1602185057255,
+        "modified": 1602185131768,
+        "persisted": 1602185057255
+    },
+    "647af258-6b4f-42bd-9d2b-fef3f71158d6": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.temp_imo_c",
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "CPU_C",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "created": 1602185083667,
+        "modified": 1602185131777,
+        "persisted": 1602185121492
+    },
+    "970bfd81-76cb-495c-ac6f-b10ea4a02afd": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.temp_imo_c"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "TEMPERATURES",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "created": 1602185931241,
+        "modified": 1602535651952,
+        "persisted": 1602535651930,
+        "id": "970bfd81-76cb-495c-ac6f-b10ea4a02afd"
+    },
+    "f8ad43cc-fc0b-42c9-a00d-6498a43c9e83": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_3v3_a",
+            "TITA.telemetry:TITA.pcm_3v3_v"
+        ],
+        "configuration": {
+            "objectStyles": {
+                "selectedConditionId": "",
+                "staticStyle": {
+                    "style": {
+                        "backgroundColor": "#d9d9d9",
+                        "border": "1px solid #000000",
+                        "color": "#5b0f00"
+                    }
+                },
+                "styles": []
+            }
+        },
+        "name": "pcm_3v3_a",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "created": 1602186014539,
+        "modified": 1602701597984,
+        "persisted": 1602701527031,
+        "id": "f8ad43cc-fc0b-42c9-a00d-6498a43c9e83"
+    },
+    "42897325-7cf0-4b8f-b571-fdc44ace4500": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_5v_v",
+            "TITA.telemetry:TITA.pcm_5v_a"
+        ],
+        "configuration": {},
+        "name": "pcm_5v_v",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "created": 1602186099624,
+        "modified": 1602186143371,
+        "persisted": 1602186117820
+    },
+    "093e06b3-2e73-4fc1-9151-1588f6f0c3f1": {
+        "type": "table",
+        "composition": [
+            "TITA.telemetry:TITA.battery_amps"
+        ],
+        "configuration": {
+            "columnWidths": {},
+            "hiddenColumns": {},
+            "columnOrder": [],
+            "cellFormat": {},
+            "autosize": true,
+            "sortOptions": {
+                "key": "value",
+                "direction": "asc"
+            },
+            "hideHeaders": false
+        },
+        "name": "battery_amps",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "created": 1602186183181,
+        "modified": 1602730650956,
+        "persisted": 1602730650914,
+        "id": "093e06b3-2e73-4fc1-9151-1588f6f0c3f1"
+    },
+    "0fd1becb-5918-4db8-a1ef-0ea85584b1c4": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "nice_battery",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "created": 1602186422689,
+        "modified": 1602186516523,
+        "persisted": 1602186423638
+    },
+    "fe6b5ac4-f3a2-488c-9152-6113b6c022bb": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.uptime_s"
+                    },
+                    "color": "#ffcc00"
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {},
+            "legend": {
+                "hideLegendWhenSmall": true
+            }
+        },
+        "name": "uptime_s",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "created": 1602186486172,
+        "modified": 1602535521763,
+        "persisted": 1602535503290
+    },
+    "827eab64-cc99-4e11-a7e3-d3955cdf1cb0": {
+        "composition": [],
+        "name": "TITA_Widgets",
+        "type": "folder",
+        "location": "mine",
+        "modified": 1602265064285,
+        "notes": "TITA_Widgets",
+        "persisted": 1602265064272,
+        "id": "827eab64-cc99-4e11-a7e3-d3955cdf1cb0"
+    },
+    "0b8f3fc8-21b0-4f73-89f6-df9c8af128e9": {
+        "label": "Condition Widget",
+        "name": "3v3 AMP",
+        "type": "conditionWidget",
+        "location": "827eab64-cc99-4e11-a7e3-d3955cdf1cb0",
+        "modified": 1602264602983,
+        "persisted": 1602264586260
+    },
+    "49ac6869-bef7-40ce-aa86-07273148c822": {
+        "composition": [
+            "TITA.telemetry:TITA.pcm_3v3_a"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "Default",
+                    "label": "3v3 AMP Nominal",
+                    "message": "3v3 AMP Nominal",
+                    "id": "default",
+                    "icon": "icon-eye-open",
+                    "style": {
+                        "color": "#000000",
+                        "background-color": "#00ff00",
+                        "border-color": "#00ff00"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": true
+                },
+                "rule0": {
+                    "name": "3v3 OVER CURRENT",
+                    "label": "3v3 OVER CURRENT",
+                    "message": "",
+                    "id": "rule0",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#434343",
+                        "background-color": "#ff0000",
+                        "border-color": "#ff0000"
+                    },
+                    "description": "when pcm_3v3_a's Value  > 3  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.pcm_3v3_a",
+                            "key": "value",
+                            "operation": "greaterThan",
+                            "values": [
+                                3
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": true
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.pcm_3v3_a",
+                    "key": "value",
+                    "value": 3.5
+                },
+                {
+                    "object": "",
+                    "key": "",
+                    "value": ""
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "3v3 AMP",
+        "type": "summary-widget",
+        "location": "827eab64-cc99-4e11-a7e3-d3955cdf1cb0",
+        "modified": 1602264906867,
+        "notes": "3v3 AMP",
+        "persisted": 1602264891830
+    },
+    "cfd277fc-b86a-4635-b2d6-2ff6f0d81898": {
+        "composition": [
+            "TITA.telemetry:TITA.temp_imo_c",
+            "TITA.telemetry:TITA.CPU_C"
+        ],
+        "configuration": {},
+        "name": "Unnamed Stacked Plot",
+        "type": "telemetry.plot.stacked",
+        "location": "827eab64-cc99-4e11-a7e3-d3955cdf1cb0",
+        "modified": 1602265125327,
+        "persisted": 1602265120552
+    },
+    "da0e6f80-4d8c-494f-8238-2f0a7a1d77fb": {
+        "composition": [
+            "TITA.telemetry:TITA.magnetometer_x",
+            "TITA.telemetry:TITA.magnetometer_y",
+            "TITA.telemetry:TITA.magnetometer_z"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_x"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_y"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_z"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {},
+            "legend": {
+                "valueToShowWhenCollapsed": "none"
+            }
+        },
+        "name": "BugSat1_mg",
+        "type": "telemetry.plot.overlay",
+        "modified": 1603398385160,
+        "location": "f0031fad-c1f3-4b2c-a71c-5c31b4b99ae8",
+        "persisted": 1603398385005,
+        "id": "da0e6f80-4d8c-494f-8238-2f0a7a1d77fb"
+    },
+    "e4ec7290-1bb5-43f0-80b3-317d02bf1c87": {
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery",
+            "126876e3-99e5-4871-b4e1-e25a8f17b37a"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "OK",
+                    "label": "BatteryOK",
+                    "message": "",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "Fail",
+                    "label": "BatteryFailing",
+                    "message": "",
+                    "id": "rule0",
+                    "icon": "icon-alert-rect",
+                    "style": {
+                        "color": "#cccccc",
+                        "background-color": "#a61c00",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "when nice_battery's Value  < 10  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.nice_battery",
+                            "key": "value",
+                            "operation": "lessThan",
+                            "values": [
+                                10
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": "true"
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "",
+                    "key": "",
+                    "value": ""
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Battery - Summary",
+        "type": "summary-widget",
+        "location": "f0031fad-c1f3-4b2c-a71c-5c31b4b99ae8",
+        "modified": 1603398304144,
+        "persisted": 1603398304126,
+        "id": "e4ec7290-1bb5-43f0-80b3-317d02bf1c87"
+    },
+    "126876e3-99e5-4871-b4e1-e25a8f17b37a": {
+        "configuration": {
+            "conditionTestData": [
+                {
+                    "telemetry": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    },
+                    "metadata": "value",
+                    "input": ""
+                }
+            ],
+            "conditionCollection": [
+                {
+                    "id": "2ae9b196-69cb-41fe-b871-e68620024411",
+                    "configuration": {
+                        "name": "Failing",
+                        "output": "Failing",
+                        "trigger": "all",
+                        "criteria": [
+                            {
+                                "id": "72594f05-498b-461b-bc9c-68062914f99e",
+                                "telemetry": {
+                                    "namespace": "TITA.telemetry",
+                                    "key": "TITA.nice_battery"
+                                },
+                                "operation": "lessThan",
+                                "input": [
+                                    "10"
+                                ],
+                                "metadata": "value"
+                            }
+                        ]
+                    },
+                    "summary": ""
+                },
+                {
+                    "isDefault": true,
+                    "id": "878dd0bb-7b3f-47dd-b875-617df8906098",
+                    "configuration": {
+                        "name": "OK",
+                        "output": "OK",
+                        "trigger": "all",
+                        "criteria": []
+                    },
+                    "summary": ""
+                }
+            ]
+        },
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "telemetry": {},
+        "name": "Battery - Condition Set",
+        "type": "conditionSet",
+        "location": "e4ec7290-1bb5-43f0-80b3-317d02bf1c87",
+        "modified": 1603741036097,
+        "persisted": 1603741036062,
+        "id": "126876e3-99e5-4871-b4e1-e25a8f17b37a"
+    },
+    "b6183804-128f-4184-b574-e42ff1f66a2c": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.temp_imo_c"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "Normal Temp",
+                    "label": "Normal Temp",
+                    "message": "Normal Temp",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "#ffff00"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": true
+                },
+                "rule0": {
+                    "name": "Over or under temp",
+                    "label": "Over or under temp",
+                    "message": "Over or under temp",
+                    "id": "rule0",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "when all Telemetry's Value  not between -10 and 34  ",
+                    "conditions": [
+                        {
+                            "object": "all",
+                            "key": "value",
+                            "operation": "notBetween",
+                            "values": [
+                                -10,
+                                34
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.CPU_C",
+                    "key": "value",
+                    "value": 35
+                },
+                {
+                    "object": "TITA.telemetry:TITA.mirror_cell_C",
+                    "key": "value",
+                    "value": 35
+                },
+                {
+                    "object": "TITA.telemetry:TITA.mirror_cell_C",
+                    "key": "value",
+                    "value": 38
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "General Temperature State",
+        "type": "summary-widget",
+        "location": "39e1163d-b1e4-42a7-9ec2-6a2a01fdda55",
+        "modified": 1603399771443,
+        "persisted": 1603399764710
+    },
+    "f11a15e8-e4a6-49a4-9742-cdccb1594d3c": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.temp_imo_c",
+            "e14994f9-0f68-4d25-a43b-1ab7dac7b7c6",
+            "e60a1499-06cd-4098-bf8b-1eccf202de5d",
+            "f3975878-05cf-460f-b22f-00debbaa4c0a",
+            "e7f1d459-4d1e-46a3-b123-b4b03ddbcd38",
+            "5cd9057e-0558-4ac2-8b44-935ce47b4053",
+            "0a168b8c-5ec6-42cc-b21a-73fa602d2b25",
+            "4df26a01-573f-481d-9b96-69c2671d4a84",
+            "465cf3fe-b3d1-4dfd-a649-5cdaad18a454",
+            "aed305d6-9ab6-41eb-9caf-32f0109724eb"
+        ],
+        "configuration": {
+            "items": [
+                {
+                    "fill": "#717171",
+                    "stroke": "",
+                    "x": 46,
+                    "y": 1,
+                    "width": 40,
+                    "height": 33,
+                    "type": "box-view",
+                    "id": "c7b2da4b-6b65-438c-8656-44b4404e4276"
+                },
+                {
+                    "stroke": "transparent",
+                    "x": 47,
+                    "y": 6,
+                    "width": 21,
+                    "height": 21,
+                    "url": "https://ugs.unlam.edu.ar/favicons/bugsat1.png",
+                    "type": "image-view",
+                    "id": "2d865fe5-85fe-48ec-8030-236bd33fda03"
+                },
+                {
+                    "fill": "",
+                    "stroke": "",
+                    "size": "16px",
+                    "color": "",
+                    "x": 1,
+                    "y": 1,
+                    "width": 44,
+                    "height": 14,
+                    "text": "UGS(UNLaM Ground Segment) is the prototype multimission ground segment developed by GIDSA Research Group at Universidad Nacional de La Matanza. Initially developed as part of MDIAE, UGS is a plataform for research advanced features and solutions and a realistic plataform for education in software for space application.",
+                    "type": "text-view",
+                    "id": "9e1ca967-f69b-45ab-9ed3-d0111ebeefaf"
+                },
+                {
+                    "fill": "",
+                    "stroke": "",
+                    "size": "16px",
+                    "color": "",
+                    "x": 47,
+                    "y": 2,
+                    "width": 38,
+                    "height": 3,
+                    "text": "Mimic Simple Demostration",
+                    "type": "text-view",
+                    "id": "dc6ca4b0-6d7d-4bf7-b9cf-37bdf6da8916"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    },
+                    "x": 69,
+                    "y": 6,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "c86db73c-0d18-4f40-9c3e-dc3bbdce0228"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    },
+                    "x": 47,
+                    "y": 28,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "d05ef4a4-8345-4545-a343-4d9e2898cef3"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    },
+                    "x": 69,
+                    "y": 12,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "889a9d36-3100-4662-8bc6-26055b2fdbb3"
+                },
+                {
+                    "x": 65,
+                    "y": 14,
+                    "x2": 69,
+                    "y2": 10,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "3602badb-1515-4b0f-b6b8-38971f31311f"
+                },
+                {
+                    "x": 65,
+                    "y": 18,
+                    "x2": 69,
+                    "y2": 16,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "5ec51e9a-1b26-4f75-95c0-c200de7e7269"
+                },
+                {
+                    "x": 56,
+                    "y": 28,
+                    "x2": 56,
+                    "y2": 24,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "046813ff-fb53-4384-b6be-c2973064d7d1"
+                },
+                {
+                    "width": 44,
+                    "height": 27,
+                    "x": 1,
+                    "y": 16,
+                    "identifier": {
+                        "key": "e14994f9-0f68-4d25-a43b-1ab7dac7b7c6",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "512c2e57-8a55-47d3-b6c1-1f2bdbb2fbac"
+                },
+                {
+                    "width": 36,
+                    "height": 33,
+                    "x": 87,
+                    "y": 10,
+                    "identifier": {
+                        "key": "e60a1499-06cd-4098-bf8b-1eccf202de5d",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "318d0090-7215-47ea-b86d-f189a92bd1fc"
+                },
+                {
+                    "width": 36,
+                    "height": 35,
+                    "x": 87,
+                    "y": 44,
+                    "identifier": {
+                        "key": "f3975878-05cf-460f-b22f-00debbaa4c0a",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "700f554a-5d91-41c2-bfa9-b38f5a3a33b3"
+                },
+                {
+                    "width": 44,
+                    "height": 23,
+                    "x": 1,
+                    "y": 44,
+                    "identifier": {
+                        "key": "e7f1d459-4d1e-46a3-b123-b4b03ddbcd38",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "b8af521e-9f63-4e4d-ae1a-df92229bde96"
+                },
+                {
+                    "width": 40,
+                    "height": 20,
+                    "x": 46,
+                    "y": 35,
+                    "identifier": {
+                        "key": "5cd9057e-0558-4ac2-8b44-935ce47b4053",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "79cb96b8-b48c-4ca1-ab61-23cd61c1f035"
+                },
+                {
+                    "width": 40,
+                    "height": 17,
+                    "x": 46,
+                    "y": 56,
+                    "identifier": {
+                        "key": "0a168b8c-5ec6-42cc-b21a-73fa602d2b25",
+                        "namespace": ""
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "466dbcad-0545-4167-8e6b-cb9326c6f5d6"
+                },
+                {
+                    "width": 20,
+                    "height": 8,
+                    "x": 87,
+                    "y": 1,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "4df26a01-573f-481d-9b96-69c2671d4a84"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "1c84739b-3407-4104-97b2-359e25b9a4cc"
+                },
+                {
+                    "width": 21,
+                    "height": 5,
+                    "x": 64,
+                    "y": 28,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "465cf3fe-b3d1-4dfd-a649-5cdaad18a454"
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "25e55820-1ed7-4b36-bfe9-6fcc1a80dc34"
+                },
+                {
+                    "width": 16,
+                    "height": 5,
+                    "x": 69,
+                    "y": 22,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "aed305d6-9ab6-41eb-9caf-32f0109724eb"
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "e8a3997d-5960-452d-a4ec-e1b706d84e49"
+                }
+            ],
+            "layoutGrid": [
+                10,
+                10
+            ],
+            "objectStyles": {
+                "9e1ca967-f69b-45ab-9ed3-d0111ebeefaf": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "c7b2da4b-6b65-438c-8656-44b4404e4276": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000",
+                            "backgroundColor": "__no_value"
+                        }
+                    }
+                },
+                "dc6ca4b0-6d7d-4bf7-b9cf-37bdf6da8916": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff"
+                        }
+                    }
+                },
+                "d05ef4a4-8345-4545-a343-4d9e2898cef3": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "889a9d36-3100-4662-8bc6-26055b2fdbb3": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "c86db73c-0d18-4f40-9c3e-dc3bbdce0228": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "046813ff-fb53-4384-b6be-c2973064d7d1": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                },
+                "5ec51e9a-1b26-4f75-95c0-c200de7e7269": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                },
+                "3602badb-1515-4b0f-b6b8-38971f31311f": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                }
+            }
+        },
+        "name": "Thermal & Power",
+        "type": "layout",
+        "location": "maindashboard",
+        "modified": 1603714406862,
+        "notes": "Thermal & Power",
+        "persisted": 1603714399188
+    },
+    "e14994f9-0f68-4d25-a43b-1ab7dac7b7c6": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.temp_imo_c"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "CPU_C",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603402346258,
+        "persisted": 1603402346247
+    },
+    "e1798e35-c6fd-49f5-ad5f-caf24cb1bd34": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_3v3_v",
+            "TITA.telemetry:TITA.pcm_3v3_a"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.pcm_3v3_v"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.pcm_3v3_a"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "pcm_3v3_v",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603402522296,
+        "persisted": 1603402522286
+    },
+    "34d5512e-ad5f-43e7-9a69-b798e2770197": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_5v_v",
+            "TITA.telemetry:TITA.pcm_5v_a"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.pcm_5v_v"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.pcm_5v_a"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "pcm_5v_v",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603402522297,
+        "persisted": 1603402522287
+    },
+    "e60a1499-06cd-4098-bf8b-1eccf202de5d": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_3v3_v",
+            "TITA.telemetry:TITA.pcm_3v3_a"
+        ],
+        "configuration": {},
+        "name": "pcm_3v3_v",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603402522298,
+        "persisted": 1603402522288
+    },
+    "f3975878-05cf-460f-b22f-00debbaa4c0a": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_5v_v",
+            "TITA.telemetry:TITA.pcm_5v_a"
+        ],
+        "configuration": {},
+        "name": "pcm_5v_v",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603402522299,
+        "persisted": 1603402522288
+    },
+    "e7f1d459-4d1e-46a3-b123-b4b03ddbcd38": {
+        "type": "table",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "columnWidths": {},
+            "hiddenColumns": {},
+            "columnOrder": [],
+            "cellFormat": {},
+            "autosize": true
+        },
+        "name": "uptime_s",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603402712448,
+        "persisted": 1603402712430
+    },
+    "5cd9057e-0558-4ac2-8b44-935ce47b4053": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    },
+                    "color": "#ffcc00"
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {},
+            "objectStyles": {
+                "staticStyle": {
+                    "style": {
+                        "backgroundColor": "",
+                        "border": "",
+                        "color": "#ffffff"
+                    }
+                },
+                "styles": [],
+                "selectedConditionId": ""
+            }
+        },
+        "name": "nice_battery",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603402712450,
+        "persisted": 1603402712430
+    },
+    "0a168b8c-5ec6-42cc-b21a-73fa602d2b25": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.uptime_s"
+                    },
+                    "color": "#66cc33"
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "uptime_s",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603403011708,
+        "persisted": 1603403011683
+    },
+    "4df26a01-573f-481d-9b96-69c2671d4a84": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock24"
+        ],
+        "timezone": "UTC",
+        "name": "UTC CLOCK",
+        "type": "clock",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603403088629,
+        "persisted": 1603403088451
+    },
+    "465cf3fe-b3d1-4dfd-a649-5cdaad18a454": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "CPU_C Normal Temp",
+                    "label": "CPU_C Normal Temp",
+                    "message": "",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "CPU Over/Under Temp",
+                    "label": "CPU Over/Under Temp",
+                    "message": "CPU Over/Under Temp",
+                    "id": "rule0",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "#ffffff"
+                    },
+                    "description": "when CPU_C's Value  not between -15 and 36  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.CPU_C",
+                            "key": "value",
+                            "operation": "notBetween",
+                            "values": [
+                                -15,
+                                36
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.CPU_C",
+                    "key": "value",
+                    "value": 35
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Thermal State",
+        "type": "summary-widget",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603404046710,
+        "notes": "Thermal State",
+        "persisted": 1603404037001
+    },
+    "aed305d6-9ab6-41eb-9caf-32f0109724eb": {
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "Normal Temp",
+                    "label": "Normal Temp",
+                    "message": "Normal Temp",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "Mirror Over/Under Temp",
+                    "label": "Mirror Over/Under Temp",
+                    "message": "Mirror Over/Under Temp",
+                    "id": "rule0",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "#ffffff"
+                    },
+                    "description": "when mirror_cell_C's Value  not between -10 and 35  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.mirror_cell_C",
+                            "key": "value",
+                            "operation": "notBetween",
+                            "values": [
+                                -10,
+                                35
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "all",
+                    "expanded": false
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.mirror_cell_C",
+                    "key": "value",
+                    "value": 20
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Mirror Temp",
+        "type": "summary-widget",
+        "location": "f11a15e8-e4a6-49a4-9742-cdccb1594d3c",
+        "modified": 1603404028076,
+        "notes": "Mirror Temp",
+        "persisted": 1603404025125
+    },
+    "d5497fb5-f904-41d3-a48d-78c1236867e0": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_3v3_v",
+            "TITA.telemetry:TITA.pcm_5v_a"
+        ],
+        "configuration": {},
+        "name": "pcm_3v3_v",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603575361163,
+        "persisted": 1603575361150
+    },
+    "101cb0ae-9b1d-40a5-a3fd-42df0ccef750": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.temp_imo_c"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "mirror_cell_C",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603575485109,
+        "persisted": 1603575485100
+    },
+    "b6de44b7-2cc1-4319-b688-3a07e46bfcb6": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.sunvectorX",
+            "TITA.telemetry:TITA.sunvectorY",
+            "TITA.telemetry:TITA.sunvectorZ"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorX"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorY"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorZ"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "sunvectorX",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603575485111,
+        "persisted": 1603575485107
+    },
+    "83401d83-19c0-4621-94c3-c689651779e7": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock12"
+        ],
+        "timezone": "UTC",
+        "name": "UTC Clock",
+        "type": "clock",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603581275952,
+        "persisted": 1603581275489
+    },
+    "6d5dd602-f191-42e8-b1cc-6e71957b0cb6": {
+        "clockFormat": [
+            "hh:mm:ss",
+            "clock24"
+        ],
+        "timezone": "America/Argentina/Buenos_Aires",
+        "name": "Local Clock",
+        "type": "clock",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603581468498,
+        "persisted": 1603581468479,
+        "id": "6d5dd602-f191-42e8-b1cc-6e71957b0cb6"
+    },
+    "1e64e9c4-7703-45bf-b44a-fe229f4a0710": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0",
+                "rule1"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "Normal Temperature",
+                    "label": "Normal Temperature",
+                    "message": "",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": true
+                },
+                "rule0": {
+                    "name": "Over temperature",
+                    "label": "Over temperature",
+                    "message": "Over temperature",
+                    "id": "rule0",
+                    "icon": "icon-alert-rect",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "when any Telemetry's Value  > 45  ",
+                    "conditions": [
+                        {
+                            "object": "any",
+                            "key": "value",
+                            "operation": "greaterThan",
+                            "values": [
+                                45
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": "true"
+                },
+                "rule1": {
+                    "name": "Under Temperature",
+                    "label": "Under Temperature",
+                    "message": "Under Temperature",
+                    "id": "rule1",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "#00ffff"
+                    },
+                    "description": "when any Telemetry's Value  < -20  ",
+                    "conditions": [
+                        {
+                            "object": "any",
+                            "key": "value",
+                            "operation": "lessThan",
+                            "values": [
+                                -20
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": "true"
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.CPU_C",
+                    "key": "value",
+                    "value": -30
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Temperature",
+        "type": "summary-widget",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603581755855,
+        "notes": "Temperature",
+        "persisted": 1603581745548
+    },
+    "e12d80c4-d047-45c1-a11c-294f47a195db": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.uptime_s"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "uptime_s",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603582106360,
+        "persisted": 1603582106322
+    },
+    "1fb5bbaa-381c-4e59-92f5-15ddd3a220da": {
+        "type": "table",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "columnWidths": {},
+            "hiddenColumns": {},
+            "columnOrder": [],
+            "cellFormat": {},
+            "autosize": true,
+            "sortOptions": {
+                "key": "utc",
+                "direction": "desc"
+            }
+        },
+        "name": "uptime_s",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603582106361,
+        "persisted": 1603582106323
+    },
+    "3bb6cf8f-15a0-4edf-b1ee-3ccd5db23109": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    },
+                    "color": "#ffd700"
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "nice_battery",
+        "location": "c624257f-76fe-4e94-bc05-180158064115",
+        "modified": 1603582106366,
+        "persisted": 1603582106324
+    },
+    "97c63d8f-805b-4a8c-a516-c97301665786": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.temp_imo_c"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "CPU_C",
+        "modified": 1603714664082,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664068
+    },
+    "20400637-23ee-4c67-97f9-887d1a8959c5": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_3v3_v",
+            "TITA.telemetry:TITA.pcm_3v3_a"
+        ],
+        "configuration": {},
+        "name": "pcm_3v3_v",
+        "modified": 1603714664085,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664069
+    },
+    "5a609983-6f30-448c-a777-fa30b7ee8c36": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_5v_v",
+            "TITA.telemetry:TITA.pcm_5v_a"
+        ],
+        "configuration": {},
+        "name": "pcm_5v_v",
+        "modified": 1603714664087,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664069
+    },
+    "d9d3111d-16cb-4ebe-aada-99654529579a": {
+        "type": "table",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "columnWidths": {},
+            "hiddenColumns": {},
+            "columnOrder": [],
+            "cellFormat": {},
+            "autosize": true
+        },
+        "name": "uptime_s",
+        "modified": 1603714664090,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664070
+    },
+    "3a5d9cb8-e4bd-41f8-94bf-b46b59979960": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    },
+                    "color": "#ffcc00"
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {},
+            "objectStyles": {
+                "staticStyle": {
+                    "style": {
+                        "backgroundColor": "",
+                        "border": "",
+                        "color": "#ffffff"
+                    }
+                },
+                "styles": [],
+                "selectedConditionId": ""
+            }
+        },
+        "name": "nice_battery",
+        "modified": 1603714664092,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664070
+    },
+    "6e9b4b5e-333f-4194-8dbb-2a66a91e7586": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.uptime_s"
+                    },
+                    "color": "#66cc33"
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "uptime_s",
+        "modified": 1603714664095,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664071
+    },
+    "744d8692-2d22-42eb-b587-a74411424ad9": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock24"
+        ],
+        "timezone": "UTC",
+        "name": "UTC CLOCK",
+        "type": "clock",
+        "modified": 1603714664097,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664071
+    },
+    "4ec71095-44b9-466e-9093-c38832382d51": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "CPU_C Normal Temp",
+                    "label": "CPU_C Normal Temp",
+                    "message": "",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "CPU Over/Under Temp",
+                    "label": "CPU Over/Under Temp",
+                    "message": "CPU Over/Under Temp",
+                    "id": "rule0",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "#ffffff"
+                    },
+                    "description": "when CPU_C's Value  not between -15 and 36  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.CPU_C",
+                            "key": "value",
+                            "operation": "notBetween",
+                            "values": [
+                                -15,
+                                36
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.CPU_C",
+                    "key": "value",
+                    "value": 35
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Thermal State",
+        "type": "summary-widget",
+        "notes": "Thermal State",
+        "modified": 1603714664098,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664071
+    },
+    "0445a67c-a2d1-4400-b1e4-97241e693701": {
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "Normal Temp",
+                    "label": "Normal Temp",
+                    "message": "Normal Temp",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "Mirror Over/Under Temp",
+                    "label": "Mirror Over/Under Temp",
+                    "message": "Mirror Over/Under Temp",
+                    "id": "rule0",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "#ffffff"
+                    },
+                    "description": "when mirror_cell_C's Value  not between -10 and 35  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.mirror_cell_C",
+                            "key": "value",
+                            "operation": "notBetween",
+                            "values": [
+                                -10,
+                                35
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "all",
+                    "expanded": false
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.mirror_cell_C",
+                    "key": "value",
+                    "value": 20
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Mirror Temp",
+        "type": "summary-widget",
+        "notes": "Mirror Temp",
+        "modified": 1603714664099,
+        "location": "46af3f27-9b40-43b8-a9c9-ca249e77debf",
+        "persisted": 1603714664072
+    },
+    "46af3f27-9b40-43b8-a9c9-ca249e77debf": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.temp_imo_c",
+            "97c63d8f-805b-4a8c-a516-c97301665786",
+            "20400637-23ee-4c67-97f9-887d1a8959c5",
+            "5a609983-6f30-448c-a777-fa30b7ee8c36",
+            "d9d3111d-16cb-4ebe-aada-99654529579a",
+            "3a5d9cb8-e4bd-41f8-94bf-b46b59979960",
+            "6e9b4b5e-333f-4194-8dbb-2a66a91e7586",
+            "744d8692-2d22-42eb-b587-a74411424ad9",
+            "4ec71095-44b9-466e-9093-c38832382d51",
+            "0445a67c-a2d1-4400-b1e4-97241e693701"
+        ],
+        "configuration": {
+            "items": [
+                {
+                    "fill": "#717171",
+                    "stroke": "",
+                    "x": 46,
+                    "y": 1,
+                    "width": 40,
+                    "height": 33,
+                    "type": "box-view",
+                    "id": "c7b2da4b-6b65-438c-8656-44b4404e4276"
+                },
+                {
+                    "stroke": "transparent",
+                    "x": 47,
+                    "y": 6,
+                    "width": 21,
+                    "height": 21,
+                    "url": "https://ugs.unlam.edu.ar/favicons/bugsat1.png",
+                    "type": "image-view",
+                    "id": "2d865fe5-85fe-48ec-8030-236bd33fda03"
+                },
+                {
+                    "fill": "",
+                    "stroke": "",
+                    "size": "16px",
+                    "color": "",
+                    "x": 1,
+                    "y": 1,
+                    "width": 44,
+                    "height": 14,
+                    "text": "UGS(UNLaM Ground Segment) is the prototype multimission ground segment developed by GIDSA Research Group at Universidad Nacional de La Matanza. Initially developed as part of MDIAE, UGS is a plataform for research advanced features and solutions and a realistic plataform for education in software for space application.",
+                    "type": "text-view",
+                    "id": "9e1ca967-f69b-45ab-9ed3-d0111ebeefaf"
+                },
+                {
+                    "fill": "",
+                    "stroke": "",
+                    "size": "16px",
+                    "color": "",
+                    "x": 47,
+                    "y": 2,
+                    "width": 38,
+                    "height": 3,
+                    "text": "Mimic Simple Demostration",
+                    "type": "text-view",
+                    "id": "dc6ca4b0-6d7d-4bf7-b9cf-37bdf6da8916"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    },
+                    "x": 69,
+                    "y": 6,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "c86db73c-0d18-4f40-9c3e-dc3bbdce0228"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    },
+                    "x": 47,
+                    "y": 28,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "d05ef4a4-8345-4545-a343-4d9e2898cef3"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    },
+                    "x": 69,
+                    "y": 12,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "889a9d36-3100-4662-8bc6-26055b2fdbb3"
+                },
+                {
+                    "x": 65,
+                    "y": 14,
+                    "x2": 69,
+                    "y2": 10,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "3602badb-1515-4b0f-b6b8-38971f31311f"
+                },
+                {
+                    "x": 65,
+                    "y": 18,
+                    "x2": 69,
+                    "y2": 16,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "5ec51e9a-1b26-4f75-95c0-c200de7e7269"
+                },
+                {
+                    "x": 56,
+                    "y": 28,
+                    "x2": 56,
+                    "y2": 24,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "046813ff-fb53-4384-b6be-c2973064d7d1"
+                },
+                {
+                    "width": 44,
+                    "height": 27,
+                    "x": 1,
+                    "y": 16,
+                    "identifier": {
+                        "key": "97c63d8f-805b-4a8c-a516-c97301665786",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "512c2e57-8a55-47d3-b6c1-1f2bdbb2fbac"
+                },
+                {
+                    "width": 36,
+                    "height": 33,
+                    "x": 87,
+                    "y": 10,
+                    "identifier": {
+                        "key": "20400637-23ee-4c67-97f9-887d1a8959c5",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "318d0090-7215-47ea-b86d-f189a92bd1fc"
+                },
+                {
+                    "width": 36,
+                    "height": 35,
+                    "x": 87,
+                    "y": 44,
+                    "identifier": {
+                        "key": "5a609983-6f30-448c-a777-fa30b7ee8c36",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "700f554a-5d91-41c2-bfa9-b38f5a3a33b3"
+                },
+                {
+                    "width": 44,
+                    "height": 23,
+                    "x": 1,
+                    "y": 44,
+                    "identifier": {
+                        "key": "d9d3111d-16cb-4ebe-aada-99654529579a",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "b8af521e-9f63-4e4d-ae1a-df92229bde96"
+                },
+                {
+                    "width": 40,
+                    "height": 20,
+                    "x": 46,
+                    "y": 35,
+                    "identifier": {
+                        "key": "3a5d9cb8-e4bd-41f8-94bf-b46b59979960",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "79cb96b8-b48c-4ca1-ab61-23cd61c1f035"
+                },
+                {
+                    "width": 40,
+                    "height": 17,
+                    "x": 46,
+                    "y": 56,
+                    "identifier": {
+                        "key": "6e9b4b5e-333f-4194-8dbb-2a66a91e7586",
+                        "namespace": ""
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "466dbcad-0545-4167-8e6b-cb9326c6f5d6"
+                },
+                {
+                    "width": 20,
+                    "height": 8,
+                    "x": 87,
+                    "y": 1,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "744d8692-2d22-42eb-b587-a74411424ad9"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "1c84739b-3407-4104-97b2-359e25b9a4cc"
+                },
+                {
+                    "width": 21,
+                    "height": 5,
+                    "x": 64,
+                    "y": 28,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "4ec71095-44b9-466e-9093-c38832382d51"
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "25e55820-1ed7-4b36-bfe9-6fcc1a80dc34"
+                },
+                {
+                    "width": 16,
+                    "height": 5,
+                    "x": 69,
+                    "y": 22,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "0445a67c-a2d1-4400-b1e4-97241e693701"
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "e8a3997d-5960-452d-a4ec-e1b706d84e49"
+                }
+            ],
+            "layoutGrid": [
+                10,
+                10
+            ],
+            "objectStyles": {
+                "9e1ca967-f69b-45ab-9ed3-d0111ebeefaf": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "c7b2da4b-6b65-438c-8656-44b4404e4276": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000",
+                            "backgroundColor": "__no_value"
+                        }
+                    }
+                },
+                "dc6ca4b0-6d7d-4bf7-b9cf-37bdf6da8916": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff"
+                        }
+                    }
+                },
+                "d05ef4a4-8345-4545-a343-4d9e2898cef3": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "889a9d36-3100-4662-8bc6-26055b2fdbb3": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "c86db73c-0d18-4f40-9c3e-dc3bbdce0228": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "046813ff-fb53-4384-b6be-c2973064d7d1": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                },
+                "5ec51e9a-1b26-4f75-95c0-c200de7e7269": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                },
+                "3602badb-1515-4b0f-b6b8-38971f31311f": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                }
+            }
+        },
+        "name": "Thermal & Power",
+        "type": "layout",
+        "notes": "Thermal & Power",
+        "modified": 1603714664103,
+        "location": "0493c6a3-9f68-42b4-ac24-24c9bb4a2555",
+        "persisted": 1603714664073
+    },
+    "2649b414-e373-42ff-aa68-5802418c6ab3": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.temp_imo_c"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "Temps",
+        "modified": 1603906372580,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603906349394,
+        "id": "2649b414-e373-42ff-aa68-5802418c6ab3"
+    },
+    "ed59e498-93f8-4db7-be81-37e623cc4617": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_3v3_v",
+            "TITA.telemetry:TITA.pcm_3v3_a"
+        ],
+        "configuration": {},
+        "name": "pcm_3v3_v",
+        "modified": 1603714706974,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603714706955
+    },
+    "0340008e-44ec-4e19-8832-5261cfae2cbe": {
+        "type": "telemetry.plot.stacked",
+        "composition": [
+            "TITA.telemetry:TITA.pcm_5v_v",
+            "TITA.telemetry:TITA.pcm_5v_a"
+        ],
+        "configuration": {},
+        "name": "pcm_5v_v",
+        "modified": 1603714706976,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603714706955
+    },
+    "2b6314db-374b-4aa9-afbf-14662785e4ce": {
+        "type": "table",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "columnWidths": {},
+            "hiddenColumns": {},
+            "columnOrder": [],
+            "cellFormat": {},
+            "autosize": true
+        },
+        "name": "uptime_s",
+        "modified": 1603714706978,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603714706956
+    },
+    "d341c878-88ef-48a0-be03-2b6705a00874": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.nice_battery"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.nice_battery"
+                    },
+                    "color": "#ffcc00"
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {},
+            "objectStyles": {
+                "staticStyle": {
+                    "style": {
+                        "backgroundColor": "",
+                        "border": "",
+                        "color": "#ffffff"
+                    }
+                },
+                "styles": [],
+                "selectedConditionId": ""
+            }
+        },
+        "name": "nice_battery",
+        "modified": 1603714706979,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603714706956
+    },
+    "69617784-67ba-4b12-817f-fcdabc1d34d9": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.uptime_s"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.uptime_s"
+                    },
+                    "color": "#66cc33"
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "uptime_s",
+        "modified": 1603714706981,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603714706957
+    },
+    "44dbbe11-01b3-4097-8390-f2d06e60738f": {
+        "clockFormat": [
+            "YYYY/MM/DD hh:mm:ss",
+            "clock24"
+        ],
+        "timezone": "UTC",
+        "name": "UTC CLOCK",
+        "type": "clock",
+        "modified": 1603714706982,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603714706957
+    },
+    "a896b960-c7cb-45f9-b91e-081917c8db8b": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "CPU_C Normal Temp",
+                    "label": "CPU_C Normal Temp",
+                    "message": "",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "CPU Over/Under Temp",
+                    "label": "CPU Over/Under Temp",
+                    "message": "CPU Over/Under Temp",
+                    "id": "rule0",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "#ffffff"
+                    },
+                    "description": "when CPU_C's Value  not between -15 and 36  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.CPU_C",
+                            "key": "value",
+                            "operation": "notBetween",
+                            "values": [
+                                -15,
+                                36
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.CPU_C",
+                    "key": "value",
+                    "value": 35
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Thermal State",
+        "type": "summary-widget",
+        "notes": "Thermal State",
+        "modified": 1603714706984,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603714706958
+    },
+    "2f212342-e86f-4894-b9be-441e4a3bd1a9": {
+        "composition": [
+            "TITA.telemetry:TITA.mirror_cell_C"
+        ],
+        "configuration": {
+            "ruleOrder": [
+                "default",
+                "rule0"
+            ],
+            "ruleConfigById": {
+                "default": {
+                    "name": "Normal Temp",
+                    "label": "Normal Temp",
+                    "message": "Normal Temp",
+                    "id": "default",
+                    "icon": "icon-check",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#38761d",
+                        "border-color": "rgba(0,0,0,0)"
+                    },
+                    "description": "Default appearance for the widget",
+                    "conditions": [
+                        {
+                            "object": "",
+                            "key": "",
+                            "operation": "",
+                            "values": []
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "any",
+                    "expanded": false
+                },
+                "rule0": {
+                    "name": "Mirror Over/Under Temp",
+                    "label": "Mirror Over/Under Temp",
+                    "message": "Mirror Over/Under Temp",
+                    "id": "rule0",
+                    "icon": "icon-alert-triangle",
+                    "style": {
+                        "color": "#ffffff",
+                        "background-color": "#ff0000",
+                        "border-color": "#ffffff"
+                    },
+                    "description": "when mirror_cell_C's Value  not between -10 and 35  ",
+                    "conditions": [
+                        {
+                            "object": "TITA.telemetry:TITA.mirror_cell_C",
+                            "key": "value",
+                            "operation": "notBetween",
+                            "values": [
+                                -10,
+                                35
+                            ]
+                        }
+                    ],
+                    "jsCondition": "",
+                    "trigger": "all",
+                    "expanded": false
+                }
+            },
+            "testDataConfig": [
+                {
+                    "object": "TITA.telemetry:TITA.mirror_cell_C",
+                    "key": "value",
+                    "value": 20
+                }
+            ]
+        },
+        "openNewTab": "thisTab",
+        "telemetry": {},
+        "name": "Mirror Temp",
+        "type": "summary-widget",
+        "notes": "Mirror Temp",
+        "modified": 1603714706985,
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "persisted": 1603714706958
+    },
+    "b1990335-2993-4be3-a53f-4eb06b23f33e": {
+        "composition": [
+            "TITA.telemetry:TITA.CPU_C",
+            "TITA.telemetry:TITA.mirror_cell_C",
+            "TITA.telemetry:TITA.temp_imo_c",
+            "2649b414-e373-42ff-aa68-5802418c6ab3",
+            "ed59e498-93f8-4db7-be81-37e623cc4617",
+            "0340008e-44ec-4e19-8832-5261cfae2cbe",
+            "2b6314db-374b-4aa9-afbf-14662785e4ce",
+            "d341c878-88ef-48a0-be03-2b6705a00874",
+            "69617784-67ba-4b12-817f-fcdabc1d34d9",
+            "44dbbe11-01b3-4097-8390-f2d06e60738f",
+            "a896b960-c7cb-45f9-b91e-081917c8db8b",
+            "2f212342-e86f-4894-b9be-441e4a3bd1a9",
+            "fd59b288-b735-49cc-93b3-33b30092e223",
+            "5c9875db-42b0-401a-b3e5-015934640f19",
+            "fb132a09-1838-4954-acd4-5937835080e1"
+        ],
+        "configuration": {
+            "items": [
+                {
+                    "fill": "#717171",
+                    "stroke": "",
+                    "x": 78,
+                    "y": 0,
+                    "width": 36,
+                    "height": 11,
+                    "type": "box-view",
+                    "id": "27a489c8-db6e-4c21-923b-8822c7573473"
+                },
+                {
+                    "fill": "#717171",
+                    "stroke": "",
+                    "x": 37,
+                    "y": 6,
+                    "width": 41,
+                    "height": 33,
+                    "type": "box-view",
+                    "id": "c7b2da4b-6b65-438c-8656-44b4404e4276"
+                },
+                {
+                    "stroke": "transparent",
+                    "x": 39,
+                    "y": 10,
+                    "width": 21,
+                    "height": 21,
+                    "url": "https://ugs.unlam.edu.ar/favicons/bugsat1.png",
+                    "type": "image-view",
+                    "id": "2d865fe5-85fe-48ec-8030-236bd33fda03"
+                },
+                {
+                    "fill": "",
+                    "stroke": "",
+                    "size": "16px",
+                    "color": "",
+                    "x": 0,
+                    "y": 8,
+                    "width": 37,
+                    "height": 18,
+                    "text": "UGS(UNLaM Ground Segment) is the prototype multimission ground segment developed by GIDSA Research Group at Universidad Nacional de La Matanza. Initially developed as part of MDIAE, UGS is a plataform for research advanced features and solutions and a realistic plataform for education in software for space application.",
+                    "type": "text-view",
+                    "id": "9e1ca967-f69b-45ab-9ed3-d0111ebeefaf"
+                },
+                {
+                    "fill": "",
+                    "stroke": "",
+                    "size": "16px",
+                    "color": "",
+                    "x": 38,
+                    "y": 7,
+                    "width": 39,
+                    "height": 3,
+                    "text": "Mimic Simple Demostration",
+                    "type": "text-view",
+                    "id": "dc6ca4b0-6d7d-4bf7-b9cf-37bdf6da8916"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.CPU_C"
+                    },
+                    "x": 61,
+                    "y": 11,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "c86db73c-0d18-4f40-9c3e-dc3bbdce0228"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.mirror_cell_C"
+                    },
+                    "x": 38,
+                    "y": 33,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "d05ef4a4-8345-4545-a343-4d9e2898cef3"
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.temp_imo_c"
+                    },
+                    "x": 60,
+                    "y": 18,
+                    "width": 16,
+                    "height": 5,
+                    "displayMode": "all",
+                    "value": "value",
+                    "stroke": "",
+                    "fill": "",
+                    "color": "",
+                    "size": "14px",
+                    "type": "telemetry-view",
+                    "id": "889a9d36-3100-4662-8bc6-26055b2fdbb3"
+                },
+                {
+                    "x": 56,
+                    "y": 19,
+                    "x2": 60,
+                    "y2": 15,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "3602badb-1515-4b0f-b6b8-38971f31311f"
+                },
+                {
+                    "x": 56,
+                    "y": 23,
+                    "x2": 60,
+                    "y2": 21,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "5ec51e9a-1b26-4f75-95c0-c200de7e7269"
+                },
+                {
+                    "x": 47,
+                    "y": 33,
+                    "x2": 47,
+                    "y2": 29,
+                    "stroke": "#717171",
+                    "type": "line-view",
+                    "id": "046813ff-fb53-4384-b6be-c2973064d7d1"
+                },
+                {
+                    "width": 41,
+                    "height": 19,
+                    "x": 37,
+                    "y": 39,
+                    "identifier": {
+                        "key": "2649b414-e373-42ff-aa68-5802418c6ab3",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "512c2e57-8a55-47d3-b6c1-1f2bdbb2fbac"
+                },
+                {
+                    "width": 36,
+                    "height": 33,
+                    "x": 78,
+                    "y": 11,
+                    "identifier": {
+                        "key": "ed59e498-93f8-4db7-be81-37e623cc4617",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "318d0090-7215-47ea-b86d-f189a92bd1fc"
+                },
+                {
+                    "width": 36,
+                    "height": 35,
+                    "x": 78,
+                    "y": 44,
+                    "identifier": {
+                        "key": "0340008e-44ec-4e19-8832-5261cfae2cbe",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "700f554a-5d91-41c2-bfa9-b38f5a3a33b3"
+                },
+                {
+                    "width": 41,
+                    "height": 21,
+                    "x": 37,
+                    "y": 58,
+                    "identifier": {
+                        "key": "2b6314db-374b-4aa9-afbf-14662785e4ce",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "b8af521e-9f63-4e4d-ae1a-df92229bde96"
+                },
+                {
+                    "width": 37,
+                    "height": 20,
+                    "x": 0,
+                    "y": 68,
+                    "identifier": {
+                        "key": "d341c878-88ef-48a0-be03-2b6705a00874",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "79cb96b8-b48c-4ca1-ab61-23cd61c1f035"
+                },
+                {
+                    "width": 25,
+                    "height": 13,
+                    "x": 114,
+                    "y": 0,
+                    "identifier": {
+                        "key": "69617784-67ba-4b12-817f-fcdabc1d34d9",
+                        "namespace": ""
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "466dbcad-0545-4167-8e6b-cb9326c6f5d6"
+                },
+                {
+                    "width": 17,
+                    "height": 6,
+                    "x": 37,
+                    "y": 0,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "44dbbe11-01b3-4097-8390-f2d06e60738f"
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "1c84739b-3407-4104-97b2-359e25b9a4cc"
+                },
+                {
+                    "width": 21,
+                    "height": 5,
+                    "x": 55,
+                    "y": 33,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "a896b960-c7cb-45f9-b91e-081917c8db8b"
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "25e55820-1ed7-4b36-bfe9-6fcc1a80dc34"
+                },
+                {
+                    "width": 16,
+                    "height": 5,
+                    "x": 60,
+                    "y": 27,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "2f212342-e86f-4894-b9be-441e4a3bd1a9"
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "e8a3997d-5960-452d-a4ec-e1b706d84e49"
+                },
+                {
+                    "stroke": "transparent",
+                    "x": 103,
+                    "y": 0,
+                    "width": 11,
+                    "height": 11,
+                    "url": "https://ugs.unlam.edu.ar/images/satnogs-data.png",
+                    "type": "image-view",
+                    "id": "07457e73-24e3-4681-be4e-3c852266ae84"
+                },
+                {
+                    "stroke": "transparent",
+                    "x": 0,
+                    "y": 0,
+                    "width": 37,
+                    "height": 8,
+                    "url": "https://ugs.unlam.edu.ar/images/fulllogo.png",
+                    "type": "image-view",
+                    "id": "570982dc-c44a-4545-b40d-9947460085c3"
+                },
+                {
+                    "width": 20,
+                    "height": 7,
+                    "x": 81,
+                    "y": 2,
+                    "identifier": {
+                        "namespace": "",
+                        "key": "fd59b288-b735-49cc-93b3-33b30092e223"
+                    },
+                    "hasFrame": false,
+                    "type": "subobject-view",
+                    "id": "47f28615-ed07-487e-bf15-1fe84f3a143e"
+                },
+                {
+                    "width": 37,
+                    "height": 21,
+                    "x": 0,
+                    "y": 26,
+                    "identifier": {
+                        "key": "5c9875db-42b0-401a-b3e5-015934640f19",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "e3e0f52b-43e2-432e-bca8-77f0c9a1fae6"
+                },
+                {
+                    "width": 37,
+                    "height": 21,
+                    "x": 0,
+                    "y": 47,
+                    "identifier": {
+                        "key": "fb132a09-1838-4954-acd4-5937835080e1",
+                        "namespace": ""
+                    },
+                    "hasFrame": true,
+                    "type": "subobject-view",
+                    "id": "4eb8cdc4-f037-4e48-80dd-74e082cdddf0"
+                }
+            ],
+            "layoutGrid": [
+                10,
+                10
+            ],
+            "objectStyles": {
+                "9e1ca967-f69b-45ab-9ed3-d0111ebeefaf": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "c7b2da4b-6b65-438c-8656-44b4404e4276": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000",
+                            "backgroundColor": "__no_value"
+                        }
+                    }
+                },
+                "dc6ca4b0-6d7d-4bf7-b9cf-37bdf6da8916": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff"
+                        }
+                    }
+                },
+                "d05ef4a4-8345-4545-a343-4d9e2898cef3": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "889a9d36-3100-4662-8bc6-26055b2fdbb3": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "c86db73c-0d18-4f40-9c3e-dc3bbdce0228": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff",
+                            "backgroundColor": "__no_value",
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                },
+                "046813ff-fb53-4384-b6be-c2973064d7d1": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                },
+                "5ec51e9a-1b26-4f75-95c0-c200de7e7269": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                },
+                "3602badb-1515-4b0f-b6b8-38971f31311f": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid #ff0000"
+                        }
+                    }
+                },
+                "07457e73-24e3-4681-be4e-3c852266ae84": {
+                    "staticStyle": {
+                        "style": {
+                            "imageUrl": "https://ugs.unlam.edu.ar/images/satnogs-data.png"
+                        }
+                    }
+                },
+                "27a489c8-db6e-4c21-923b-8822c7573473": {
+                    "staticStyle": {
+                        "style": {
+                            "backgroundColor": "#ffffff"
+                        }
+                    }
+                }
+            }
+        },
+        "name": "Thermal, Power and Others",
+        "type": "layout",
+        "notes": "Thermal, Power and Others",
+        "modified": 1603993502347,
+        "location": "demodash",
+        "persisted": 1603993502282,
+        "id": "b1990335-2993-4be3-a53f-4eb06b23f33e"
+    },
+    "demodash": {
+        "composition": [
+            "b1990335-2993-4be3-a53f-4eb06b23f33e",
+            "9ddf06ed-12f8-4eb7-94e2-6e279b98c204",
+            "06477f0e-a231-4e3b-8820-f24d18338f71"
+        ],
+        "keep_alive": true,
+        "name": "Demo Dashboard",
+        "type": "tabs",
+        "notes": "Demo Dashboard",
+        "id": "maindashboard",
+        "modified": 1603993677923,
+        "location": "mine",
+        "persisted": 1603993677828
+    },
+    "00adb356-e3f8-48e2-be04-635054a04b01": {
+        "composition": [
+            "f11a15e8-e4a6-49a4-9742-cdccb1594d3c"
+        ],
+        "keep_alive": true,
+        "name": "Bugsat1 - TITA - Main Dashboard",
+        "type": "tabs",
+        "location": "cc25d48e-b2dd-456a-b17b-346a05b29492",
+        "modified": 1603491036079,
+        "notes": "Bugsat1 - TITA - Main Dashboard",
+        "persisted": 1603491035955,
+        "id": "00adb356-e3f8-48e2-be04-635054a04b01",
+        "configuration": {
+            "objectStyles": {
+                "9e1ca967-f69b-45ab-9ed3-d0111ebeefaf": {
+                    "staticStyle": {
+                        "style": {
+                            "border": "1px solid __no_value"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "cc25d48e-b2dd-456a-b17b-346a05b29492": {
+        "type": "folder",
+        "location": "mine",
+        "composition": [
+            "00adb356-e3f8-48e2-be04-635054a04b01"
+        ],
+        "name": "Bugsat1(TITA)",
+        "modified": 1603400778829,
+        "persisted": 1603400778764
+    },
+    "fd59b288-b735-49cc-93b3-33b30092e223": {
+        "displayFormat": "link",
+        "openNewTab": "newTab",
+        "removeTitle": true,
+        "name": "satnogs",
+        "type": "hyperlink",
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "modified": 1603834800278,
+        "notes": "satnogs",
+        "url": "https://satnogs.org/",
+        "displayText": "Raw data is mainly downloaded from satnogs network",
+        "persisted": 1603834800264,
+        "id": "fd59b288-b735-49cc-93b3-33b30092e223"
+    },
+    "5c9875db-42b0-401a-b3e5-015934640f19": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.magnetometer_x",
+            "TITA.telemetry:TITA.magnetometer_y",
+            "TITA.telemetry:TITA.magnetometer_z"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_x"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_y"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.magnetometer_z"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "magnetometers",
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "modified": 1603906372579,
+        "persisted": 1603906334317,
+        "id": "5c9875db-42b0-401a-b3e5-015934640f19"
+    },
+    "fb132a09-1838-4954-acd4-5937835080e1": {
+        "type": "telemetry.plot.overlay",
+        "composition": [
+            "TITA.telemetry:TITA.sunvectorX",
+            "TITA.telemetry:TITA.sunvectorY",
+            "TITA.telemetry:TITA.sunvectorZ"
+        ],
+        "configuration": {
+            "series": [
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorX"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorY"
+                    }
+                },
+                {
+                    "identifier": {
+                        "namespace": "TITA.telemetry",
+                        "key": "TITA.sunvectorZ"
+                    }
+                }
+            ],
+            "yAxis": {},
+            "xAxis": {}
+        },
+        "name": "sunvectors",
+        "location": "b1990335-2993-4be3-a53f-4eb06b23f33e",
+        "modified": 1603906372577,
+        "persisted": 1603906325509,
+        "id": "fb132a09-1838-4954-acd4-5937835080e1"
+    },
+    "9ddf06ed-12f8-4eb7-94e2-6e279b98c204": {
+        "composition": [],
+        "configuration": {
+            "items": [
+                {
+                    "fill": "",
+                    "stroke": "",
+                    "size": "16px",
+                    "color": "",
+                    "x": 1,
+                    "y": 1,
+                    "width": 26,
+                    "height": 4,
+                    "text": "High Level Architecture",
+                    "type": "text-view",
+                    "id": "224b7014-985d-488e-9d15-2902e3367f01"
+                },
+                {
+                    "stroke": "transparent",
+                    "x": 1,
+                    "y": 5,
+                    "width": 92,
+                    "height": 49,
+                    "url": "http://ugs.unlam.edu.ar/dist/others/achitecture.PNG",
+                    "type": "image-view",
+                    "id": "84ad9323-bfe7-43be-9a2f-b7df05ae3934"
+                }
+            ],
+            "layoutGrid": [
+                10,
+                10
+            ],
+            "objectStyles": {
+                "224b7014-985d-488e-9d15-2902e3367f01": {
+                    "staticStyle": {
+                        "style": {
+                            "color": "#ffffff"
+                        }
+                    }
+                }
+            }
+        },
+        "name": "Architecture",
+        "type": "layout",
+        "location": "demodash",
+        "modified": 1603993633054,
+        "notes": "Architecture",
+        "persisted": 1603993626270
+    },
+    "06477f0e-a231-4e3b-8820-f24d18338f71": {
+        "name": "GIDSA",
+        "type": "webPage",
+        "location": "demodash",
+        "modified": 1603993678098,
+        "url": "https://gidsa.unlam.edu.ar",
+        "persisted": 1603993677978
+    }
+}

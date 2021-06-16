@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: api/overlays/OverlayAPI.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: api/overlays/OverlayAPI.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Overlay from './Overlay';
+import Dialog from './Dialog';
+import ProgressDialog from './ProgressDialog';
+
+/**
+ * The OverlayAPI is responsible for pre-pending templates to
+ * the body of the document, which is useful for displaying templates
+ * which need to block the full screen.
+ *
+ * @memberof api/overlays
+ * @constructor
+*/
+
+class OverlayAPI {
+    constructor() {
+        this.activeOverlays = [];
+
+        this.dismissLastOverlay = this.dismissLastOverlay.bind(this);
+
+        document.addEventListener('keyup', (event) => {
+            if (event.key === 'Escape') {
+                this.dismissLastOverlay();
+            }
+        });
+    }
+
+    /**
+     * private
+     */
+    showOverlay(overlay) {
+        if (this.activeOverlays.length) {
+            this.activeOverlays[this.activeOverlays.length - 1].container.classList.add('invisible');
+        }
+
+        this.activeOverlays.push(overlay);
+
+        overlay.once('destroy', () => {
+            this.activeOverlays.splice(this.activeOverlays.indexOf(overlay), 1);
+
+            if (this.activeOverlays.length) {
+                this.activeOverlays[this.activeOverlays.length - 1].container.classList.remove('invisible');
+            }
+        });
+
+        overlay.show();
+    }
+
+    /**
+     * private
+     */
+    dismissLastOverlay() {
+        let lastOverlay = this.activeOverlays[this.activeOverlays.length - 1];
+        if (lastOverlay &amp;&amp; lastOverlay.dismissable) {
+            lastOverlay.dismiss();
+        }
+    }
+
+    /**
+     * A description of option properties that can be passed into the overlay
+     * @typedef options
+        * @property {object} element DOMElement that is to be inserted/shown on the overlay
+        * @property {string} size prefered size of the overlay (large, small, fit)
+        * @property {array} buttons optional button objects with label and callback properties
+        * @property {function} onDestroy callback to be called when overlay is destroyed
+        * @property {boolean} dismissable allow user to dismiss overlay by using esc, and clicking away
+        * from overlay. Unless set to false, all overlays will be dismissable by default.
+    */
+    overlay(options) {
+        let overlay = new Overlay(options);
+
+        this.showOverlay(overlay);
+
+        return overlay;
+    }
+
+    /**
+     * Displays a blocking (modal) dialog. This dialog can be used for
+     * displaying messages that require the user's
+     * immediate attention.
+     * @param {model} options defines options for the dialog
+     * @returns {object} with an object with a dismiss function that can be called from the calling code
+     * to dismiss/destroy the dialog
+     *
+     * A description of the model options that may be passed to the
+     * dialog method. Note that the DialogModel described
+     * here is shared with the Notifications framework.
+     * @see NotificationService
+     *
+    * @typedef options
+        * @property {string} title the title to use for the dialog
+        * @property {string} iconClass class to apply to icon that is shown on dialog
+        * @property {string} message text that indicates a current message,
+        * @property {buttons[]} buttons a list of buttons with title and callback properties that will
+        * be added to the dialog.
+    */
+    dialog(options) {
+        let dialog = new Dialog(options);
+
+        this.showOverlay(dialog);
+
+        return dialog;
+    }
+
+    /**
+     * Displays a blocking (modal) progress dialog. This dialog can be used for
+     * displaying messages that require the user's attention, and show progress
+     * @param {model} options defines options for the dialog
+     * @returns {object} with an object with a dismiss function that can be called from the calling code
+     * to dismiss/destroy the dialog and an updateProgress function that takes progressPercentage(Number 0-100)
+     * and progressText (string)
+     *
+     * A description of the model options that may be passed to the
+     * dialog method. Note that the DialogModel described
+     * here is shared with the Notifications framework.
+     * @see NotificationService
+     *
+    * @typedef options
+        * @property {number} progressPerc the initial progress value (0-100) or {string} 'unknown' for anonymous progress
+        * @property {string} progressText the initial text to be shown under the progress bar
+        * @property {buttons[]} buttons a list of buttons with title and callback properties that will
+        * be added to the dialog.
+    */
+    progressDialog(options) {
+        let progressDialog = new ProgressDialog(options);
+
+        this.showOverlay(progressDialog);
+
+        return progressDialog;
+    }
+}
+
+export default OverlayAPI;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="platform_api_notifications.html">platform/api/notifications</a></li></ul><h3>Classes</h3><ul><li><a href="api_overlays.OverlayAPI.html">OverlayAPI</a></li><li><a href="ApplicationRouter.html">ApplicationRouter</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="module-openmct.MCT.html">MCT</a></li><li><a href="module-openmct.Type.html">Type</a></li><li><a href="platform_commonUI_formats.LocalTimeFormat.html">LocalTimeFormat</a></li><li><a href="platform_commonUI_regions.InspectorRegion.html">InspectorRegion</a></li><li><a href="platform_commonUI_regions.Region.html">Region</a></li><li><a href="platform_features_layout.LayoutDrag.html">LayoutDrag</a></li><li><a href="platform_features_plot.PlotViewPolicy.html">PlotViewPolicy</a></li><li><a href="platform_persistence_couch.module.exports.html">module.exports</a></li><li><a href="platform_persistence_local.LocalStorageIndicator.html">LocalStorageIndicator</a></li><li><a href="platform_persistence_local.LocalStoragePersistenceProvider.html">LocalStoragePersistenceProvider</a></li><li><a href="SortedTableRowCollection.html">SortedTableRowCollection</a></li><li><a href="ui_notification.module.exports.html">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-openmct.CompositionAPI.html">CompositionAPI</a></li><li><a href="module-openmct.CompositionCollection.html">CompositionCollection</a></li><li><a href="module-openmct.CompositionProvider.html">CompositionProvider</a></li><li><a href="module-openmct.ContextMenuAction.html">ContextMenuAction</a></li><li><a href="module-openmct.ContextMenuAPI.html">ContextMenuAPI</a></li><li><a href="module-openmct.InspectorViewProvider.html">InspectorViewProvider</a></li><li><a href="module-openmct.InspectorViewRegistry.html">InspectorViewRegistry</a></li><li><a href="module-openmct.ObjectAPI.html">ObjectAPI</a></li><li><a href="module-openmct.ObjectProvider.html">ObjectProvider</a></li><li><a href="module-openmct.TelemetryAPI.html">TelemetryAPI</a></li><li><a href="module-openmct.TelemetryAPI-LimitEvaluator.html">LimitEvaluator</a></li><li><a href="module-openmct.TelemetryAPI-TelemetryFormatter.html">TelemetryFormatter</a></li><li><a href="module-openmct.TelemetryAPI-TelemetryProvider.html">TelemetryProvider</a></li><li><a href="module-openmct.TimeAPI.html">TimeAPI</a></li><li><a href="module-openmct.ToolbarProvider.html">ToolbarProvider</a></li><li><a href="module-openmct.ToolbarRegistry.html">ToolbarRegistry</a></li><li><a href="module-openmct.TypeRegistry.html">TypeRegistry</a></li><li><a href="module-openmct.View.html">View</a></li><li><a href="module-openmct.ViewProvider.html">ViewProvider</a></li><li><a href="module-openmct.ViewRegistry.html">ViewRegistry</a></li><li><a href="MutableObject.html">MutableObject</a></li></ul><h3>Events</h3><ul><li><a href="module-openmct.MCT.html#~event:start">start</a></li><li><a href="module-openmct.TimeAPI.html#~event:bounds">bounds</a></li><li><a href="module-openmct.TimeAPI.html#~event:clock">clock</a></li><li><a href="module-openmct.TimeAPI.html#~event:clockOffsets">clockOffsets</a></li><li><a href="module-openmct.TimeAPI.html#~event:timeOfInterest">timeOfInterest</a></li><li><a href="module-openmct.TimeAPI.html#~event:timeSystem">timeSystem</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_notify">_notify</a></li><li><a href="global.html#addCriterion">addCriterion</a></li><li><a href="global.html#alert">alert</a></li><li><a href="global.html#defaults">defaults</a></li><li><a href="global.html#destroyConditionManager">destroyConditionManager</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#fetch">fetch</a></li><li><a href="global.html#getAllSearchParams">getAllSearchParams</a></li><li><a href="global.html#getDrawAPI">getDrawAPI</a></li><li><a href="global.html#getFallbackDrawAPI">getFallbackDrawAPI</a></li><li><a href="global.html#getPersistedFilters">getPersistedFilters</a></li><li><a href="global.html#getPersistedSeriesConfig">getPersistedSeriesConfig</a></li><li><a href="global.html#info">info</a></li><li><a href="global.html#isEditing">isEditing</a></li><li><a href="global.html#nearestPoint">nearestPoint</a></li><li><a href="global.html#onDestroy">onDestroy</a></li><li><a href="global.html#onXKeyChange">onXKeyChange</a></li><li><a href="global.html#onYKeyChange">onYKeyChange</a></li><li><a href="global.html#progress">progress</a></li><li><a href="global.html#purgeRecordsOutsideRange">purgeRecordsOutsideRange</a></li><li><a href="global.html#reset">reset</a></li><li><a href="global.html#resetStats">resetStats</a></li><li><a href="global.html#setAllSearchParams">setAllSearchParams</a></li><li><a href="global.html#setColor">setColor</a></li><li><a href="global.html#setSearchParam">setSearchParam</a></li><li><a href="global.html#updateDomainObject">updateDomainObject</a></li><li><a href="global.html#updateFiltersAndRefresh">updateFiltersAndRefresh</a></li><li><a href="global.html#updateFromSeries">updateFromSeries</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Sun Sep 13 2020 20:49:40 GMT-0300 (hora estándar de Argentina)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

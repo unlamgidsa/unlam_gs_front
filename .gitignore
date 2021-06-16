@@ -19,7 +19,6 @@
 
 # Build output
 target
-dist
 
 # Mac OS X Finder
 .DS_Store
