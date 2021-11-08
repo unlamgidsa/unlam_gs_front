@@ -234,97 +234,92 @@
                 }
             ]
         }));
-<<<<<<< HEAD
 
-		//const urlBase = "http://127.0.0.1:8000/API/";
-		const urlBase = "https://ugsb.unlam.edu.ar/API/";
-		const method        = "GetLastTelemetryTimeStamp";
-        const defSatellite  = "TITA"
-        let httpserver = openmct.plugins.HttpServer;
-        //const url = "http://localhost:8000/API/GetLastTelemetryTimeStamp/TITA";
-        var url = `${urlBase}${method}/${defSatellite}`;
-        let dt;
-        httpserver.httpGet(url).then(function(dtobj){
-            const last_tlmy_date = Date.parse(dtobj.data.tstamp);
-            omenuoptions.menuOptions[0].bounds.start = last_tlmy_date-FIVE_MINUTES;
-            omenuoptions.menuOptions[0].bounds.end   = last_tlmy_date;
-            openmct.install(openmct.plugins.Conductor(omenuoptions));            
+    //const urlBase = "http://127.0.0.1:8000/API/";
+    const urlBase = "https://ugsb.unlam.edu.ar/API/";
+    const method        = "GetLastTelemetryTimeStamp";
+    const defSatellite  = "TITA"
 
-        }).catch(function(Error){
-            console.Error("Error trying to get last datetime telemetry");
-            openmct.install(openmct.plugins.Conductor(omenuoptions));
-        });      
+    let httpserver = openmct.plugins.HttpServer;
+    //const url = "http://localhost:8000/API/GetLastTelemetryTimeStamp/TITA";
+    var url = `${urlBase}${method}/${defSatellite}`;
+    httpserver.httpGet(url).then(function(dtobj){
+        const last_tlmy_date = Date.parse(dtobj.data.tstamp);
+        const omenuoptions = {menuOptions: {}};
+        omenuoptions.menuOptions[0].bounds.start = last_tlmy_date-FIVE_MINUTES;
+        omenuoptions.menuOptions[0].bounds.end   = last_tlmy_date;
+        openmct.install(openmct.plugins.Conductor(omenuoptions));
+    }).catch(function(e){
+        console.error("Error trying to get last datetime telemetry", e);
+    });
 
-		openmct.install(openmct.plugins.SummaryWidget());
-		openmct.install(openmct.plugins.Notebook());
-		openmct.install(openmct.plugins.LADTable());
-		openmct.install(
-			openmct.plugins.Filters(["table", "telemetry.plot.overlay"])
-		);
-		openmct.install(openmct.plugins.ObjectMigration());
-		openmct.install(
-			openmct.plugins.ClearData(
-				["table", "telemetry.plot.overlay", "telemetry.plot.stacked"],
-				{ indicator: true }
-			)
-		);
+    openmct.install(openmct.plugins.SummaryWidget());
+    openmct.install(openmct.plugins.Notebook());
+    openmct.install(openmct.plugins.LADTable());
+    openmct.install(
+      openmct.plugins.Filters(["table", "telemetry.plot.overlay"])
+    );
+    openmct.install(openmct.plugins.ObjectMigration());
+    openmct.install(
+      openmct.plugins.ClearData(
+        ["table", "telemetry.plot.overlay", "telemetry.plot.stacked"],
+        { indicator: true }
+      )
+    );
     openmct.install(openmct.plugins.Clock({ enableClockIndicator: true }));
 
-		openmct.types.addType("sat.telemetry", {
-			name: "Telemetry type",
-			description: "Telemetry point for every satellite",
-			cssClass: "icon-telemetry",
-		});
-		openmct.types.addType("satellite", {
-			name: "Satellite folder",
-			description: "Satellite folder where telemetry points will be",
-			cssClass: "icon-object",
-		});
+    openmct.types.addType("sat.telemetry", {
+      name: "Telemetry type",
+      description: "Telemetry point for every satellite",
+      cssClass: "icon-telemetry",
+    });
+    openmct.types.addType("satellite", {
+      name: "Satellite folder",
+      description: "Satellite folder where telemetry points will be",
+      cssClass: "icon-object",
+    });
 
-		//const urlBase = "http://127.0.0.1:8000/API/";
-		
-		openmct.install(openmct.plugins.Login(["new-satellite"]));
-		openmct.install(openmct.plugins.LRStorage(urlBase + "UserItems"));
-		//openmct.install(openmct.plugins.LocalStorage());
-		openmct.objects.getRoot().then(rootProvider => {
-			rootProvider.name = 'UNLaM UGS';
-		});
+    openmct.install(openmct.plugins.Login(["new-satellite"]));
+    openmct.install(openmct.plugins.LRStorage(urlBase + "UserItems"));
+    //openmct.install(openmct.plugins.LocalStorage());
+    openmct.objects.getRoot().then(rootProvider => {
+      rootProvider.name = 'UNLaM UGS';
+    });
 
-		const satNames = async () => {
-			const satellites = await openmct.plugins.SatelliteNames(
-				urlBase + "SatelliteList"
-			);
-			for (let sat of satellites) {
-				openmct.install(
-					openmct.plugins.TelemetryDictionaryPlugin(
-						sat.name,
-						sat.key,
-						urlBase + "TlmyVarDict/" + sat.name
-					)
-				);
-			}
-		};
-		satNames();
+    const satNames = async () => {
+      const satellites = await openmct.plugins.SatelliteNames(
+        urlBase + "SatelliteList"
+      );
+      for (let sat of satellites) {
+        openmct.install(
+          openmct.plugins.TelemetryDictionaryPlugin(
+            sat.name,
+            sat.key,
+            urlBase + "TlmyVarDict/" + sat.name
+          )
+        );
+      }
+    };
+    satNames();
 
-		openmct.install(
-			openmct.plugins.HistoricalTelemetryPlugin(urlBase + "TlmyVarList/")
-		);
+    openmct.install(
+      openmct.plugins.HistoricalTelemetryPlugin(urlBase + "TlmyVarList/")
+    );
 
-		try{
-			
-			//openmct.install(openmct.plugins.StaticRootPlugin('demo', 'data/static_dashboard.json'));
-			//webpack was modified to copy static dashboard from data to data on build process
-			//openmct.install(openmct.plugins.StaticRootPlugin('demo', 'http://127.0.0.1:8080/data/static_dashboard.json'));
-			//http://127.0.0.1:8080/data/static_dashboard.json
-		}catch(Error){
-			console.warn("Can't load the static demo", Error);
-		}
-		
-		/* workaround. Giving promises time to resolve */
-		setTimeout((_) => {
+    try{
+      //openmct.install(openmct.plugins.StaticRootPlugin('demo', 'data/static_dashboard.json'));
+      //webpack was modified to copy static dashboard from data to data on build process
+      //openmct.install(openmct.plugins.StaticRootPlugin('demo', 'http://127.0.0.1:8080/data/static_dashboard.json'));
+      //http://127.0.0.1:8080/data/static_dashboard.json
+    }catch(Error){
+      console.warn("Can't load the static demo", Error);
+    }
+
+    /* workaround. Giving promises time to resolve */
+    setTimeout((_) => {
       $("#splashscreen").fadeOut("slow");
-			openmct.start();
-			window.openmct = openmct;
-		}, 2000);
-	</script>
+      openmct.start();
+      window.openmct = openmct;
+    }, 2000);
+  </script>
 </html>
