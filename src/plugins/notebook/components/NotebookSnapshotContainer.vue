@@ -7,10 +7,10 @@
                     <div class="c-object-label__type-icon icon-camera"></div>
                     <div class="c-object-label__name">
                         Notebook Snapshots
-                        <span v-if="snapshots.length"
-                              class="l-browse-bar__object-details"
-                        >&nbsp;{{ snapshots.length }} of {{ getNotebookSnapshotMaxCount() }}
-                        </span>
+                    </div>
+                    <div v-if="snapshots.length"
+                         class="l-browse-bar__object-details"
+                    >{{ snapshots.length }} of {{ getNotebookSnapshotMaxCount() }}
                     </div>
                 </div>
                 <PopupMenu v-if="snapshots.length > 0"
@@ -27,15 +27,15 @@
     </div><!-- closes l-browse-bar -->
     <div class="c-snapshots">
         <span v-for="snapshot in snapshots"
-              :key="snapshot.id"
+              :key="snapshot.embedObject.id"
               draggable="true"
               @dragstart="startEmbedDrag(snapshot, $event)"
         >
             <NotebookEmbed ref="notebookEmbed"
-                           :key="snapshot.id"
-                           :embed="snapshot"
+                           :key="snapshot.embedObject.id"
+                           :embed="snapshot.embedObject"
+                           :is-snapshot-container="true"
                            :remove-action-string="'Delete Snapshot'"
-                           @updateEmbed="updateSnapshot"
                            @removeEmbed="removeSnapshot"
             />
         </span>
@@ -119,11 +119,8 @@ export default {
             this.snapshots = this.snapshotContainer.getSnapshots();
         },
         startEmbedDrag(snapshot, event) {
-            event.dataTransfer.setData('text/plain', snapshot.id);
-            event.dataTransfer.setData('openmct/snapshot/id', snapshot.id);
-        },
-        updateSnapshot(snapshot) {
-            this.snapshotContainer.updateSnapshot(snapshot);
+            event.dataTransfer.setData('text/plain', snapshot.embedObject.id);
+            event.dataTransfer.setData('openmct/snapshot/id', snapshot.embedObject.id);
         }
     }
 };

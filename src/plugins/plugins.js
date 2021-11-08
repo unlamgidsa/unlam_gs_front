@@ -23,8 +23,10 @@
 define([
     'lodash',
     './utcTimeSystem/plugin',
+    './remoteClock/plugin',
     './localTimeSystem/plugin',
     './ISOTimeFormat/plugin',
+    './myItems/plugin',
     '../../example/generator/plugin',
     './autoflow/AutoflowTabularPlugin',
     './timeConductor/plugin',
@@ -35,7 +37,7 @@ define([
     './URLIndicatorPlugin/URLIndicatorPlugin',
     './telemetryMean/plugin',
     './plot/plugin',
-    './plot/vue/single/plugin',
+    './charts/plugin',
     './telemetryTable/plugin',
     './staticRootPlugin/plugin',
     './notebook/plugin',
@@ -47,6 +49,7 @@ define([
     './filters/plugin',
     './objectMigration/plugin',
     './goToOriginalAction/plugin',
+    './openInNewTabAction/plugin',
     './clearData/plugin',
     './webPage/plugin',
     './condition/plugin',
@@ -69,15 +72,21 @@ define([
     './UNLaM-plugins/http-server/service',
     './plan/plugin',
     './viewDatumAction/plugin',
+    './viewLargeAction/plugin',
     './interceptors/plugin',
     './performanceIndicator/plugin',
     './CouchDBSearchFolder/plugin',
-    './timeline/plugin'
+    './timeline/plugin',
+    './hyperlink/plugin',
+    './clock/plugin',
+    './DeviceClassifier/plugin'
 ], function (
     _,
     UTCTimeSystem,
+    RemoteClock,
     LocalTimeSystem,
     ISOTimeFormat,
+    MyItems,
     GeneratorPlugin,
     AutoflowPlugin,
     TimeConductorPlugin,
@@ -88,7 +97,7 @@ define([
     URLIndicatorPlugin,
     TelemetryMean,
     PlotPlugin,
-    PlotVuePlugin,
+    ChartPlugin,
     TelemetryTablePlugin,
     StaticRootPlugin,
     Notebook,
@@ -100,6 +109,7 @@ define([
     Filters,
     ObjectMigration,
     GoToOriginalAction,
+    OpenInNewTabAction,
     ClearData,
     WebPagePlugin,
     ConditionPlugin,
@@ -122,10 +132,14 @@ define([
     HttpServer,
     PlanLayout,
     ViewDatumAction,
+    ViewLargeAction,
     ObjectInterceptors,
     PerformanceIndicator,
     CouchDBSearchFolder,
-    Timeline
+    Timeline,
+    Hyperlink,
+    Clock,
+    DeviceClassifier
 ) {
     const bundleMap = {
         LocalStorage: 'platform/persistence/local',
@@ -144,6 +158,9 @@ define([
 
     plugins.UTCTimeSystem = UTCTimeSystem;
     plugins.LocalTimeSystem = LocalTimeSystem;
+    plugins.RemoteClock = RemoteClock.default;
+
+    plugins.MyItems = MyItems.default;
 
     plugins.ImportExport = ImportExport;
 
@@ -190,10 +207,10 @@ define([
         return GeneratorPlugin;
     };
 
-    plugins.ExampleImagery = ExampleImagery;
+    plugins.ExampleImagery = ExampleImagery.default;
     plugins.ImageryPlugin = ImageryPlugin;
-    plugins.Plot = PlotPlugin;
-    plugins.PlotVue = PlotVuePlugin.default;
+    plugins.Plot = PlotPlugin.default;
+    plugins.Chart = ChartPlugin.default;
     plugins.TelemetryTable = TelemetryTablePlugin;
 
     plugins.SummaryWidget = SummaryWidget;
@@ -208,6 +225,7 @@ define([
     plugins.Filters = Filters;
     plugins.ObjectMigration = ObjectMigration.default;
     plugins.GoToOriginalAction = GoToOriginalAction.default;
+    plugins.OpenInNewTabAction = OpenInNewTabAction.default;
     plugins.ClearData = ClearData;
     plugins.WebPage = WebPagePlugin.default;
     plugins.Espresso = Espresso.default;
@@ -223,10 +241,14 @@ define([
     plugins.DefaultRootName = DefaultRootName.default;
     plugins.PlanLayout = PlanLayout.default;
     plugins.ViewDatumAction = ViewDatumAction.default;
+    plugins.ViewLargeAction = ViewLargeAction.default;
     plugins.ObjectInterceptors = ObjectInterceptors.default;
     plugins.PerformanceIndicator = PerformanceIndicator.default;
     plugins.CouchDBSearchFolder = CouchDBSearchFolder.default;
     plugins.Timeline = Timeline.default;
+    plugins.Hyperlink = Hyperlink.default;
+    plugins.Clock = Clock.default;
+    plugins.DeviceClassifier = DeviceClassifier.default;
 
     plugins.Login = Login;
 		plugins.TelemetryDictionaryPlugin = TelemetryDictionaryPlugin.default;

@@ -41,7 +41,7 @@ export default class ConditionManager extends EventEmitter {
         this.subscriptions = {};
         this.telemetryObjects = {};
         this.testData = {
-            conditionTestData: [],
+            conditionTestInputs: this.conditionSetDomainObject.configuration.conditionTestData,
             applied: false
         };
         this.initialize();
@@ -105,7 +105,14 @@ export default class ConditionManager extends EventEmitter {
     }
 
     updateConditionTelemetryObjects() {
-        this.conditions.forEach((condition) => condition.updateTelemetryObjects());
+        this.conditions.forEach((condition) => {
+            condition.updateTelemetryObjects();
+            let index = this.conditionSetDomainObject.configuration.conditionCollection.findIndex(item => item.id === condition.id);
+            if (index > -1) {
+                //Only assign the summary, don't mutate the domain object
+                this.conditionSetDomainObject.configuration.conditionCollection[index].summary = this.updateConditionDescription(condition);
+            }
+        });
     }
 
     removeConditionTelemetryObjects() {
@@ -139,10 +146,17 @@ export default class ConditionManager extends EventEmitter {
         }
     }
 
+    updateConditionDescription(condition) {
+        condition.updateDescription();
+
+        return condition.summary;
+    }
+
     updateCondition(conditionConfiguration) {
         let condition = this.findConditionById(conditionConfiguration.id);
         if (condition) {
             condition.update(conditionConfiguration);
+            conditionConfiguration.summary = this.updateConditionDescription(condition);
         }
 
         let index = this.conditionSetDomainObject.configuration.conditionCollection.findIndex(item => item.id === conditionConfiguration.id);
@@ -152,14 +166,10 @@ export default class ConditionManager extends EventEmitter {
         }
     }
 
-    updateConditionDescription(condition) {
-        const found = this.conditionSetDomainObject.configuration.conditionCollection.find(conditionConfiguration => (conditionConfiguration.id === condition.id));
-        found.summary = condition.description;
-        this.persistConditions();
-    }
-
     initCondition(conditionConfiguration, index) {
         let condition = new Condition(conditionConfiguration, this.openmct, this);
+        conditionConfiguration.summary = this.updateConditionDescription(condition);
+
         if (index !== undefined) {
             this.conditions.splice(index + 1, 0, condition);
         } else {
@@ -282,7 +292,7 @@ export default class ConditionManager extends EventEmitter {
         return currentCondition;
     }
 
-    requestLADConditionSetOutput() {
+    requestLADConditionSetOutput(options) {
         if (!this.conditions.length) {
             return Promise.resolve([]);
         }
@@ -291,7 +301,7 @@ export default class ConditionManager extends EventEmitter {
             let latestTimestamp;
             let conditionResults = {};
             const conditionRequests = this.conditions
-                .map(condition => condition.requestLADConditionResult());
+                .map(condition => condition.requestLADConditionResult(options));
 
             return Promise.all(conditionRequests)
                 .then((results) => {
@@ -414,8 +424,10 @@ export default class ConditionManager extends EventEmitter {
     }
 
     updateTestData(testData) {
-        this.testData = testData;
-        this.openmct.objects.mutate(this.conditionSetDomainObject, 'configuration.conditionTestData', this.testData.conditionTestInputs);
+        if (!_.isEqual(testData, this.testData)) {
+            this.testData = testData;
+            this.openmct.objects.mutate(this.conditionSetDomainObject, 'configuration.conditionTestData', this.testData.conditionTestInputs);
+        }
     }
 
     persistConditions() {

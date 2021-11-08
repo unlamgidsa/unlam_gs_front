@@ -46,9 +46,6 @@ mct-plot {
 
 .c-plot,
 .gl-plot {
-    overflow: hidden;
-    min-height: 100px;
-
         .s-status-taking-snapshot & {
         .c-control-bar {
             display: none;
@@ -67,16 +64,17 @@ mct-plot {
 
 .c-plot {
     @include abs($mainViewPad);
-
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    min-height: $plotMinH;
 
     .c-control-bar {
         flex: 0 0 auto;
         margin-bottom: $interiorMargin;
     }
 
-    .l-view-section, .c-plot--stacked-container {
+    .l-view-section {
         display: flex;
         flex: 1 1 auto;
         flex-direction: column;
@@ -84,7 +82,18 @@ mct-plot {
         overflow-x: hidden;
     }
 
+    .c-plot--stacked-container {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        min-height: $plotMinH;
+        overflow: hidden;
+    }
+;
+
     &--stacked {
+        min-height: auto !important;
+
         .child-frame {
             .has-control-bar {
                 .c-control-bar {
@@ -124,7 +133,7 @@ mct-plot {
     .plot-wrapper-axis-and-display-area {
         position: relative;
         flex: 1 1 auto;
-        min-height: $plotMinH;
+        //min-height: $plotMinH;
     }
 
     .gl-plot-wrapper-display-area-and-x-axis {
@@ -136,6 +145,7 @@ mct-plot {
         left: nth($plotDisplayArea, 4);
 
         .gl-plot-display-area {
+            overflow: hidden;
             position: absolute;
             top: 0;
             right: 0;
@@ -464,6 +474,7 @@ mct-plot {
 .gl-plot-legend,
 .c-plot-legend {
     overflow: hidden;
+    flex: 0 0 auto; // Prevents clipping for all legend placements (top, bottom, etc.)
 
     &__wrapper {
         // Holds view-control and both collapsed and expanded legends
@@ -531,19 +542,16 @@ mct-plot {
 }
 
 /***************** GENERAL STYLES, ALL STATES */
-.plot-legend-item {
+.plot-legend-item, .plot-series-limit-label {
     // General styles for legend items, both expanded and collapsed legend states
     > * + * {
         margin-left: $interiorMarginSm;
     }
 
     .plot-series-color-swatch {
-        border-radius: 30%; //$smallCr;
-        border: 1px solid $colorBodyBg;
+        @include colorSwatch();
         display: inline-block;
         flex: 0 0 auto;
-        height: $plotSwatchD;
-        width: $plotSwatchD;
     }
     .plot-series-name {
         display: inline;
@@ -552,6 +560,7 @@ mct-plot {
 
     .plot-series-value {
         @include ellipsize();
+        @include isLimit();
     }
 }
 
@@ -728,6 +737,12 @@ mct-plot {
         }
     }
 
+}
+
+/***************** BAR GRAPHS */
+.c-bar-chart {
+    flex: 1 1 auto;
+    overflow: hidden;
 }
 
 /***************** CURSOR GUIDES */

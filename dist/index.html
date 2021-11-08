@@ -135,7 +135,7 @@
         //openmct.install(openmct.plugins.ExampleImagery());
         openmct.install(openmct.plugins.PlanLayout());
         openmct.install(openmct.plugins.Timeline());
-        openmct.install(openmct.plugins.PlotVue());
+        openmct.install(openmct.plugins.Hyperlink());
         openmct.install(openmct.plugins.UTCTimeSystem());
         openmct.install(openmct.plugins.AutoflowView({
             type: "telemetry.panel"
@@ -234,6 +234,7 @@
                 }
             ]
         }));
+<<<<<<< HEAD
 
 		//const urlBase = "http://127.0.0.1:8000/API/";
 		const urlBase = "https://ugsb.unlam.edu.ar/API/";
@@ -267,6 +268,7 @@
 				{ indicator: true }
 			)
 		);
+    openmct.install(openmct.plugins.Clock({ enableClockIndicator: true }));
 
 		openmct.types.addType("sat.telemetry", {
 			name: "Telemetry type",

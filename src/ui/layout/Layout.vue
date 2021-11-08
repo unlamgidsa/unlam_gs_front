@@ -42,14 +42,24 @@
 
     <multipane
         class="l-shell__main"
+        :class="[resizingClass]"
         type="horizontal"
     >
         <pane
             class="l-shell__pane-tree"
             handle="after"
             label="Browse"
-            collapsable
+            hide-param="hideTree"
+            @start-resizing="onStartResizing"
+            @end-resizing="onEndResizing"
         >
+            <button
+                slot="controls"
+                class="c-icon-button l-shell__reset-tree-button icon-folders-collapse"
+                title="Collapse all tree items"
+                @click="handleTreeReset"
+            >
+            </button>
             <button
                 slot="controls"
                 class="c-icon-button l-shell__sync-tree-button icon-target"
@@ -59,6 +69,7 @@
             </button>
             <mct-tree
                 :sync-tree-navigation="triggerSync"
+                :reset-tree-navigation="triggerReset"
                 class="l-shell__tree"
             />
         </pane>
@@ -75,7 +86,7 @@
             />
             <object-view
                 ref="browseObject"
-                class="l-shell__main-container"
+                class="l-shell__main-container js-main-container js-notebook-snapshot-item"
                 data-selectable
                 :show-edit-view="true"
                 @change-action-collection="setActionCollection"
@@ -89,7 +100,9 @@
             class="l-shell__pane-inspector l-pane--holds-multipane"
             handle="before"
             label="Inspect"
-            collapsable
+            hide-param="hideInspector"
+            @start-resizing="onStartResizing"
+            @end-resizing="onEndResizing"
         >
             <Inspector
                 ref="inspector"
@@ -144,12 +157,17 @@ export default {
             hasToolbar: false,
             actionCollection: undefined,
             triggerSync: false,
-            headExpanded
+            triggerReset: false,
+            headExpanded,
+            isResizing: false
         };
     },
     computed: {
         toolbar() {
             return this.hasToolbar && this.isEditing;
+        },
+        resizingClass() {
+            return this.isResizing ? 'l-shell__resizing' : '';
         }
     },
     mounted() {
@@ -224,6 +242,15 @@ export default {
         },
         handleSyncTreeNavigation() {
             this.triggerSync = !this.triggerSync;
+        },
+        handleTreeReset() {
+            this.triggerReset = !this.triggerReset;
+        },
+        onStartResizing() {
+            this.isResizing = true;
+        },
+        onEndResizing() {
+            this.isResizing = false;
         }
     }
 };

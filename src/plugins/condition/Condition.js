@@ -65,7 +65,7 @@ export default class Condition extends EventEmitter {
         }
 
         this.trigger = conditionConfiguration.configuration.trigger;
-        this.description = '';
+        this.summary = '';
     }
 
     updateResult(datum) {
@@ -82,7 +82,9 @@ export default class Condition extends EventEmitter {
                 if (this.isAnyOrAllTelemetry(criterion)) {
                     criterion.updateResult(datum, this.conditionManager.telemetryObjects);
                 } else {
-                    criterion.updateResult(datum);
+                    if (criterion.usesTelemetry(datum.id)) {
+                        criterion.updateResult(datum);
+                    }
                 }
             });
 
@@ -102,7 +104,7 @@ export default class Condition extends EventEmitter {
 
     isTelemetryUsed(id) {
         return this.criteria.some(criterion => {
-            return this.isAnyOrAllTelemetry(criterion) || criterion.telemetryObjectIdAsString === id;
+            return this.isAnyOrAllTelemetry(criterion) || criterion.usesTelemetry(id);
         });
     }
 
@@ -132,7 +134,6 @@ export default class Condition extends EventEmitter {
         criterionConfigurations.forEach((criterionConfiguration) => {
             this.addCriterion(criterionConfiguration);
         });
-        this.updateDescription();
     }
 
     updateCriteria(criterionConfigurations) {
@@ -144,7 +145,6 @@ export default class Condition extends EventEmitter {
         this.criteria.forEach((criterion) => {
             criterion.updateTelemetryObjects(this.conditionManager.telemetryObjects);
         });
-        this.updateDescription();
     }
 
     /**
@@ -198,7 +198,6 @@ export default class Condition extends EventEmitter {
             criterion.off('criterionUpdated', (obj) => this.handleCriterionUpdated(obj));
             criterion.off('telemetryIsStale', (obj) => this.handleStaleCriterion(obj));
             this.criteria.splice(found.index, 1, newCriterion);
-            this.updateDescription();
         }
     }
 
@@ -214,7 +213,6 @@ export default class Condition extends EventEmitter {
             });
             criterion.destroy();
             this.criteria.splice(found.index, 1);
-            this.updateDescription();
 
             return true;
         }
@@ -226,7 +224,6 @@ export default class Condition extends EventEmitter {
         let found = this.findCriterion(criterion.id);
         if (found) {
             this.criteria[found.index] = criterion.data;
-            this.updateDescription();
         }
     }
 
@@ -252,8 +249,7 @@ export default class Condition extends EventEmitter {
 
             description = `${description} ${criterion.getDescription()} ${(index < this.criteria.length - 1) ? triggerDescription.conjunction : ''}`;
         });
-        this.description = description;
-        this.conditionManager.updateConditionDescription(this);
+        this.summary = description;
     }
 
     getTriggerDescription() {
@@ -270,11 +266,11 @@ export default class Condition extends EventEmitter {
         }
     }
 
-    requestLADConditionResult() {
+    requestLADConditionResult(options) {
         let latestTimestamp;
         let criteriaResults = {};
         const criteriaRequests = this.criteria
-            .map(criterion => criterion.requestLAD(this.conditionManager.telemetryObjects));
+            .map(criterion => criterion.requestLAD(this.conditionManager.telemetryObjects, options));
 
         return Promise.all(criteriaRequests)
             .then(results => {

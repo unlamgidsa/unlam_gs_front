@@ -58,6 +58,10 @@ export default class TelemetryCriterion extends EventEmitter {
         }
     }
 
+    usesTelemetry(id) {
+        return this.telemetryObjectIdAsString && (this.telemetryObjectIdAsString === id);
+    }
+
     subscribeForStaleData() {
         if (this.stalenessSubscription) {
             this.stalenessSubscription.clear();
@@ -133,11 +137,15 @@ export default class TelemetryCriterion extends EventEmitter {
         }
     }
 
-    requestLAD() {
-        const options = {
+    requestLAD(telemetryObjects, requestOptions) {
+        let options = {
             strategy: 'latest',
             size: 1
         };
+
+        if (requestOptions !== undefined) {
+            options = Object.assign(options, requestOptions);
+        }
 
         if (!this.isValid()) {
             return {
@@ -158,6 +166,11 @@ export default class TelemetryCriterion extends EventEmitter {
             return {
                 id: this.id,
                 data: this.formatData(normalizedDatum)
+            };
+        }).catch((error) => {
+            return {
+                id: this.id,
+                data: this.formatData()
             };
         });
     }

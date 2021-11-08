@@ -62,7 +62,6 @@
                 <NotebookEmbed v-for="embed in entry.embeds"
                                :key="embed.id"
                                :embed="embed"
-                               :entry="entry"
                                @removeEmbed="removeEmbed"
                                @updateEmbed="updateEmbed"
                 />
@@ -103,9 +102,11 @@
 
 <script>
 import NotebookEmbed from './NotebookEmbed.vue';
-import { createNewEmbed } from '../utils/notebook-entries';
-import Moment from 'moment';
 import TextHighlight from '../../../utils/textHighlight/TextHighlight.vue';
+import { createNewEmbed } from '../utils/notebook-entries';
+import { saveNotebookImageDomainObject, updateNamespaceOfDomainObject } from '../utils/notebook-image';
+
+import Moment from 'moment';
 
 export default {
     components: {
@@ -211,8 +212,12 @@ export default {
             const snapshotId = $event.dataTransfer.getData('openmct/snapshot/id');
             if (snapshotId.length) {
                 const snapshot = this.snapshotContainer.getSnapshot(snapshotId);
+                this.entry.embeds.push(snapshot.embedObject);
                 this.snapshotContainer.removeSnapshot(snapshotId);
-                this.entry.embeds.push(snapshot);
+
+                const namespace = this.domainObject.identifier.namespace;
+                const notebookImageDomainObject = updateNamespaceOfDomainObject(snapshot.notebookImageDomainObject, namespace);
+                saveNotebookImageDomainObject(this.openmct, notebookImageDomainObject);
             } else {
                 const data = $event.dataTransfer.getData('openmct/domain-object-path');
                 const objectPath = JSON.parse(data);
@@ -254,6 +259,7 @@ export default {
         },
         removeEmbed(id) {
             const embedPosition = this.findPositionInArray(this.entry.embeds, id);
+            // TODO: remove notebook snapshot object using object remove API
             this.entry.embeds.splice(embedPosition, 1);
 
             this.$emit('updateEntry', this.entry);

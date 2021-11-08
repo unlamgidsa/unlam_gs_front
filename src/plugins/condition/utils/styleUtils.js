@@ -29,9 +29,10 @@ const styleProps = {
         noneValue: NONE_VALUE,
         applicableForType: type => {
             return !type ? true : (type === 'text-view'
-                                      || type === 'telemetry-view'
-                                      || type === 'box-view'
-                                      || type === 'subobject-view');
+                                            || type === 'telemetry-view'
+                                            || type === 'box-view'
+                                            || type === 'ellipse-view'
+                                            || type === 'subobject-view');
         }
     },
     border: {
@@ -41,6 +42,7 @@ const styleProps = {
             return !type ? true : (type === 'text-view'
                                             || type === 'telemetry-view'
                                             || type === 'box-view'
+                                            || type === 'ellipse-view'
                                             || type === 'image-view'
                                             || type === 'line-view'
                                             || type === 'subobject-view');
@@ -104,7 +106,7 @@ export function getConsolidatedStyleValues(multipleItemStyles) {
     const properties = Object.keys(styleProps);
     properties.forEach((property) => {
         const values = aggregatedStyleValues[property];
-        if (values.length) {
+        if (values && values.length) {
             if (values.every(value => value === values[0])) {
                 styleValues[property] = values[0];
             } else {

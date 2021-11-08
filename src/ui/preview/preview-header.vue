@@ -4,7 +4,8 @@
         <div
             class="l-browse-bar__object-name--w c-object-label"
         >
-            <div class="c-object-label__type-icon"
+            <div v-if="type"
+                 class="c-object-label__type-icon"
                  :class="type.definition.cssClass"
             ></div>
             <span class="l-browse-bar__object-name c-object-label__name">
@@ -18,13 +19,19 @@
             :views="views"
             :current-view="currentView"
         />
+        <NotebookMenuSwitcher :domain-object="domainObject"
+                              :object-path="objectPath"
+                              :is-preview="true"
+                              :current-view="currentView"
+                              class="c-notebook-snapshot-menubutton"
+        />
         <div class="l-browse-bar__actions">
             <button
                 v-for="(item, index) in statusBarItems"
                 :key="index"
                 class="c-button"
                 :class="item.cssClass"
-                @click="item.callBack"
+                @click="item.onItemClicked"
             >
             </button>
             <button
@@ -38,19 +45,24 @@
 </template>
 
 <script>
+import NotebookMenuSwitcher from '@/plugins/notebook/components/NotebookMenuSwitcher.vue';
 import ViewSwitcher from '../../ui/layout/ViewSwitcher.vue';
+
 const HIDDEN_ACTIONS = [
     'remove',
     'move',
-    'preview'
+    'preview',
+    'large.view'
 ];
 
 export default {
     components: {
+        NotebookMenuSwitcher,
         ViewSwitcher
     },
     inject: [
-        'openmct'
+        'openmct',
+        'objectPath'
     ],
     props: {
         currentView: {
@@ -107,7 +119,25 @@ export default {
             this.updateActionItems(this.actionCollection.getActionsObject());
         }
     },
+    destroyed() {
+        if (this.actionCollection) {
+            this.actionCollection.off('update', this.updateActionItems);
+        }
+    },
     methods: {
+        filterHiddenItems(menuItems) {
+            const items = [];
+            menuItems.forEach(menuItem => {
+                const isGroup = Array.isArray(menuItem);
+                if (isGroup) {
+                    items.push(this.filterHiddenItems(menuItem));
+                } else if (!HIDDEN_ACTIONS.includes(menuItem.key)) {
+                    items.push(menuItem);
+                }
+            });
+
+            return items;
+        },
         setView(view) {
             this.$emit('setView', view);
         },
@@ -116,13 +146,17 @@ export default {
             delete this.actionCollection;
         },
         updateActionItems() {
-            this.actionCollection.hide(HIDDEN_ACTIONS);
-            this.statusBarItems = this.actionCollection.getStatusBarActions();
+            const statusBarItems = this.actionCollection.getStatusBarActions();
+            const menuItems = this.openmct.menus.actionsToMenuItems(statusBarItems, this.actionCollection.objectPath, this.actionCollection.view);
+            this.statusBarItems = this.filterHiddenItems(menuItems);
             this.menuActionItems = this.actionCollection.getVisibleActions();
         },
         showMenuItems(event) {
             let sortedActions = this.openmct.actions._groupAndSortActions(this.menuActionItems);
-            this.openmct.menus.showMenu(event.x, event.y, sortedActions);
+            const menuItems = this.openmct.menus.actionsToMenuItems(sortedActions, this.actionCollection.objectPath, this.actionCollection.view);
+
+            const visibleMenuItems = this.filterHiddenItems(menuItems);
+            this.openmct.menus.showMenu(event.x, event.y, visibleMenuItems);
         }
     }
 };

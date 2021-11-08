@@ -52,22 +52,10 @@
                 :key="item.keyString"
                 class="u-contents c-timeline__content"
             >
-                <swim-lane :icon-class="item.type.definition.cssClass"
-                           :min-height="item.height"
-                           :show-ucontents="item.domainObject.type === 'plan'"
-                           :span-rows-count="item.rowCount"
-                >
-                    <template slot="label">
-                        {{ item.domainObject.name }}
-                    </template>
-                    <object-view
-                        slot="object"
-                        class="u-contents"
-                        :default-object="item.domainObject"
-                        :object-view-key="item.viewKey"
-                        :object-path="item.objectPath"
-                    />
-                </swim-lane>
+                <timeline-object-view
+                    class="u-contents"
+                    :item="item"
+                />
             </div>
         </div>
     </div>
@@ -75,7 +63,7 @@
 </template>
 
 <script>
-import ObjectView from '@/ui/components/ObjectView.vue';
+import TimelineObjectView from './TimelineObjectView.vue';
 import TimelineAxis from '../../ui/components/TimeSystemAxis.vue';
 import SwimLane from "@/ui/components/swim-lane/SwimLane.vue";
 import { getValidatedPlan } from "../plan/util";
@@ -87,21 +75,9 @@ const unknownObjectType = {
     }
 };
 
-function getViewKey(domainObject, objectPath, openmct) {
-    let viewKey = '';
-    const plotView = openmct.objectViews.get(domainObject, objectPath).find((view) => {
-        return view.key.startsWith('plot-') && view.key !== 'plot-single';
-    });
-    if (plotView) {
-        viewKey = plotView.key;
-    }
-
-    return viewKey;
-}
-
 export default {
     components: {
-        ObjectView,
+        TimelineObjectView,
         TimelineAxis,
         SwimLane
     },
@@ -110,15 +86,16 @@ export default {
         return {
             items: [],
             timeSystems: [],
-            height: 0
+            height: 0,
+            useIndependentTime: this.domainObject.configuration.useIndependentTime === true,
+            timeOptions: this.domainObject.configuration.timeOptions
         };
     },
     beforeDestroy() {
         this.composition.off('add', this.addItem);
         this.composition.off('remove', this.removeItem);
         this.composition.off('reorder', this.reorder);
-        this.openmct.time.off("bounds", this.updateViewBounds);
-
+        this.stopFollowingTimeContext();
     },
     mounted() {
         if (this.composition) {
@@ -128,15 +105,14 @@ export default {
             this.composition.load();
         }
 
+        this.setTimeContext();
         this.getTimeSystems();
-        this.openmct.time.on("bounds", this.updateViewBounds);
     },
     methods: {
         addItem(domainObject) {
             let type = this.openmct.types.get(domainObject.type) || unknownObjectType;
             let keyString = this.openmct.objects.makeKeyString(domainObject.identifier);
             let objectPath = [domainObject].concat(this.objectPath.slice());
-            let viewKey = getViewKey(domainObject, objectPath, this.openmct);
             let rowCount = 0;
             if (domainObject.type === 'plan') {
                 rowCount = Object.keys(getValidatedPlan(domainObject)).length;
@@ -148,7 +124,6 @@ export default {
                 objectPath,
                 type,
                 keyString,
-                viewKey,
                 rowCount,
                 height
             };
@@ -159,6 +134,7 @@ export default {
         removeItem(identifier) {
             let index = this.items.findIndex(item => this.openmct.objects.areIdsEqual(identifier, item.domainObject.identifier));
             this.items.splice(index, 1);
+            this.updateContentHeight();
         },
         reorder(reorderPlan) {
             let oldItems = this.items.slice();
@@ -179,7 +155,7 @@ export default {
             });
         },
         getBoundsForTimeSystem(timeSystem) {
-            const currentBounds = this.openmct.time.bounds();
+            const currentBounds = this.timeContext.bounds();
 
             //TODO: Some kind of translation via an offset? of current bounds to target timeSystem
             return currentBounds;
@@ -188,6 +164,20 @@ export default {
             let currentTimeSystem = this.timeSystems.find(item => item.timeSystem.key === this.openmct.time.timeSystem().key);
             if (currentTimeSystem) {
                 currentTimeSystem.bounds = bounds;
+            }
+        },
+        setTimeContext() {
+            this.stopFollowingTimeContext();
+
+            this.timeContext = this.openmct.time.getContextForView(this.objectPath);
+            this.timeContext.on('timeContext', this.setTimeContext);
+            this.updateViewBounds(this.timeContext.bounds());
+            this.timeContext.on('bounds', this.updateViewBounds);
+        },
+        stopFollowingTimeContext() {
+            if (this.timeContext) {
+                this.timeContext.off('bounds', this.updateViewBounds);
+                this.timeContext.off('timeContext', this.setTimeContext);
             }
         }
     }

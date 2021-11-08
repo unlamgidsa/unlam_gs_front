@@ -26,6 +26,10 @@ describe("The Object API", () => {
 
         openmct.$injector.get.and.returnValue(mockIdentifierService);
         objectAPI = new ObjectAPI(typeRegistry, openmct);
+
+        openmct.editor = {};
+        openmct.editor.isEditing = () => false;
+
         mockDomainObject = {
             identifier: {
                 namespace: TEST_NAMESPACE,
@@ -163,14 +167,22 @@ describe("The Object API", () => {
                     key: 'test-key'
                 },
                 name: 'test object',
+                type: 'notebook',
                 otherAttribute: 'other-attribute-value',
+                modified: 0,
+                persisted: 0,
                 objectAttribute: {
                     embeddedObject: {
                         embeddedKey: 'embedded-value'
                     }
                 }
             };
-            updatedTestObject = Object.assign({otherAttribute: 'changed-attribute-value'}, testObject);
+            updatedTestObject = Object.assign({
+                otherAttribute: 'changed-attribute-value'
+            }, testObject);
+            updatedTestObject.modified = 1;
+            updatedTestObject.persisted = 1;
+
             mockProvider = jasmine.createSpyObj("mock provider", [
                 "get",
                 "create",
@@ -182,6 +194,8 @@ describe("The Object API", () => {
             mockProvider.observeObjectChanges.and.callFake(() => {
                 callbacks[0](updatedTestObject);
                 callbacks.splice(0, 1);
+
+                return () => {};
             });
             mockProvider.observe.and.callFake((id, callback) => {
                 if (callbacks.length === 0) {
@@ -189,6 +203,8 @@ describe("The Object API", () => {
                 } else {
                     callbacks[0] = callback;
                 }
+
+                return () => {};
             });
 
             objectAPI.addProvider(TEST_NAMESPACE, mockProvider);
@@ -209,6 +225,28 @@ describe("The Object API", () => {
             const MUTATED_NAME = 'mutated name';
             objectAPI.mutate(testObject, 'name', MUTATED_NAME);
             expect(testObject.name).toBe(MUTATED_NAME);
+        });
+
+        it('Provides a way of refreshing an object from the persistence store', () => {
+            const modifiedTestObject = JSON.parse(JSON.stringify(testObject));
+            const OTHER_ATTRIBUTE_VALUE = 'Modified value';
+            const NEW_ATTRIBUTE_VALUE = 'A new attribute';
+            modifiedTestObject.otherAttribute = OTHER_ATTRIBUTE_VALUE;
+            modifiedTestObject.newAttribute = NEW_ATTRIBUTE_VALUE;
+            delete modifiedTestObject.objectAttribute;
+
+            spyOn(objectAPI, 'get');
+            objectAPI.get.and.returnValue(Promise.resolve(modifiedTestObject));
+
+            expect(objectAPI.get).not.toHaveBeenCalled();
+
+            return objectAPI.refresh(testObject).then(() => {
+                expect(objectAPI.get).toHaveBeenCalledWith(testObject.identifier);
+
+                expect(testObject.otherAttribute).toEqual(OTHER_ATTRIBUTE_VALUE);
+                expect(testObject.newAttribute).toEqual(NEW_ATTRIBUTE_VALUE);
+                expect(testObject.objectAttribute).not.toBeDefined();
+            });
         });
 
         describe ('uses a MutableDomainObject', () => {

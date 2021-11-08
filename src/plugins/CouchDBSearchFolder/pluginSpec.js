@@ -32,7 +32,7 @@ describe('the plugin', function () {
     let openmct;
     let composition;
 
-    beforeEach((done) => {
+    beforeEach(() => {
 
         openmct = createOpenMct();
 
@@ -46,11 +46,6 @@ describe('the plugin', function () {
                 }
             }
         }));
-
-        openmct.on('start', done);
-        openmct.startHeadless();
-
-        composition = openmct.composition.get({identifier});
 
         spyOn(couchPlugin.couchProvider, 'getObjectsByFilter').and.returnValue(Promise.resolve([
             {
@@ -66,6 +61,19 @@ describe('the plugin', function () {
                 }
             }
         ]));
+
+        spyOn(couchPlugin.couchProvider, "get").and.callFake((id) => {
+            return Promise.resolve({
+                identifier: id
+            });
+        });
+
+        return new Promise((resolve) => {
+            openmct.once('start', resolve);
+            openmct.startHeadless();
+        }).then(() => {
+            composition = openmct.composition.get({identifier});
+        });
     });
 
     afterEach(() => {
@@ -73,7 +81,7 @@ describe('the plugin', function () {
     });
 
     it('provides a folder to hold plans', () => {
-        openmct.objects.get(identifier).then((object) => {
+        return openmct.objects.get(identifier).then((object) => {
             expect(object).toEqual({
                 identifier,
                 type: 'folder',
@@ -83,7 +91,7 @@ describe('the plugin', function () {
     });
 
     it('provides composition for couch search folders', () => {
-        composition.load().then((objects) => {
+        return composition.load().then((objects) => {
             expect(objects.length).toEqual(2);
         });
     });

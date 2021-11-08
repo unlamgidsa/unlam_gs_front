@@ -92,6 +92,10 @@
         position: relative;
     }
 
+    &__progress-bar {
+        margin-bottom: 3px;
+    }
+
     /******************************* WRAPPERS */
     &__body-w {
         // Wraps __body table provides scrolling
@@ -188,6 +192,11 @@
             }
         }
     }
+}
+
+// All tables
+td {
+    @include isLimit();
 }
 
 /******************************* SPECIFIC CASE WRAPPERS */

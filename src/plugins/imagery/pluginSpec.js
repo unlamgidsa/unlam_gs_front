@@ -19,9 +19,10 @@
  * this source code distribution or the Licensing information page available
  * at runtime from the About dialog for additional information.
  *****************************************************************************/
-import ImageryPlugin from './plugin.js';
+
 import Vue from 'vue';
 import {
+    createMouseEvent,
     createOpenMct,
     resetApplicationState,
     simulateKeyEvent
@@ -32,19 +33,6 @@ const TEN_MINUTES = ONE_MINUTE * 10;
 const MAIN_IMAGE_CLASS = '.js-imageryView-image';
 const NEW_IMAGE_CLASS = '.c-imagery__age.c-imagery--new';
 const REFRESH_CSS_MS = 500;
-const TOLERANCE = 0.50;
-
-function comparisonFunction(valueOne, valueTwo) {
-    let larger = valueOne;
-    let smaller = valueTwo;
-
-    if (larger < smaller) {
-        larger = valueTwo;
-        smaller = valueOne;
-    }
-
-    return (larger - smaller) < TOLERANCE;
-}
 
 function getImageInfo(doc) {
     let imageElement = doc.querySelectorAll(MAIN_IMAGE_CLASS)[0];
@@ -84,20 +72,21 @@ function generateTelemetry(start, count) {
     return telemetry;
 }
 
-describe("The Imagery View Layout", () => {
+describe("The Imagery View Layouts", () => {
     const imageryKey = 'example.imagery';
+    const imageryForTimeStripKey = 'example.imagery.time-strip.view';
     const START = Date.now();
     const COUNT = 10;
 
+    // let resolveFunction;
+    let originalRouterPath;
+    let telemetryPromise;
+    let telemetryPromiseResolve;
+    let cleanupFirst;
+
     let openmct;
-    let imageryPlugin;
     let parent;
     let child;
-    let timeFormat = 'utc';
-    let bounds = {
-        start: START - TEN_MINUTES,
-        end: START
-    };
     let imageTelemetry = generateTelemetry(START - TEN_MINUTES, COUNT);
     let imageryObject = {
         identifier: {
@@ -119,51 +108,51 @@ describe("The Imagery View Layout", () => {
                         "image": 1,
                         "priority": 3
                     },
-                    "source": "url",
-                    "relatedTelemetry": {
-                        "heading": {
-                            "comparisonFunction": comparisonFunction,
-                            "historical": {
-                                "telemetryObjectId": "heading",
-                                "valueKey": "value"
-                            }
-                        },
-                        "roll": {
-                            "comparisonFunction": comparisonFunction,
-                            "historical": {
-                                "telemetryObjectId": "roll",
-                                "valueKey": "value"
-                            }
-                        },
-                        "pitch": {
-                            "comparisonFunction": comparisonFunction,
-                            "historical": {
-                                "telemetryObjectId": "pitch",
-                                "valueKey": "value"
-                            }
-                        },
-                        "cameraPan": {
-                            "comparisonFunction": comparisonFunction,
-                            "historical": {
-                                "telemetryObjectId": "cameraPan",
-                                "valueKey": "value"
-                            }
-                        },
-                        "cameraTilt": {
-                            "comparisonFunction": comparisonFunction,
-                            "historical": {
-                                "telemetryObjectId": "cameraTilt",
-                                "valueKey": "value"
-                            }
-                        },
-                        "sunOrientation": {
-                            "comparisonFunction": comparisonFunction,
-                            "historical": {
-                                "telemetryObjectId": "sunOrientation",
-                                "valueKey": "value"
-                            }
-                        }
-                    }
+                    "source": "url"
+                    // "relatedTelemetry": {
+                    //     "heading": {
+                    //         "comparisonFunction": comparisonFunction,
+                    //         "historical": {
+                    //             "telemetryObjectId": "heading",
+                    //             "valueKey": "value"
+                    //         }
+                    //     },
+                    //     "roll": {
+                    //         "comparisonFunction": comparisonFunction,
+                    //         "historical": {
+                    //             "telemetryObjectId": "roll",
+                    //             "valueKey": "value"
+                    //         }
+                    //     },
+                    //     "pitch": {
+                    //         "comparisonFunction": comparisonFunction,
+                    //         "historical": {
+                    //             "telemetryObjectId": "pitch",
+                    //             "valueKey": "value"
+                    //         }
+                    //     },
+                    //     "cameraPan": {
+                    //         "comparisonFunction": comparisonFunction,
+                    //         "historical": {
+                    //             "telemetryObjectId": "cameraPan",
+                    //             "valueKey": "value"
+                    //         }
+                    //     },
+                    //     "cameraTilt": {
+                    //         "comparisonFunction": comparisonFunction,
+                    //         "historical": {
+                    //             "telemetryObjectId": "cameraTilt",
+                    //             "valueKey": "value"
+                    //         }
+                    //     },
+                    //     "sunOrientation": {
+                    //         "comparisonFunction": comparisonFunction,
+                    //         "historical": {
+                    //             "telemetryObjectId": "sunOrientation",
+                    //             "valueKey": "value"
+                    //         }
+                    //     }
+                    // }
                 },
                 {
                     "name": "Name",
@@ -199,43 +188,130 @@ describe("The Imagery View Layout", () => {
 
     // this setups up the app
     beforeEach((done) => {
-        const appHolder = document.createElement('div');
-        appHolder.style.width = '640px';
-        appHolder.style.height = '480px';
+        cleanupFirst = [];
 
         openmct = createOpenMct();
+        openmct.time.timeSystem('utc', {
+            start: START - (5 * ONE_MINUTE),
+            end: START + (5 * ONE_MINUTE)
+        });
+
+        telemetryPromise = new Promise((resolve) => {
+            telemetryPromiseResolve = resolve;
+        });
+
+        spyOn(openmct.telemetry, 'request').and.callFake(() => {
+            telemetryPromiseResolve(imageTelemetry);
+
+            return telemetryPromise;
+        });
 
         parent = document.createElement('div');
+        parent.style.width = '640px';
+        parent.style.height = '480px';
+
         child = document.createElement('div');
+        child.style.width = '640px';
+        child.style.height = '480px';
+
         parent.appendChild(child);
+        document.body.appendChild(parent);
 
         spyOn(window, 'ResizeObserver').and.returnValue({
             observe() {},
             disconnect() {}
         });
 
-        spyOn(openmct.telemetry, 'request').and.returnValue(Promise.resolve([]));
+        //spyOn(openmct.telemetry, 'request').and.returnValue(Promise.resolve([]));
+        spyOn(openmct.objects, 'get').and.returnValue(Promise.resolve(imageryObject));
 
-        imageryPlugin = new ImageryPlugin();
-        openmct.install(imageryPlugin);
-
-        spyOn(openmct.objects, 'get').and.returnValue(Promise.resolve({}));
-
-        openmct.time.timeSystem(timeFormat, {
-            start: 0,
-            end: 4
-        });
+        originalRouterPath = openmct.router.path;
 
         openmct.on('start', done);
-        openmct.startHeadless(appHolder);
+        openmct.startHeadless();
     });
 
-    afterEach(() => {
-        return resetApplicationState(openmct);
+    afterEach((done) => {
+        openmct.router.path = originalRouterPath;
+
+        // Needs to be in a timeout because plots use a bunch of setTimeouts, some of which can resolve during or after
+        // teardown, which causes problems
+        // This is hacky, we should find a better approach here.
+        setTimeout(() => {
+            //Cleanup code that needs to happen before dom elements start being destroyed
+            cleanupFirst.forEach(cleanup => cleanup());
+            cleanupFirst = [];
+            document.body.removeChild(parent);
+
+            resetApplicationState(openmct).then(done).catch(done);
+        });
+    });
+
+    it("should provide an imagery time strip view when in a time strip", () => {
+        openmct.router.path = [{
+            identifier: {
+                key: 'test-timestrip',
+                namespace: ''
+            },
+            type: 'time-strip'
+        }];
+
+        let applicableViews = openmct.objectViews.get(imageryObject, [imageryObject, {
+            identifier: {
+                key: 'test-timestrip',
+                namespace: ''
+            },
+            type: 'time-strip'
+        }]);
+        let imageryView = applicableViews.find(
+            viewProvider => viewProvider.key === imageryForTimeStripKey
+        );
+
+        expect(imageryView).toBeDefined();
     });
 
     it("should provide an imagery view only for imagery producing objects", () => {
-        let applicableViews = openmct.objectViews.get(imageryObject, []);
+        let applicableViews = openmct.objectViews.get(imageryObject, [imageryObject]);
+        let imageryView = applicableViews.find(
+            viewProvider => viewProvider.key === imageryKey
+        );
+
+        expect(imageryView).toBeDefined();
+    });
+
+    it("should not provide an imagery view when in a time strip", () => {
+        openmct.router.path = [{
+            identifier: {
+                key: 'test-timestrip',
+                namespace: ''
+            },
+            type: 'time-strip'
+        }];
+
+        let applicableViews = openmct.objectViews.get(imageryObject, [imageryObject, {
+            identifier: {
+                key: 'test-timestrip',
+                namespace: ''
+            },
+            type: 'time-strip'
+        }]);
+        let imageryView = applicableViews.find(
+            viewProvider => viewProvider.key === imageryKey
+        );
+
+        expect(imageryView).toBeUndefined();
+    });
+
+    it("should provide an imagery view when navigated to in the composition of a time strip", () => {
+        openmct.router.path = [imageryObject];
+
+        let applicableViews = openmct.objectViews.get(imageryObject, [imageryObject, {
+            identifier: {
+                key: 'test-timestrip',
+                namespace: ''
+            },
+            type: 'time-strip'
+        }]);
         let imageryView = applicableViews.find(
             viewProvider => viewProvider.key === imageryKey
         );
@@ -248,126 +324,219 @@ describe("The Imagery View Layout", () => {
         let imageryViewProvider;
         let imageryView;
 
-        beforeEach(async (done) => {
-            let telemetryRequestResolve;
-            let telemetryRequestPromise = new Promise((resolve) => {
-                telemetryRequestResolve = resolve;
-            });
+        beforeEach(() => {
 
-            openmct.telemetry.request.and.callFake(() => {
-                telemetryRequestResolve(imageTelemetry);
-
-                return telemetryRequestPromise;
-            });
-
-            openmct.time.clock('local', {
-                start: bounds.start,
-                end: bounds.end + 100
-            });
-
-            applicableViews = openmct.objectViews.get(imageryObject, []);
+            applicableViews = openmct.objectViews.get(imageryObject, [imageryObject]);
             imageryViewProvider = applicableViews.find(viewProvider => viewProvider.key === imageryKey);
-            imageryView = imageryViewProvider.view(imageryObject);
+            imageryView = imageryViewProvider.view(imageryObject, [imageryObject]);
             imageryView.show(child);
 
-            await telemetryRequestPromise;
-            await Vue.nextTick();
-
-            return done();
+            return Vue.nextTick();
         });
 
-        afterEach(() => {
-            imageryView.destroy();
-        });
+        // afterEach(() => {
+        //     openmct.time.stopClock();
+        //     openmct.router.removeListener('change:hash', resolveFunction);
+        //
+        //     imageryView.destroy();
+        // });
 
-        it("on mount should show the the most recent image", () => {
-            const imageInfo = getImageInfo(parent);
+        it("on mount should show the the most recent image", (done) => {
+            //Looks like we need Vue.nextTick here so that computed properties settle down
+            Vue.nextTick(() => {
+                const imageInfo = getImageInfo(parent);
 
-            expect(imageInfo.url.indexOf(imageTelemetry[COUNT - 1].timeId)).not.toEqual(-1);
-        });
-
-        it("should show the clicked thumbnail as the main image", async () => {
-            const target = imageTelemetry[5].url;
-            parent.querySelectorAll(`img[src='${target}']`)[0].click();
-            await Vue.nextTick();
-            const imageInfo = getImageInfo(parent);
-
-            expect(imageInfo.url.indexOf(imageTelemetry[5].timeId)).not.toEqual(-1);
-        });
-
-        it("should show that an image is new", async (done) => {
-            await Vue.nextTick();
-
-            // used in code, need to wait to the 500ms here too
-            setTimeout(() => {
-                const imageIsNew = isNew(parent);
-
-                expect(imageIsNew).toBeTrue();
+                expect(imageInfo.url.indexOf(imageTelemetry[COUNT - 1].timeId)).not.toEqual(-1);
                 done();
-            }, REFRESH_CSS_MS);
+            });
         });
 
-        it("should show that an image is not new", async (done) => {
-            const target = imageTelemetry[2].url;
-            parent.querySelectorAll(`img[src='${target}']`)[0].click();
+        it("should show the clicked thumbnail as the main image", (done) => {
+            //Looks like we need Vue.nextTick here so that computed properties settle down
+            Vue.nextTick(() => {
+                const target = imageTelemetry[5].url;
+                parent.querySelectorAll(`img[src='${target}']`)[0].click();
+                Vue.nextTick(() => {
+                    const imageInfo = getImageInfo(parent);
 
-            await Vue.nextTick();
+                    expect(imageInfo.url.indexOf(imageTelemetry[5].timeId)).not.toEqual(-1);
+                    done();
+                });
+            });
+        });
 
-            // used in code, need to wait to the 500ms here too
-            setTimeout(() => {
-                const imageIsNew = isNew(parent);
+        xit("should show that an image is new", (done) => {
+            openmct.time.clock('local', {
+                start: -1000,
+                end: 1000
+            });
 
-                expect(imageIsNew).toBeFalse();
+            Vue.nextTick(() => {
+                // used in code, need to wait to the 500ms here too
+                setTimeout(() => {
+                    const imageIsNew = isNew(parent);
+                    expect(imageIsNew).toBeTrue();
+                    done();
+                }, REFRESH_CSS_MS);
+            });
+        });
+
+        it("should show that an image is not new", (done) => {
+            Vue.nextTick(() => {
+                const target = imageTelemetry[2].url;
+                parent.querySelectorAll(`img[src='${target}']`)[0].click();
+
+                Vue.nextTick(() => {
+                    const imageIsNew = isNew(parent);
+
+                    expect(imageIsNew).toBeFalse();
+                    done();
+                });
+            });
+        });
+
+        it("should navigate via arrow keys", (done) => {
+            Vue.nextTick(() => {
+                let keyOpts = {
+                    element: parent.querySelector('.c-imagery'),
+                    key: 'ArrowLeft',
+                    keyCode: 37,
+                    type: 'keyup'
+                };
+
+                simulateKeyEvent(keyOpts);
+
+                Vue.nextTick(() => {
+                    const imageInfo = getImageInfo(parent);
+
+                    expect(imageInfo.url.indexOf(imageTelemetry[COUNT - 2].timeId)).not.toEqual(-1);
+                    done();
+                });
+            });
+        });
+
+        it("should navigate via numerous arrow keys", (done) => {
+            Vue.nextTick(() => {
+                let element = parent.querySelector('.c-imagery');
+                let type = 'keyup';
+                let leftKeyOpts = {
+                    element,
+                    type,
+                    key: 'ArrowLeft',
+                    keyCode: 37
+                };
+                let rightKeyOpts = {
+                    element,
+                    type,
+                    key: 'ArrowRight',
+                    keyCode: 39
+                };
+
+                // left thrice
+                simulateKeyEvent(leftKeyOpts);
+                simulateKeyEvent(leftKeyOpts);
+                simulateKeyEvent(leftKeyOpts);
+                // right once
+                simulateKeyEvent(rightKeyOpts);
+
+                Vue.nextTick(() => {
+                    const imageInfo = getImageInfo(parent);
+
+                    expect(imageInfo.url.indexOf(imageTelemetry[COUNT - 3].timeId)).not.toEqual(-1);
+                    done();
+                });
+            });
+        });
+        it ('shows an auto scroll button when scroll to left', (done) => {
+            Vue.nextTick(() => {
+                // to mock what a scroll would do
+                imageryView._getInstance().$refs.ImageryContainer.autoScroll = false;
+                Vue.nextTick(() => {
+                    let autoScrollButton = parent.querySelector('.c-imagery__auto-scroll-resume-button');
+                    expect(autoScrollButton).toBeTruthy();
+                    done();
+                });
+            });
+        });
+        it ('scrollToRight is called when clicking on auto scroll button', (done) => {
+            Vue.nextTick(() => {
+                // use spyon to spy the scroll function
+                spyOn(imageryView._getInstance().$refs.ImageryContainer, 'scrollToRight');
+                imageryView._getInstance().$refs.ImageryContainer.autoScroll = false;
+                Vue.nextTick(() => {
+                    parent.querySelector('.c-imagery__auto-scroll-resume-button').click();
+                    expect(imageryView._getInstance().$refs.ImageryContainer.scrollToRight).toHaveBeenCalledWith('reset');
+                    done();
+                });
+            });
+        });
+    });
+
+    describe("imagery time strip view", () => {
+        let applicableViews;
+        let imageryViewProvider;
+        let imageryView;
+        let componentView;
+
+        beforeEach(() => {
+            openmct.time.timeSystem('utc', {
+                start: START - (5 * ONE_MINUTE),
+                end: START + (5 * ONE_MINUTE)
+            });
+
+            openmct.router.path = [{
+                identifier: {
+                    key: 'test-timestrip',
+                    namespace: ''
+                },
+                type: 'time-strip'
+            }];
+
+            applicableViews = openmct.objectViews.get(imageryObject, [imageryObject, {
+                identifier: {
+                    key: 'test-timestrip',
+                    namespace: ''
+                },
+                type: 'time-strip'
+            }]);
+            imageryViewProvider = applicableViews.find(viewProvider => viewProvider.key === imageryForTimeStripKey);
+            imageryView = imageryViewProvider.view(imageryObject, [imageryObject, {
+                identifier: {
+                    key: 'test-timestrip',
+                    namespace: ''
+                },
+                type: 'time-strip'
+            }]);
+            imageryView.show(child);
+
+            componentView = imageryView.getComponent().$children[0];
+            spyOn(componentView.previewAction, 'invoke').and.callThrough();
+
+            return Vue.nextTick();
+        });
+
+        it("on mount should show imagery within the given bounds", (done) => {
+            Vue.nextTick(() => {
+                const imageElements = parent.querySelectorAll('.c-imagery-tsv__image-wrapper');
+                expect(imageElements.length).toEqual(6);
                 done();
-            }, REFRESH_CSS_MS);
+            });
         });
 
-        it("should navigate via arrow keys", async () => {
-            let keyOpts = {
-                element: parent.querySelector('.c-imagery'),
-                key: 'ArrowLeft',
-                keyCode: 37,
-                type: 'keyup'
-            };
+        it("should show the clicked thumbnail as the preview image", (done) => {
+            Vue.nextTick(() => {
+                const mouseDownEvent = createMouseEvent("mousedown");
+                let imageWrapper = parent.querySelectorAll(`.c-imagery-tsv__image-wrapper`);
+                imageWrapper[2].dispatchEvent(mouseDownEvent);
 
-            simulateKeyEvent(keyOpts);
-
-            await Vue.nextTick();
-
-            const imageInfo = getImageInfo(parent);
-
-            expect(imageInfo.url.indexOf(imageTelemetry[COUNT - 2].timeId)).not.toEqual(-1);
+                Vue.nextTick(() => {
+                    expect(componentView.previewAction.invoke).toHaveBeenCalledWith([componentView.objectPath[0]], {
+                        indexForFocusedImage: 2,
+                        objectPath: componentView.objectPath
+                    });
+                    done();
+                });
+            });
         });
-
-        it("should navigate via numerous arrow keys", async () => {
-            let element = parent.querySelector('.c-imagery');
-            let type = 'keyup';
-            let leftKeyOpts = {
-                element,
-                type,
-                key: 'ArrowLeft',
-                keyCode: 37
-            };
-            let rightKeyOpts = {
-                element,
-                type,
-                key: 'ArrowRight',
-                keyCode: 39
-            };
-
-            // left thrice
-            simulateKeyEvent(leftKeyOpts);
-            simulateKeyEvent(leftKeyOpts);
-            simulateKeyEvent(leftKeyOpts);
-            // right once
-            simulateKeyEvent(rightKeyOpts);
-
-            await Vue.nextTick();
-
-            const imageInfo = getImageInfo(parent);
-
-            expect(imageInfo.url.indexOf(imageTelemetry[COUNT - 3].timeId)).not.toEqual(-1);
-        });
-
     });
 });

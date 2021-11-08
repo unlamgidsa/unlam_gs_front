@@ -1,13 +1,29 @@
 <template>
-<div></div>
+<div>
+    <div v-if="domainObject && domainObject.type === 'time-strip'"
+         class="c-conductor-holder--compact l-shell__main-independent-time-conductor"
+    >
+        <independent-time-conductor :domain-object="domainObject"
+                                    @stateChanged="updateIndependentTimeState"
+                                    @updated="saveTimeOptions"
+        />
+    </div>
+    <div ref="objectViewWrapper"
+         :class="objectViewStyle"
+    ></div>
+</div>
 </template>
 
 <script>
 import _ from "lodash";
 import StyleRuleManager from "@/plugins/condition/StyleRuleManager";
 import {STYLE_CONSTANTS} from "@/plugins/condition/utils/constants";
+import IndependentTimeConductor from '@/plugins/timeConductor/independent/IndependentTimeConductor.vue';
 
 export default {
+    components: {
+        IndependentTimeConductor
+    },
     inject: ["openmct"],
     props: {
         showEditView: Boolean,
@@ -48,6 +64,13 @@ export default {
         },
         font() {
             return this.objectFontStyle ? this.objectFontStyle.font : this.layoutFont;
+        },
+        objectViewStyle() {
+            if (this.domainObject && this.domainObject.type === 'time-strip') {
+                return 'l-shell__main-object-view';
+            } else {
+                return 'u-contents';
+            }
         }
     },
     destroyed() {
@@ -79,13 +102,13 @@ export default {
     },
     mounted() {
         this.updateView();
-        this.$el.addEventListener('dragover', this.onDragOver, {
+        this.$refs.objectViewWrapper.addEventListener('dragover', this.onDragOver, {
             capture: true
         });
-        this.$el.addEventListener('drop', this.editIfEditable, {
+        this.$refs.objectViewWrapper.addEventListener('drop', this.editIfEditable, {
             capture: true
         });
-        this.$el.addEventListener('drop', this.addObjectToParent);
+        this.$refs.objectViewWrapper.addEventListener('drop', this.addObjectToParent);
         if (this.domainObject) {
             //This is to apply styles to subobjects in a layout
             this.initObjectStyles();
@@ -95,11 +118,18 @@ export default {
         clear() {
             if (this.currentView) {
                 this.currentView.destroy();
-                this.$el.innerHTML = '';
+                if (this.$refs.objectViewWrapper) {
+                    this.$refs.objectViewWrapper.innerHTML = '';
+                }
 
                 if (this.releaseEditModeHandler) {
                     this.releaseEditModeHandler();
                     delete this.releaseEditModeHandler;
+                }
+
+                if (this.styleRuleManager) {
+                    this.styleRuleManager.destroy();
+                    delete this.styleRuleManager;
                 }
             }
 
@@ -118,10 +148,11 @@ export default {
             this.openmct.objectViews.off('clearData', this.clearData);
         },
         getStyleReceiver() {
-            let styleReceiver = this.$el.querySelector('.js-style-receiver');
+            let styleReceiver = this.$refs.objectViewWrapper.querySelector('.js-style-receiver')
+                || this.$refs.objectViewWrapper.querySelector(':first-child');
 
-            if (!styleReceiver) {
-                styleReceiver = this.$el.querySelector(':first-child');
+            if (styleReceiver === null) {
+                styleReceiver = undefined;
             }
 
             return styleReceiver;
@@ -142,12 +173,13 @@ export default {
             this.updateView(true);
         },
         updateStyle(styleObj) {
-            if (!styleObj) {
+            let elemToStyle = this.getStyleReceiver();
+
+            if (!styleObj || elemToStyle === undefined) {
                 return;
             }
 
             let keys = Object.keys(styleObj);
-            let elemToStyle = this.getStyleReceiver();
 
             keys.forEach(key => {
                 if (elemToStyle) {
@@ -181,7 +213,7 @@ export default {
 
             this.viewContainer = document.createElement('div');
             this.viewContainer.classList.add('l-angular-ov-wrapper');
-            this.$el.append(this.viewContainer);
+            this.$refs.objectViewWrapper.append(this.viewContainer);
             let provider = this.getViewProvider();
             if (!provider) {
                 return;
@@ -207,22 +239,25 @@ export default {
                 }
             }
 
-            this.getActionCollection();
             this.currentView.show(this.viewContainer, this.openmct.editor.isEditing());
 
             if (immediatelySelect) {
                 this.removeSelectable = this.openmct.selection.selectable(
-                    this.$el, this.getSelectionContext(), true);
+                    this.$refs.objectViewWrapper, this.getSelectionContext(), true);
             }
 
             this.openmct.objectViews.on('clearData', this.clearData);
+
+            this.$nextTick(() => {
+                this.getActionCollection();
+            });
         },
         getActionCollection() {
             if (this.actionCollection) {
                 this.actionCollection.destroy();
             }
 
-            this.actionCollection = this.openmct.actions._get(this.currentObjectPath || this.objectPath, this.currentView);
+            this.actionCollection = this.openmct.actions.getActionsCollection(this.currentObjectPath || this.objectPath, this.currentView);
             this.$emit('change-action-collection', this.actionCollection);
         },
         show(object, viewKey, immediatelySelect, currentObjectPath) {
@@ -316,7 +351,6 @@ export default {
             return viewKey;
         },
         getViewProvider() {
-
             let provider = this.openmct.objectViews.getByProviderKey(this.getViewKey());
 
             if (!provider) {
@@ -373,11 +407,24 @@ export default {
         },
         setFontSize(newSize) {
             let elemToStyle = this.getStyleReceiver();
-            elemToStyle.dataset.fontSize = newSize;
+
+            if (elemToStyle !== undefined) {
+                elemToStyle.dataset.fontSize = newSize;
+            }
         },
         setFont(newFont) {
             let elemToStyle = this.getStyleReceiver();
-            elemToStyle.dataset.font = newFont;
+
+            if (elemToStyle !== undefined) {
+                elemToStyle.dataset.font = newFont;
+            }
+        },
+        //Should the domainObject be updated in the Independent Time conductor component itself?
+        updateIndependentTimeState(useIndependentTime) {
+            this.openmct.objects.mutate(this.domainObject, 'configuration.useIndependentTime', useIndependentTime);
+        },
+        saveTimeOptions(options) {
+            this.openmct.objects.mutate(this.domainObject, 'configuration.timeOptions', options);
         }
     }
 };

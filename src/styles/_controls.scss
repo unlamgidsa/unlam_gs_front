@@ -446,19 +446,31 @@ select {
 
 /******************************************************** HYPERLINKS AND HYPERLINK BUTTONS */
 .c-hyperlink {
-    &--link {
-        color: $colorKey;
-    }
+    display: inline-block;
+    color: $colorKey;
 
     &--button {
         @include cButton();
     }
 }
 
+.c-so-view--hyperlink.c-so-view--no-frame {
+  .c-hyperlink--button {
+    @include abs();
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .c-so-view__frame-controls { display: none; }
+}
+
 /******************************************************** MENUS */
 @mixin menuOuter() {
     border-radius: $basicCr;
     background: $colorMenuBg;
+    filter: $filterMenu;
     text-shadow: $shdwMenuText;
     padding: $interiorMarginSm;
     box-shadow: $shdwMenu;
@@ -999,6 +1011,9 @@ input[type="range"] {
         transition: $transIn;
         opacity: 1;
         pointer-events: inherit;
+
+        &[disabled] { opacity: $controlDisabledOpacity; }
+
     }
 }
 

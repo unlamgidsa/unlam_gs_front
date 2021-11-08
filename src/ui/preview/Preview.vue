@@ -20,14 +20,14 @@
  * at runtime from the About dialog for additional information.
  *****************************************************************************/
 <template>
-<div class="l-preview-window">
+<div class="l-preview-window js-preview-window">
     <PreviewHeader
         :current-view="currentView"
         :action-collection="actionCollection"
         :domain-object="domainObject"
         :views="views"
     />
-    <div class="l-preview-window__object-view">
+    <div class="l-preview-window__object-view js-notebook-snapshot-item">
         <div ref="objectView"></div>
     </div>
 </div>
@@ -46,6 +46,14 @@ export default {
         'openmct',
         'objectPath'
     ],
+    props: {
+        viewOptions: {
+            type: Object,
+            default() {
+                return undefined;
+            }
+        }
+    },
     data() {
         let domainObject = this.objectPath[0];
 
@@ -59,12 +67,13 @@ export default {
     },
     mounted() {
         this.views = this.openmct.objectViews.get(this.domainObject, this.objectPath).map((view) => {
-            view.callBack = () => {
+            view.onItemClicked = () => {
                 return this.setView(view);
             };
 
             return view;
         });
+
         this.setView(this.views[0]);
     },
     beforeDestroy() {
@@ -108,7 +117,7 @@ export default {
             this.view = this.currentView.view(this.domainObject, this.objectPath);
 
             this.getActionsCollection();
-            this.view.show(this.viewContainer, false);
+            this.view.show(this.viewContainer, false, this.viewOptions);
             this.initObjectStyles();
         },
         getActionsCollection() {
@@ -116,7 +125,7 @@ export default {
                 this.actionCollection.destroy();
             }
 
-            this.actionCollection = this.openmct.actions._get(this.objectPath, this.view);
+            this.actionCollection = this.openmct.actions.getActionsCollection(this.objectPath, this.view);
         },
         initObjectStyles() {
             if (!this.styleRuleManager) {

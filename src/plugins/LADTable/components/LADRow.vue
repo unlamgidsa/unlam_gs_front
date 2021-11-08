@@ -50,13 +50,13 @@ const CONTEXT_MENU_ACTIONS = [
 ];
 
 export default {
-    inject: ['openmct'],
+    inject: ['openmct', 'currentView'],
     props: {
         domainObject: {
             type: Object,
             required: true
         },
-        objectPath: {
+        pathToTable: {
             type: Array,
             required: true
         },
@@ -66,20 +66,19 @@ export default {
         }
     },
     data() {
-        let currentObjectPath = this.objectPath.slice();
-        currentObjectPath.unshift(this.domainObject);
-
         return {
             timestamp: undefined,
             value: '---',
             valueClass: '',
-            currentObjectPath,
             unit: ''
         };
     },
     computed: {
         formattedTimestamp() {
             return this.timestamp !== undefined ? this.getFormattedTimestamp(this.timestamp) : '---';
+        },
+        objectPath() {
+            return [this.domainObject, ...this.pathToTable];
         }
     },
     mounted() {
@@ -97,11 +96,11 @@ export default {
 
         this.timestampKey = this.openmct.time.timeSystem().key;
 
-        this.valueMetadata = this
+        this.valueMetadata = this.metadata ? this
             .metadata
-            .valuesForHints(['range'])[0];
+            .valuesForHints(['range'])[0] : undefined;
 
-        this.valueKey = this.valueMetadata.key;
+        this.valueKey = this.valueMetadata ? this.valueMetadata.key : undefined;
 
         this.unsubscribe = this.openmct
             .telemetry
@@ -152,7 +151,10 @@ export default {
                     size: 1,
                     strategy: 'latest'
                 })
-                .then((array) => this.updateValues(array[array.length - 1]));
+                .then((array) => this.updateValues(array[array.length - 1]))
+                .catch((error) => {
+                    console.warn('Error fetching data', error);
+                });
         },
         updateBounds(bounds, isTick) {
             this.bounds = bounds;
@@ -168,25 +170,23 @@ export default {
             this.resetValues();
             this.timestampKey = timeSystem.key;
         },
-        getView() {
-            return {
-                getViewContext: () => {
-                    return {
-                        viewHistoricalData: true,
-                        viewDatumAction: true,
-                        getDatum: () => {
-                            return this.datum;
-                        }
-                    };
+        updateViewContext() {
+            this.$emit('rowContextClick', {
+                viewHistoricalData: true,
+                viewDatumAction: true,
+                getDatum: () => {
+                    return this.datum;
                 }
-            };
+            });
         },
         showContextMenu(event) {
-            let actionCollection = this.openmct.actions.get(this.currentObjectPath, this.getView());
-            let allActions = actionCollection.getActionsObject();
-            let applicableActions = CONTEXT_MENU_ACTIONS.map(key => allActions[key]);
+            this.updateViewContext();
 
-            this.openmct.menus.showMenu(event.x, event.y, applicableActions);
+            const actions = CONTEXT_MENU_ACTIONS.map(key => this.openmct.actions.getAction(key));
+            const menuItems = this.openmct.menus.actionsToMenuItems(actions, this.objectPath, this.currentView);
+            if (menuItems.length) {
+                this.openmct.menus.showMenu(event.x, event.y, menuItems);
+            }
         },
         resetValues() {
             this.value = '---';

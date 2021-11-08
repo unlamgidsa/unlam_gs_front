@@ -23,9 +23,9 @@
 /*global module,process*/
 
 const devMode = process.env.NODE_ENV !== 'production';
-const browsers = [process.env.NODE_ENV === 'debug' ? 'ChromeDebugging' : 'FirefoxHeadless'];
+const browsers = [process.env.NODE_ENV === 'debug' ? 'ChromeDebugging' : 'ChromeHeadless'];
 const coverageEnabled = process.env.COVERAGE === 'true';
-const reporters = ['progress', 'html'];
+const reporters = ['spec', 'junit'];
 
 if (coverageEnabled) {
     reporters.push('coverage-istanbul');
@@ -59,7 +59,8 @@ module.exports = (config) => {
         browsers: browsers,
         client: {
             jasmine: {
-                random: false
+                random: false,
+                timeoutInterval: 5000
             }
         },
         customLaunchers: {
@@ -67,28 +68,46 @@ module.exports = (config) => {
                 base: 'Chrome',
                 flags: ['--remote-debugging-port=9222'],
                 debug: true
+            },
+            FirefoxESR: {
+                base: 'FirefoxHeadless',
+                name: 'FirefoxESR'
             }
         },
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
         // HTML test reporting.
-        htmlReporter: {
+        // htmlReporter: {
+        //    outputDir: "dist/reports/tests",
+        //    preserveDescribeNesting: true,
+        //    foldAll: false
+        // },
+        junitReporter: {
             outputDir: "dist/reports/tests",
-            preserveDescribeNesting: true,
-            foldAll: false
+            outputFile: "test-results.xml",
+            useBrowserName: false
         },
         coverageIstanbulReporter: {
             fixWebpackSourcePaths: true,
-            dir: process.env.CIRCLE_ARTIFACTS ?
-                process.env.CIRCLE_ARTIFACTS + '/coverage' :
-                "dist/reports/coverage",
-            reports: ['html', 'lcovonly', 'text-summary'],
+            dir: process.env.CIRCLE_ARTIFACTS
+                ? process.env.CIRCLE_ARTIFACTS + '/coverage'
+                : "dist/reports/coverage",
+            reports: ['lcovonly', 'text-summary'],
             thresholds: {
                 global: {
                     lines: 66
                 }
             }
+        },
+        specReporter: {
+            maxLogLines: 5,
+            suppressErrorSummary: true,
+            suppressFailed: false,
+            suppressPassed: false,
+            suppressSkipped: true,
+            showSpecTiming: true,
+            failFast: false
         },
         preprocessors: {
             'indexTest.js': ['webpack', 'sourcemap']

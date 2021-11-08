@@ -43,6 +43,7 @@
 const COLLAPSE_THRESHOLD_PX = 40;
 
 export default {
+    inject: ['openmct'],
     props: {
         handle: {
             type: String,
@@ -51,11 +52,11 @@ export default {
                 return ['', 'before', 'after'].indexOf(value) !== -1;
             }
         },
-        collapsable: {
-            type: Boolean,
-            default: false
-        },
         label: {
+            type: String,
+            default: ''
+        },
+        hideParam: {
             type: String,
             default: ''
         }
@@ -66,23 +67,55 @@ export default {
             resizing: false
         };
     },
+    computed: {
+        collapsable() {
+            return this.hideParam && this.hideParam.length;
+        }
+    },
     beforeMount() {
         this.type = this.$parent.type;
         this.styleProp = (this.type === 'horizontal') ? 'width' : 'height';
     },
+    async mounted() {
+        await this.$nextTick();
+        // Hide tree and/or inspector pane if specified in URL
+        if (this.collapsable) {
+            this.handleHideUrl();
+        }
+    },
     methods: {
-        toggleCollapse: function () {
-            this.collapsed = !this.collapsed;
+        toggleCollapse: function (e) {
             if (this.collapsed) {
-                // Pane is expanded and is being collapsed
-                this.currentSize = (this.dragCollapse === true) ? this.initial : this.$el.style[this.styleProp];
-                this.$el.style[this.styleProp] = '';
+                this.handleExpand();
+                this.removeHideParam(this.hideParam);
             } else {
-                // Pane is collapsed and is being expanded
-                this.$el.style[this.styleProp] = this.currentSize;
-                delete this.currentSize;
-                delete this.dragCollapse;
+                this.handleCollapse();
+                this.addHideParam(this.hideParam);
             }
+        },
+        handleHideUrl: function () {
+            const hideParam = this.openmct.router.getSearchParam(this.hideParam);
+
+            if (hideParam === 'true') {
+                this.handleCollapse();
+            }
+        },
+        addHideParam: function (target) {
+            this.openmct.router.setSearchParam(target, 'true');
+        },
+        removeHideParam: function (target) {
+            this.openmct.router.deleteSearchParam(target);
+        },
+        handleCollapse: function () {
+            this.currentSize = (this.dragCollapse === true) ? this.initial : this.$el.style[this.styleProp];
+            this.$el.style[this.styleProp] = '';
+            this.collapsed = true;
+        },
+        handleExpand: function () {
+            this.$el.style[this.styleProp] = this.currentSize;
+            delete this.currentSize;
+            delete this.dragCollapse;
+            this.collapsed = false;
         },
         trackSize: function () {
             if (!this.dragCollapse === true) {
@@ -126,12 +159,14 @@ export default {
             document.body.addEventListener('mousemove', this.updatePosition);
             document.body.addEventListener('mouseup', this.end);
             this.resizing = true;
+            this.$emit('start-resizing');
             this.trackSize();
         },
         end: function (event) {
             document.body.removeEventListener('mousemove', this.updatePosition);
             document.body.removeEventListener('mouseup', this.end);
             this.resizing = false;
+            this.$emit('end-resizing');
             this.trackSize();
         }
     }

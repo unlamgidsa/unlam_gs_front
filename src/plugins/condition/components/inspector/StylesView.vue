@@ -40,13 +40,13 @@
             <div v-if="staticStyle"
                  class="c-inspect-styles__style"
             >
-                <style-editor class="c-inspect-styles__editor"
-                              :style-item="staticStyle"
-                              :is-editing="allowEditing"
-                              :mixed-styles="mixedStyles"
-                              :non-specific-font-properties="nonSpecificFontProperties"
-                              @persist="updateStaticStyle"
-                              @save-style="saveStyle"
+                <StyleEditor class="c-inspect-styles__editor"
+                             :style-item="staticStyle"
+                             :is-editing="allowEditing"
+                             :mixed-styles="mixedStyles"
+                             :non-specific-font-properties="nonSpecificFontProperties"
+                             @persist="updateStaticStyle"
+                             @save-style="saveStyle"
                 />
             </div>
             <button
@@ -66,7 +66,6 @@
         <div class="c-inspect-styles__content c-inspect-styles__condition-set">
             <a v-if="conditionSetDomainObject"
                class="c-object-label"
-               :href="navigateToPath"
                @click="navigateOrPreview"
             >
                 <span class="c-object-label__type-icon icon-conditional"></span>
@@ -109,12 +108,12 @@
                 <condition-description :show-label="true"
                                        :condition="getCondition(conditionStyle.conditionId)"
                 />
-                <style-editor class="c-inspect-styles__editor"
-                              :style-item="conditionStyle"
-                              :non-specific-font-properties="nonSpecificFontProperties"
-                              :is-editing="allowEditing"
-                              @persist="updateConditionalStyle"
-                              @save-style="saveStyle"
+                <StyleEditor class="c-inspect-styles__editor"
+                             :style-item="conditionStyle"
+                             :non-specific-font-properties="nonSpecificFontProperties"
+                             :is-editing="allowEditing"
+                             @persist="updateConditionalStyle"
+                             @save-style="saveStyle"
                 />
             </div>
         </div>
@@ -142,6 +141,7 @@ const NON_STYLEABLE_CONTAINER_TYPES = [
 const NON_STYLEABLE_LAYOUT_ITEM_TYPES = [
     'line-view',
     'box-view',
+    'ellipse-view',
     'image-view'
 ];
 
@@ -297,10 +297,7 @@ export default {
             this.openmct.objects.getOriginalPath(this.conditionSetDomainObject.identifier).then(
                 (objectPath) => {
                     this.objectPath = objectPath;
-                    this.navigateToPath = '#/browse/' + this.objectPath
-                        .map(o => o && this.openmct.objects.makeKeyString(o.identifier))
-                        .reverse()
-                        .join('/');
+                    this.navigateToPath = '#/browse/' + this.openmct.objects.getRelativePath(this.objectPath);
                 }
             );
         },
@@ -309,6 +306,8 @@ export default {
             if (this.openmct.editor.isEditing()) {
                 event.preventDefault();
                 this.previewAction.invoke(this.objectPath);
+            } else {
+                this.openmct.router.navigate(this.navigateToPath);
             }
         },
         isItemType(type, item) {
@@ -320,7 +319,7 @@ export default {
             if (item) {
                 const type = this.openmct.types.get(item.type);
                 if (type && type.definition) {
-                    creatable = (type.definition.creatable === true);
+                    creatable = (type.definition.creatable !== undefined && (type.definition.creatable === 'true' || type.definition.creatable === true));
                 }
             }
 
@@ -343,6 +342,11 @@ export default {
                 const item = selectionItem[0].context.item;
                 const layoutItem = selectionItem[0].context.layoutItem;
                 const isChildItem = selectionItem.length > 1;
+
+                if (!item && !layoutItem) {
+                    // cases where selection is used for table cells
+                    return;
+                }
 
                 if (!isChildItem) {
                     domainObject = item;
@@ -552,10 +556,10 @@ export default {
             }
 
             let vm = new Vue({
+                components: {ConditionSetSelectorDialog},
                 provide: {
                     openmct: this.openmct
                 },
-                components: {ConditionSetSelectorDialog},
                 data() {
                     return {
                         handleItemSelection

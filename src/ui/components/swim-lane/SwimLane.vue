@@ -3,7 +3,8 @@
      :class="{'c-swimlane': !isNested}"
 >
 
-    <div class="c-swimlane__lane-label c-object-label"
+    <div v-if="hideLabel === false"
+         class="c-swimlane__lane-label c-object-label"
          :class="{'c-swimlane__lane-label--span-cols': (!spanRowsCount && !isNested)}"
          :style="gridRowSpan"
     >
@@ -21,7 +22,6 @@
     <div class="c-swimlane__lane-object"
          :style="{'min-height': minHeight}"
          :class="{'u-contents': showUcontents}"
-         data-selectable
     >
         <slot name="object"></slot>
     </div>
@@ -45,6 +45,12 @@ export default {
             }
         },
         showUcontents: {
+            type: Boolean,
+            default() {
+                return false;
+            }
+        },
+        hideLabel: {
             type: Boolean,
             default() {
                 return false;

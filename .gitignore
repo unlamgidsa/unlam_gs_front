@@ -39,5 +39,11 @@ npm-debug.log
 # karma reports
 report.*.json
 
+# Lighthouse reports
+.lighthouseci
+
 package-lock.json
 /.project
+
+#codecov artifacts
+codecov

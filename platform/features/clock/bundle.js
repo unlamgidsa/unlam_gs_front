@@ -21,36 +21,24 @@
  *****************************************************************************/
 
 define([
-    "moment-timezone",
-    "./src/indicators/ClockIndicator",
-    "./src/indicators/FollowIndicator",
     "./src/services/TickerService",
     "./src/services/TimerService",
-    "./src/controllers/ClockController",
     "./src/controllers/TimerController",
     "./src/controllers/RefreshingController",
-    "./src/actions/FollowTimerAction",
     "./src/actions/StartTimerAction",
     "./src/actions/RestartTimerAction",
     "./src/actions/StopTimerAction",
     "./src/actions/PauseTimerAction",
-    "./res/templates/clock.html",
     "./res/templates/timer.html"
 ], function (
-    MomentTimezone,
-    ClockIndicator,
-    FollowIndicator,
     TickerService,
     TimerService,
-    ClockController,
     TimerController,
     RefreshingController,
-    FollowTimerAction,
     StartTimerAction,
     RestartTimerAction,
     StopTimerAction,
     PauseTimerAction,
-    clockTemplate,
     timerTemplate
 ) {
     return {
@@ -77,16 +65,6 @@ define([
                         "value": "YYYY/MM/DD HH:mm:ss"
                     }
                 ],
-                "indicators": [
-                    {
-                        "implementation": ClockIndicator,
-                        "depends": [
-                            "tickerService",
-                            "CLOCK_INDICATOR_FORMAT"
-                        ],
-                        "priority": "preferred"
-                    }
-                ],
                 "services": [
                     {
                         "key": "tickerService",
@@ -103,14 +81,6 @@ define([
                     }
                 ],
                 "controllers": [
-                    {
-                        "key": "ClockController",
-                        "implementation": ClockController,
-                        "depends": [
-                            "$scope",
-                            "tickerService"
-                        ]
-                    },
                     {
                         "key": "TimerController",
                         "implementation": TimerController,
@@ -131,12 +101,6 @@ define([
                 ],
                 "views": [
                     {
-                        "key": "clock",
-                        "type": "clock",
-                        "editable": false,
-                        "template": clockTemplate
-                    },
-                    {
                         "key": "timer",
                         "type": "timer",
                         "editable": false,
@@ -144,15 +108,6 @@ define([
                     }
                 ],
                 "actions": [
-                    {
-                        "key": "timer.follow",
-                        "implementation": FollowTimerAction,
-                        "depends": ["timerService"],
-                        "category": "contextual",
-                        "name": "Follow Timer",
-                        "cssClass": "icon-clock",
-                        "priority": "optional"
-                    },
                     {
                         "key": "timer.start",
                         "implementation": StartTimerAction,
@@ -194,75 +149,11 @@ define([
                         ],
                         "category": "contextual",
                         "name": "Stop",
-                        "cssClass": "icon-box",
+                        "cssClass": "icon-box-round-corners",
                         "priority": "preferred"
                     }
                 ],
                 "types": [
-                    {
-                        "key": "clock",
-                        "name": "Clock",
-                        "cssClass": "icon-clock",
-                        "description": "A UTC-based clock that supports a variety of display formats. Clocks can be added to Display Layouts.",
-                        "priority": 101,
-                        "features": [
-                            "creation"
-                        ],
-                        "properties": [
-                            {
-                                "key": "clockFormat",
-                                "name": "Display Format",
-                                "control": "composite",
-                                "items": [
-                                    {
-                                        "control": "select",
-                                        "options": [
-                                            {
-                                                "value": "YYYY/MM/DD hh:mm:ss",
-                                                "name": "YYYY/MM/DD hh:mm:ss"
-                                            },
-                                            {
-                                                "value": "YYYY/DDD hh:mm:ss",
-                                                "name": "YYYY/DDD hh:mm:ss"
-                                            },
-                                            {
-                                                "value": "hh:mm:ss",
-                                                "name": "hh:mm:ss"
-                                            }
-                                        ],
-                                        "cssClass": "l-inline"
-                                    },
-                                    {
-                                        "control": "select",
-                                        "options": [
-                                            {
-                                                "value": "clock12",
-                                                "name": "12hr"
-                                            },
-                                            {
-                                                "value": "clock24",
-                                                "name": "24hr"
-                                            }
-                                        ],
-                                        "cssClass": "l-inline"
-                                    }
-                                ]
-                            },
-                            {
-                                "key": "timezone",
-                                "name": "Timezone",
-                                "control": "autocomplete",
-                                "options": MomentTimezone.tz.names()
-                            }
-                        ],
-                        "model": {
-                            "clockFormat": [
-                                "YYYY/MM/DD hh:mm:ss",
-                                "clock12"
-                            ],
-                            "timezone": "UTC"
-                        }
-                    },
                     {
                         "key": "timer",
                         "name": "Timer",
@@ -299,10 +190,7 @@ define([
                         }
                     }
                 ],
-                "runs": [{
-                    "implementation": FollowIndicator,
-                    "depends": ["openmct", "timerService"]
-                }],
+                "runs": [],
                 "licenses": [
                     {
                         "name": "moment-duration-format",

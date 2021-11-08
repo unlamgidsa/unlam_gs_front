@@ -113,7 +113,7 @@ describe('the plugin', function () {
         let tabsLayoutViewProvider;
         let mockComposition;
 
-        beforeEach((done) => {
+        beforeEach(() => {
             mockComposition = new EventEmitter();
             mockComposition.load = () => {
                 return Promise.resolve([telemetryItem1]);
@@ -125,7 +125,8 @@ describe('the plugin', function () {
             tabsLayoutViewProvider = applicableViews.find((viewProvider) => viewProvider.key === 'tabs');
             let view = tabsLayoutViewProvider.view(testViewObject, []);
             view.show(child, true);
-            Vue.nextTick(done);
+
+            return Vue.nextTick();
         });
 
         it('provides a view', () => {
@@ -150,7 +151,7 @@ describe('the plugin', function () {
         let mockComposition;
         let count = 0;
 
-        beforeEach((done) => {
+        beforeEach(() => {
             mockComposition = new EventEmitter();
             mockComposition.load = () => {
                 if (count === 0) {
@@ -168,12 +169,38 @@ describe('the plugin', function () {
             tabsLayoutViewProvider = applicableViews.find((viewProvider) => viewProvider.key === 'tabs');
             let view = tabsLayoutViewProvider.view(testViewObject, []);
             view.show(child, true);
-            Vue.nextTick(done);
+
+            return Vue.nextTick();
+        });
+
+        afterEach(() => {
+            count = 0;
         });
 
         it ('renders a tab for each item', () => {
             let tabEls = element.querySelectorAll('.js-tab');
+
             expect(tabEls.length).toEqual(2);
+        });
+
+        describe('with domainObject.keep_alive set to', () => {
+
+            it ('true, will keep all views loaded, regardless of current tab view', () => {
+                let tabViewEls = element.querySelectorAll('.c-tabs-view__object');
+
+                expect(tabViewEls.length).toEqual(2);
+            });
+
+            it ('false, will only keep the current tab view loaded', async () => {
+                testViewObject.keep_alive = false;
+
+                await Vue.nextTick();
+
+                let tabViewEls = element.querySelectorAll('.c-tabs-view__object');
+
+                expect(tabViewEls.length).toEqual(1);
+            });
+
         });
     });
 });

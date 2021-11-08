@@ -40,6 +40,8 @@ const LOCAL_STORAGE_HISTORY_KEY_FIXED = 'tcHistory';
 const LOCAL_STORAGE_HISTORY_KEY_REALTIME = 'tcHistoryRealtime';
 const DEFAULT_RECORDS = 10;
 
+import { millisecondsToDHMS } from "utils/duration";
+
 export default {
     inject: ['openmct', 'configuration'],
     props: {
@@ -135,11 +137,21 @@ export default {
     methods: {
         getHistoryMenuItems() {
             const history = this.historyForCurrentTimeSystem.map(timespan => {
+                let name;
+                let startTime = this.formatTime(timespan.start);
+                let description = `${startTime} - ${this.formatTime(timespan.end)}`;
+
+                if (this.timeSystem.isUTCBased && !this.openmct.time.clock()) {
+                    name = `${startTime} ${millisecondsToDHMS(timespan.end - timespan.start)}`;
+                } else {
+                    name = description;
+                }
+
                 return {
                     cssClass: 'icon-history',
-                    name: `${this.formatTime(timespan.start)} - ${this.formatTime(timespan.end)}`,
-                    description: `${this.formatTime(timespan.start)} - ${this.formatTime(timespan.end)}`,
-                    callBack: () => this.selectTimespan(timespan)
+                    name,
+                    description,
+                    onItemClicked: () => this.selectTimespan(timespan)
                 };
             });
 
@@ -148,7 +160,7 @@ export default {
                 description: 'Past timeframes, ordered by latest first',
                 isDisabled: true,
                 name: 'Past timeframes, ordered by latest first',
-                callBack: () => {}
+                onItemClicked: () => {}
             });
 
             return history;
@@ -159,7 +171,7 @@ export default {
                     cssClass: 'icon-clock',
                     name: preset.label,
                     description: preset.label,
-                    callBack: () => this.selectPresetBounds(preset.bounds)
+                    onItemClicked: () => this.selectPresetBounds(preset.bounds)
                 };
             });
         },
@@ -184,24 +196,16 @@ export default {
                 start: this.isFixed ? this.bounds.start : this.offsets.start,
                 end: this.isFixed ? this.bounds.end : this.offsets.end
             };
-            let self = this;
 
-            function isNotEqual(entry) {
-                const start = entry.start !== self.start;
-                const end = entry.end !== self.end;
+            // no dupes
+            currentHistory = currentHistory.filter(ts => !(ts.start === timespan.start && ts.end === timespan.end));
+            currentHistory.unshift(timespan); // add to front
 
-                return start || end;
+            if (currentHistory.length > this.records) {
+                currentHistory.length = this.records;
             }
 
-            currentHistory = currentHistory.filter(isNotEqual, timespan);
-
-            while (currentHistory.length >= this.records) {
-                currentHistory.pop();
-            }
-
-            currentHistory.unshift(timespan);
             this.$set(this[this.currentHistory], key, currentHistory);
-
             this.persistHistoryToLocalStorage();
         },
         selectTimespan(timespan) {
@@ -259,7 +263,7 @@ export default {
                 format: format
             }).formatter;
 
-            return (isNegativeOffset ? '-' : '') + formatter.format(time);
+            return (isNegativeOffset ? '-' : '') + formatter.format(time, 'YYYY-MM-DD HH:mm:ss');
         },
         showHistoryMenu() {
             const elementBoundingClientRect = this.$refs.historyButton.getBoundingClientRect();

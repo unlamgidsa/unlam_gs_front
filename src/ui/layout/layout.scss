@@ -100,8 +100,14 @@
         &__pane-tree {
             background: linear-gradient(90deg, transparent 70%, rgba(black, 0.2) 99%, rgba(black, 0.3));
 
-            [class*="expand-button"],
-            [class*="sync-tree-button"] {
+            .l-pane__header {
+                // Hide all buttons except the collapse button
+                > :not(.l-pane__collapse-button) {
+                    display: none;
+                }
+            }
+
+            [class*="expand-button"] {
                 display: none;
             }
 
@@ -218,7 +224,6 @@
         flex: 1 1 auto;
         flex-wrap: wrap;
         justify-content: flex-end;
-        [class*='indicator-clock'] { order: 90; }
 
         .c-indicator .label {
             font-size: 0.9em;
@@ -228,10 +233,18 @@
     /******************************* MAIN AREA */
     &__main-container {
         // Wrapper for main views
-        display: flex;
+        //display: flex; NEEDS REGRESSION TESTING!!!
         flex: 1 1 auto !important;
         height: 100%; // Chrome 73 overflow bug fix
         overflow: auto;
+    }
+
+    &__main-object-view {
+        height: 100%;
+    }
+
+    &__main-independent-time-conductor {
+        margin-bottom: 5px;
     }
 
     &__tree {
@@ -241,7 +254,13 @@
 
     &__time-conductor {
         border-top: 1px solid $colorInteriorBorder;
+        display: flex;
+        flex-direction: column;
         padding-top: $interiorMargin;
+
+        > * + * {
+            margin-top: $interiorMargin;
+        }
     }
 
     &__main {
@@ -286,6 +305,12 @@
         height: $p + 24px; // Need to standardize the height
         justify-content: space-between;
         padding: $p;
+    }
+
+    &__resizing {
+        iframe {
+            pointer-events: none;
+        }
     }
 }
 

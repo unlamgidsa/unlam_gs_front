@@ -56,6 +56,7 @@
         :index="index"
         :multi-select="selectedLayoutItems.length > 1"
         :is-editing="isEditing"
+        @contextClick="updateViewContext"
         @move="move"
         @endMove="endMove"
         @endLineResize="endLineResize"
@@ -75,6 +76,7 @@ import uuid from 'uuid';
 import SubobjectView from './SubobjectView.vue';
 import TelemetryView from './TelemetryView.vue';
 import BoxView from './BoxView.vue';
+import EllipseView from './EllipseView.vue';
 import TextView from './TextView.vue';
 import LineView from './LineView.vue';
 import ImageView from './ImageView.vue';
@@ -111,6 +113,7 @@ const ITEM_TYPE_VIEW_MAP = {
     'subobject-view': SubobjectView,
     'telemetry-view': TelemetryView,
     'box-view': BoxView,
+    'ellipse-view': EllipseView,
     'line-view': LineView,
     'text-view': TextView,
     'image-view': ImageView
@@ -140,7 +143,7 @@ function getItemDefinition(itemType, ...options) {
 
 export default {
     components: components,
-    inject: ['openmct', 'options', 'objectPath'],
+    inject: ['openmct', 'objectPath', 'options', 'objectUtils', 'currentView'],
     props: {
         domainObject: {
             type: Object,
@@ -155,7 +158,8 @@ export default {
         return {
             initSelectIndex: undefined,
             selection: [],
-            showGrid: true
+            showGrid: true,
+            viewContext: {}
         };
     },
     computed: {
@@ -819,6 +823,12 @@ export default {
         },
         toggleGrid() {
             this.showGrid = !this.showGrid;
+        },
+        updateViewContext(viewContext) {
+            this.viewContext.row = viewContext;
+        },
+        getViewContext() {
+            return this.viewContext;
         }
     }
 };

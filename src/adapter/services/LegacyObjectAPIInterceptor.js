@@ -52,7 +52,7 @@ define([
 
             oldStyleObject.getCapability('mutation').mutate(function () {
                 return utils.toOldFormat(newStyleObject);
-            });
+            }, newStyleObject.modified);
 
             removeGeneralTopicListener = this.generalTopic.listen(handleLegacyMutation);
         }.bind(this);
@@ -133,9 +133,13 @@ define([
 
         return this.objectService.getObjects([keyString])
             .then(function (results) {
-                let model = results[keyString].getModel();
+                if (results[keyString]) {
+                    let model = results[keyString].getModel();
 
-                return utils.toNewFormat(model, key);
+                    return utils.toNewFormat(model, key);
+                }
+
+                return;
             });
     };
 
