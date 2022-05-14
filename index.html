@@ -196,6 +196,10 @@
         openmct.install(openmct.plugins.Clock({ enableClockIndicator: true }));
         openmct.install(openmct.plugins.Timer());
         openmct.install(openmct.plugins.Timelist());
+
+        // Instalo entorno gidsa
+        openmct.gidsa.install(openmct);
+
         openmct.start();
     </script>
 </html>
