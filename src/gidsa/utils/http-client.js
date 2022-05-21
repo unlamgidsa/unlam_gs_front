@@ -2,8 +2,8 @@ define([], function(){
 	return class Http {
 		constructor() {}
 
-		setToken(token) {
-			this._token = token;
+		SetToken(token) {
+			this.token = token;
 		}
 
 		/**
@@ -11,9 +11,9 @@ define([], function(){
 		 * @param {string} url la url a golpear.
 		 * @return {Promise} Promise cuyo valor tiene el objeto recibido del backend.
 		 */
-		get(url) {
-			const headers = this._headers();
-			return this._doFetch(url, 'GET', headers);
+		Get(url) {
+			const headers = this.headers();
+			return this.doFetch(url, 'GET', headers);
 		}
 
 		/**
@@ -22,10 +22,10 @@ define([], function(){
 		 * @param {*} data los datos a enviar en el body.
 		 * @return {Promise} Promise cuyo valor tiene el objeto recibido del backend.
 		 */
-		post(url, data) {
-			const headers = this._headers();
+		Post(url, data) {
+			const headers = this.headers();
 			const body = JSON.stringify(data);
-			return this._doFetch(url, 'POST', headers, body);
+			return this.doFetch(url, 'POST', headers, body);
 		}
 
 		/**
@@ -33,13 +33,13 @@ define([], function(){
 		 * @param {string?} token es el token a utilizar como 'Authorization'. Si no se
 		 *                        pasa el parametro, entonces no se agrega el header 'Authorization'.
 		 */
-		_headers() {
+		headers() {
 			const headers = {
 				'Content-Type': 'application/json',
 			};
 
-			if ( this._token )
-				headers['Authorization'] = `Token ${this._token}`;
+			if ( this.token )
+				headers['Authorization'] = `Token ${this.token}`;
 
 			return headers;
 		}
@@ -52,7 +52,10 @@ define([], function(){
 		 * @param {string?} body el cuerpo a utilizar para 'POST'. Puede no enviarse.
 		 * @return {Promise} Promise cuyo valor tiene el objeto recibido del backend.
 		 */
-		_doFetch(url, method, headers, body) {
+		doFetch(url, method, headers, body) {
+			// Sanitizo un poco la url.
+			url = url.replaceAll('//', '/');
+
 			return fetch(url, { method, headers, body }).then(res => {
 				if ( res.status != 200 ) {
 					throw new Error(`Error in ${method}. Status = ${res.status}.Response = ${res.statusText}.`
