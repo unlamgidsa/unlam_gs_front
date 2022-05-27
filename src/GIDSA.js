@@ -4,11 +4,15 @@
 define([
 	'./gidsa/utils/http-client',
 	'./gidsa/utils/login',
-	'./gidsa/utils/satellite'
+	'./gidsa/utils/satellite',
+	'./gidsa/utils/constants',
+	'./gidsa/plugins/telemetry-dictionary/plugin',
 ], function(
 	Http,
 	LoginService,
-	SatelliteService
+	SatelliteService,
+	Constants,
+	TelemetryDictionaryPlugin,
 ) {
 	const urlBase = 'https://ugsb.unlam.edu.ar/API';
 	const loginEntry = `${urlBase}//api-token-auth/`;
@@ -20,47 +24,53 @@ define([
 		this.satelliteService = new SatelliteService(urlBase, this.http);
 
 		const loginPromise = this.loginService.Login().then(token => this.http.SetToken(token));
-		this.satNamePromise = loginPromise.then(t => this.satelliteService.Satellites());
+		this.satellitesPromise = loginPromise.then(t => this.satelliteService.Satellites());
 	}
 
 	/**
 	 * Realiza la instalacion del entorno GIDSA y sus plugins.
 	 * @param {*} openmct es el objeto de openmct que tiene el metodo install.
 	 */
-	Gidsa.prototype.install = function (openmctApi) {
-		this.satNamePromise.then(console.log);
-		defineTypes(openmct);
-		openmctApi.install(openmct => {
-			console.log('Hello, World!')
+	Gidsa.prototype.Install = function (openmctApi) {
+		this.defineTypes(openmctApi);
+
+		return this.satellitesPromise.then(satellites => {
+			for ( const s of satellites ) {
+				const sat = {
+					name: s.name,
+					key: s.key,
+				};
+				openmctApi.install(TelemetryDictionaryPlugin(sat, this.satelliteService));
+			}
 		})
 	};
 
+	/*
+	 * Define los tipos de OpenMCT:
+	 * - Telemetria: las variables de telemetria.
+	 * - Directorio de satelites: el satelite en si.
+	 * @param {*} openmct el objeto openmct recibido al instalar
+	 */
+	Gidsa.prototype.defineTypes = function(openmct) {
+		const types = {
+			'sat.telemetry': {
+				name: 'Telemetry type',
+				description: 'Telemetry point for every satellite.',
+				cssClass: 'icon-telemetry',
+			},
+			[Constants.SatelliteType]: {
+				name: 'Satellite directory',
+				description: 'Satellite directory where telemetry points reside',
+				cssClass: 'icon-object',
+			},
+		};
+
+		// Agrego todos los tipos definidos en type
+		for ( const typeName in types ) {
+			const type = types[typeName];
+			openmct.types.addType(typeName, type);
+		}
+	}
+
 	return Gidsa;
 });
-
-/*
- * Define los tipos de OpenMCT:
- * - Telemetria: las variables de telemetria.
- * - Directorio de satelites: el satelite en si.
- * @param {*} openmct el objeto openmct recibido al instalar
- */
-function defineTypes(openmct) {
-	const types = {
-		'sat.telemetry': {
-			name: 'Telemetry type',
-			description: 'Telemetry point for every satellite.',
-			cssClass: 'icon-telemetry',
-		},
-		'satellite': {
-			name: 'Satellite directory',
-			description: 'Satellite directory where telemetry points reside',
-			cssClass: 'icon-object',
-		},
-	};
-
-	// Agrego todos los tipos definidos en type
-	for ( const typeName in types ) {
-		const type = types[typeName];
-		openmct.types.addType(typeName, type);
-	}
-}
