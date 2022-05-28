@@ -7,12 +7,14 @@ define([
 	'./gidsa/utils/satellite',
 	'./gidsa/utils/constants',
 	'./gidsa/plugins/telemetry-dictionary/plugin',
+	'./gidsa/plugins/historical-telemetry/plugin',
 ], function(
 	Http,
 	LoginService,
 	SatelliteService,
 	Constants,
-	TelemetryDictionaryPlugin,
+	TelemetryDictionary,
+	HistoricalTelemetry,
 ) {
 	const urlBase = 'https://ugsb.unlam.edu.ar/API';
 	const loginEntry = `${urlBase}//api-token-auth/`;
@@ -40,8 +42,9 @@ define([
 					name: s.name,
 					key: s.key,
 				};
-				openmctApi.install(TelemetryDictionaryPlugin(sat, this.satelliteService));
+				openmctApi.install(TelemetryDictionary(sat, this.satelliteService));
 			}
+			openmctApi.install(HistoricalTelemetry(this.satelliteService));
 		})
 	};
 

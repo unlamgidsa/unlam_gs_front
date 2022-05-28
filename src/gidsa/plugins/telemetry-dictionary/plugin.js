@@ -6,7 +6,7 @@ define([
 	/**
 	 * Mapea el diccionario de metadatos devuelto por el backend en un objeto de
 	 * JavaScript con los campos 'satellite' y 'variables'.
-	 * @param {string} namespace el namespace del satelite. `<nombre-satellite>.telemetry`.
+	 * @param {string} namespace el namespace del satelite. `<nombre-satellite>`.
 	 * @param {{name: string, measurements: {key: string, name: string, values: {*}}}} dict el
 	 * diccionario devuelto por el backend.
 	 * @return {{satellite: {}, variables: [{}]} un objeto con 'satellite' y
@@ -44,8 +44,8 @@ define([
 		};
 	}
 
-	function TelemetryDictionaryPlugin(sat, satService) {
-		const namespace = `${sat.name}.telemetry`;
+	function TelemetryDictionary(sat, satService) {
+		const namespace = `${sat.name}`;
 		const satObjectPromise = satService.Dictionary(sat.name).then(dict => mapMetadata(namespace, dict));
 
 		const objectProvider = {
@@ -72,5 +72,5 @@ define([
 		};
 	}
 
-	return TelemetryDictionaryPlugin;
+	return TelemetryDictionary;
 });
