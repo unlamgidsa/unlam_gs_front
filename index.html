@@ -198,8 +198,8 @@
         openmct.install(openmct.plugins.Timelist());
 
         // Instalo entorno gidsa
-        openmct.gidsa.install(openmct);
-
-        openmct.start();
+        openmct.Gidsa.Install(openmct).then(()=> {
+            openmct.start();
+        })
     </script>
 </html>

@@ -59,7 +59,7 @@ define([], function(){
 			return fetch(url, { method, headers, body }).then(res => {
 				if ( res.status != 200 ) {
 					throw new Error(`Error in ${method}. Status = ${res.status}.Response = ${res.statusText}.`
-						+ `[url=${url}, headers=${headers}, body=${body}]`);
+						+ `[url=${url}, headers=${JSON.stringify(headers)}, body=${body}]`);
 				}
 
 				return res.json();

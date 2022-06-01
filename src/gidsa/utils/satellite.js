@@ -4,9 +4,10 @@ define([
 	Constants
 ) {
 	const defaultSattelite = 'TITA';
-	const namesEntry = 'SatelliteList';
-	const dictEntry  = 'TlmyVarDict';
-	const tlmyEntry  = 'TlmyVarList';
+	const namesEntry     = 'SatelliteList';
+	const dictEntry      = 'TlmyVarDict';
+	const tlmyEntry      = 'TlmyVarList';
+	const timestampEntry = 'GetLastTelemetryTimeStamp';
 
 	function SatelliteService(url, http) {
 		this.http = http;

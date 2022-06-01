@@ -29,10 +29,22 @@ define([], function(){
 	 * @return {{username: string, token: string}}
 	 */
 	LoginService.prototype.GetUser = function() {
-		const usr = JSON.parse(localStorage.getItem(USR_DATA));
+		const usr = this.parseUser();
 		if ( !usr || !usr.username || !usr.token )
 			throw new Error('no user is logged in');
 		return usr;
+	}
+
+	LoginService.prototype.parseUser = function() {
+		return JSON.parse(localStorage.getItem(USR_DATA));
+	}
+
+	LoginService.prototype.AutoLogin = function() {
+		const usr = this.parseUser();
+		let username;
+		if ( usr && usr.username )
+			username = usr.username;
+		return this.Login(username);
 	}
 
 	/**
@@ -42,19 +54,26 @@ define([], function(){
 	 * @return {Promise} una promise con el token.
 	 */
 	LoginService.prototype.Login = function(username = 'anonym', password = 'anonym') {
+		let retPromise;
 		// Si el usuario ya se encuentra loggeado, entonces no hace falta realizar el post
-		if ( this.isUserLoggedIn(username) )
-			return new Promise(resolve => resolve(this.Token()));
+		if ( this.isUserLoggedIn(username) ) {
+			retPromise = new Promise(resolve => resolve(this.Token()));
+		} else {
+			retPromise = this.http.Post(this.entryPoint, {username, password})
+				.then(res => res.token)
+				.then(token => {
+					localStorage.setItem(USR_DATA, JSON.stringify({username, token}));
+					return token;
+				})
+				.catch(err => {
+					throw new Error(`error login in: ${err}. [username=${username}]`);
+				});
+		}
 
-		return this.http.Post(this.entryPoint, {username, password})
-			.then(res => res.token)
-			.then(token => {
-				localStorage.setItem(USR_DATA, JSON.stringify({username, token}));
-				return token;
-			})
-			.catch(err => {
-				throw new Error(`error login in: ${err}. [username=${username}]`);
-			});
+		return retPromise.then(token => {
+			this.http.SetToken(token);
+			return token;
+		});
 	}
 
 	/**
@@ -62,6 +81,7 @@ define([], function(){
 	 */
 	LoginService.prototype.Logout = function() {
 		localStorage.removeItem(USR_DATA);
+		this.http.SetToken()
 	}
 
 	return LoginService;

@@ -36,6 +36,6 @@ const openmct = new MCT();
 
 // Punto de acceso hacia entorno GIDSA.
 const Gidsa = require('./src/GIDSA')
-openmct.gidsa = new Gidsa();
+openmct.Gidsa = new Gidsa();
 
 module.exports = openmct;
