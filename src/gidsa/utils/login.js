@@ -1,4 +1,8 @@
-define([], function(){
+define([
+	'./constants',
+], function(
+	Constants,
+){
 	const USR_DATA = 'userData';
 
 	function LoginService(entryPoint, http) {
@@ -53,7 +57,10 @@ define([], function(){
 	 * @param {string} password la password con la cual iniciar sesion. Por defecto, 'anonym'.
 	 * @return {Promise} una promise con el token.
 	 */
-	LoginService.prototype.Login = function(username = 'anonym', password = 'anonym') {
+	LoginService.prototype.Login = function(
+		username = Constants.AnonymUsername,
+		password = Constants.AnonymPassword,
+	) {
 		let retPromise;
 		// Si el usuario ya se encuentra loggeado, entonces no hace falta realizar el post
 		if ( this.isUserLoggedIn(username) ) {

@@ -7,7 +7,7 @@ define([
 		const telemetryProvider = {
 			supportsRequest: domObj => domObj.type === Constants.TelemtryType,
 			request: (domObj, options) => {
-				const satName = domObj.identifier.namespace;
+				const satName = domObj.identifier.namespace.replace('.telemetry', '');
 				const tlmyVar = domObj.name;
 				const startDate = Math.floor(options.start);
 				const endDate = Math.floor(options.end);

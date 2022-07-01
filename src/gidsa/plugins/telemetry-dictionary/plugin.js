@@ -45,7 +45,7 @@ define([
 	}
 
 	function TelemetryDictionary(sat, satService) {
-		const namespace = `${sat.name}`;
+		const namespace = `${sat.name}.telemetry`;
 		const satObjectPromise = satService.Dictionary(sat.name).then(dict => mapMetadata(namespace, dict));
 
 		const objectProvider = {
