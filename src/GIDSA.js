@@ -9,6 +9,8 @@ define([
 	'./gidsa/plugins/telemetry-dictionary/plugin',
 	'./gidsa/plugins/historical-telemetry/plugin',
 	'./gidsa/plugins/login/plugin',
+	'./gidsa/plugins/remote-storage/plugin',
+	'./gidsa/utils/storage',
 ], function(
 	Http,
 	LoginService,
@@ -17,6 +19,8 @@ define([
 	TelemetryDictionary,
 	HistoricalTelemetry,
 	Login,
+	RemoteStorage,
+	StorageService,
 ) {
 	const urlBase = 'https://ugsb.unlam.edu.ar/API';
 	const loginEntry = `${urlBase}//api-token-auth/`;
@@ -26,6 +30,7 @@ define([
 		this.http = new Http();
 		this.loginService = new LoginService(`${loginEntry}`, this.http);
 		this.satelliteService = new SatelliteService(urlBase, this.http);
+		this.storageService = new StorageService(urlBase, this.http);
 
 		const loginPromise = this.loginService.AutoLogin();
 		this.satellitesPromise = loginPromise.then(t => this.satelliteService.Satellites());
@@ -48,7 +53,8 @@ define([
 			}
 			openmctApi.install(HistoricalTelemetry(this.satelliteService));
 			openmctApi.install(Login(this.loginService));
-		});
+			openmctApi.install(RemoteStorage(this.storageService, this.loginService));
+		})
 	};
 
 	/*

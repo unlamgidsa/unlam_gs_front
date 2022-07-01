@@ -57,7 +57,7 @@ define([], function(){
 			url = url.replaceAll('//', '/');
 
 			return fetch(url, { method, headers, body }).then(res => {
-				if ( res.status != 200 ) {
+				if ( !(res.status >= 200 && res.status <= 299 ) ) {
 					throw new Error(`Error in ${method}. Status = ${res.status}.Response = ${res.statusText}.`
 						+ `[url=${url}, headers=${JSON.stringify(headers)}, body=${body}]`);
 				}
