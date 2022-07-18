@@ -5,7 +5,7 @@ define([
 ) {
 	function HistoricalTelemetry(satService) {
 		const telemetryProvider = {
-			supportsRequest: domObj => domObj.type === Constants.TelemtryType,
+			supportsRequest: domObj => domObj.type === Constants.TelemetryType,
 			request: (domObj, options) => {
 				const satName = domObj.identifier.namespace.replace('.telemetry', '');
 				const tlmyVar = domObj.name;

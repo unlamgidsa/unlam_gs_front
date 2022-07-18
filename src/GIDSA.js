@@ -11,6 +11,7 @@ define([
 	'./gidsa/plugins/login/plugin',
 	'./gidsa/plugins/remote-storage/plugin',
 	'./gidsa/utils/storage',
+	'./gidsa/plugins/realtime-telemetry/plugin',
 ], function(
 	Http,
 	LoginService,
@@ -21,9 +22,11 @@ define([
 	Login,
 	RemoteStorage,
 	StorageService,
+	RealtimeTelemetry,
 ) {
 	const urlBase = 'https://ugsb.unlam.edu.ar/API';
 	const loginEntry = `${urlBase}//api-token-auth/`;
+	const wsUrl = 'ws://localhost:8081/ws';
 
 	// Realiza las llamadas previas a la inicializacion de OpenMCT
 	function Gidsa() {
@@ -54,6 +57,7 @@ define([
 			openmctApi.install(HistoricalTelemetry(this.satelliteService));
 			openmctApi.install(Login(this.loginService));
 			openmctApi.install(RemoteStorage(this.storageService, this.loginService));
+			openmctApi.install(RealtimeTelemetry(wsUrl));
 		})
 	};
 

@@ -31,7 +31,7 @@ define([
 				key: meta.key
 			},
 			name: meta.name,
-			type: Constants.TelemtryType,
+			type: Constants.TelemetryType,
 			telemetry: {
 				values: meta.values,
 			},

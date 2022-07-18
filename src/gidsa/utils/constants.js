@@ -1,6 +1,6 @@
 define({
 	SatelliteType: 'satellite',
-	TelemtryType: 'sat.telemetry',
+	TelemetryType: 'sat.telemetry',
 	AnonymUsername: 'anonym',
 	AnonymPassword: 'anonym',
 });
