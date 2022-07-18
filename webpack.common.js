@@ -68,6 +68,14 @@ const config = {
                     to: 'favicons'
                 },
                 {
+                    from: 'src/images/others',
+                    to: 'others'
+                },
+                {
+                    from: 'src/images/mimics',
+                    to: 'mimics'
+                },
+                {
                     from: './index.html',
                     transform: function (content) {
                         return content.toString().replace(/dist\//g, '');
